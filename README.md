@@ -37,6 +37,8 @@ db.connect(conString, function(err) {
 
 ## Output example
 
+On db creation:
+
 ```
 PgOrm: CREATE TABLE foos ()
 PgOrm: ALTER TABLE foos ADD COLUMN id int8
@@ -62,6 +64,17 @@ PgOrm: ALTER TABLE bazs ADD COLUMN tmp json
 PgOrm: UPDATE bazs SET tmp = '{"foo":"bar","baz":[1,"foo"]}'::json WHERE tmp IS NULL
 PgOrm: ALTER TABLE bazs ALTER COLUMN tmp SET NOT NULL
 PgOrm: ALTER TABLE bazs ALTER COLUMN tmp SET DEFAULT '{"foo":"bar","baz":[1,"foo"]}'::json
+```
+
+After some changes to the models:
+
+```
+PgOrm: UPDATE foos SET baz = 'foo'::character varying WHERE baz IS NULL
+PgOrm: ALTER TABLE foos ALTER COLUMN baz SET NOT NULL
+PgOrm: ALTER TABLE foos ALTER COLUMN baz SET DEFAULT 'foo'::character varying
+PgOrm: ALTER TABLE bars DROP CONSTRAINT bar_baz_fkey
+PgOrm: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
+PgOrm: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 ```
 
 ## Error reporting
