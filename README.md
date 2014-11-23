@@ -2,6 +2,16 @@
 
 PostgreSQL dedicated ORM for node.js with automatic database sync.
 
+This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
+To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database
+during development stage, often results in a complex sequence of backward and forward steps through migrationgs; this process if complicated more and more especially when
+working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
+
+#UNDER DEVELOPMENT
+
+This package is still under development. __Do not use it in a production environment__. This package can be used in development environment of projects going to be live
+later than January 2015; doing that and reporting bugs will help us to have a working release as soon as possible.
+
 ## Installation
 
     npm install pgo
@@ -10,27 +20,37 @@ PostgreSQL dedicated ORM for node.js with automatic database sync.
 
 ```javascript
 var pgo = require('pgo');
-var conString = "postgres://username:password@localhost/database";
+var db  = new pgo("postgres://username:password@localhost/database");
 
-pgo.model('foo', {
-  bar: pgo.VARCHAR(20),
+db.model('foo', {
+  bar: db.VARCHAR(20),
   baz: {
     type:db.JSON,
     defaultValue:{a:84}
   }
 });
 
-db.connect(conString, function(err) {
-	if(err)
-		return console.log(err);
+db.connect(function(err) {
+  if(err)
+    return console.log(err);
 
-  var foo = new pgo.models.foo();
+  var foo = new db.models.foo();
 
   foo.save(function(err) {
-	if(err)
-		return console.log(err);
+    if(err)
+      return console.log(err);
 
-	console.log("foo saved");
+    console.log("foo saved");
+
+    db.load.foo({id: 1}, function(err, res) {
+      if(err)
+        return console.log(err);
+
+      if(! res.length)
+        return console.log("no records found");
+
+      console.log(res[0]);
+    });
   });
 });
 ```
@@ -79,9 +99,10 @@ PgOrm: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 
 ## Error reporting
 
-__pgo.model__ has syncornous error reporting. Exceptions are thrown in case of error
+__new pgo()__ and  __pgo.model()__ have syncornous error reporting. Exceptions are thrown in case of error.
 
-All other method have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with __err__ as first parameter containing error description or null if everithing went well.
+All other method have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with __err__ as first parameter containing
+error description or __null__ if everithing went well.
 
 ## Bug report
 
@@ -89,4 +110,6 @@ Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-po
 
 ## Documentatoin
 
-For a complete (I hope) reference take a look to [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).
+Documentatoin can be found at [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).
+
+It is __under devolpment__ as well and scheduled at priority lower than unit tests and coverage.
