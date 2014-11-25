@@ -35,6 +35,7 @@
 	"multistr" : false, // Tolerate multi-line strings.
 	"onecase" : false, // Tolerate switches with just one case.
 	"proto" : false, // Tolerate __proto__ property. This property is deprecated.
+	"quotmark" : "double",
 	"regexdash" : false, // Tolerate unescaped last dash i.e. `[-...]`.
 	"scripturl" : false, // Tolerate script-targeted URLs.
 	"smarttabs" : false, // Tolerate mixed tabs and spaces when the latter are used for alignmnent only.
