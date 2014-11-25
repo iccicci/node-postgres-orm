@@ -38,4 +38,25 @@ describe("pgo", function() {
 			assert.equal(this.err.pgo.code, 1);
 		});
 	});
+
+	describe("console.log", function() {
+		var oldLog;
+		var testLog;
+
+		before(function() {
+			oldLog      = console.log;
+			console.log = function(msg) { testLog = msg; };
+			db          = new helper.pgo(process.env.PGO_TEST_DB);
+
+			db.log("test message");
+		});
+
+		after(function() {
+			console.log = oldLog;
+		});
+
+		it("log message", function() {
+			assert.equal("PgOrm: test message", testLog);
+		});
+	});
 });

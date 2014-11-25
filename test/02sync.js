@@ -11,7 +11,7 @@ var clean     = helper.clean;
 var logs      = helper.logs;
 var newPgo    = helper.newPgo;
 
-describe("sync", function() {
+describe("sync schema", function() {
 	before(function(done) {
 		db = newPgo();
 		db.connect(function() { clean(db, done); });
