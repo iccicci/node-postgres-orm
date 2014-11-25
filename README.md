@@ -4,7 +4,7 @@ PostgreSQL dedicated ORM for node.js with automatic database sync.
 
 This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
 To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database
-during development stage, often results in a complex sequence of backward and forward steps through migrationgs; this process if complicated more and more especially when
+during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
 #UNDER DEVELOPMENT
@@ -108,8 +108,8 @@ error description or __null__ if everithing went well.
 
 Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
 
-## Documentatoin
+## Documentation
 
-Documentatoin can be found at [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).
+This is __under development__ as the package and scheduled at priority lower than unit tests and coverage.
 
-It is __under devolpment__ as well and scheduled at priority lower than unit tests and coverage.
+Documentation can be found at [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).

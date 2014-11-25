@@ -1,12 +1,15 @@
 {
   "name": "pgo",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "/home/cicci/workspace/node-postgres-orm",
   "main": "lib/pgo.js",
   "scripts": {
-    "test": "./node_modules/.bin/jshint lib test && ./node_modules/.bin/mocha test"
+    "test": "echo .gitignore > .npmignore ; cat .gitignore >> .npmignore ; echo test >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
   },
-  "repository": "https://bitbucket.org/cicci/node-postgres-orm.git",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/cicci/node-postgres-orm.git"
+  },
   "keywords": [
     "database",
     "postgres",
