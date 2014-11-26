@@ -36,6 +36,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("7 log lines", function() {
 			assert.equal(logs.length, 7);
 		});
@@ -93,6 +97,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("0 log lines", function() {
 			assert.equal(logs.length, 0);
 		});
@@ -122,6 +130,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("2 log lines", function() {
@@ -163,6 +175,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("8 log lines", function() {
 			assert.equal(logs.length, 8);
 		});
@@ -185,6 +201,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("8 log lines", function() {
@@ -220,6 +240,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("1 log lines", function() {
 			assert.equal(logs.length, 1);
 		});
@@ -246,6 +270,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("9 log lines", function() {
@@ -281,6 +309,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("1 log lines", function() {
 			assert.equal(logs.length, 1);
 		});
@@ -314,6 +346,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("2 log lines", function() {
 			assert.equal(logs.length, 2);
 		});
@@ -344,6 +380,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("9 log lines", function() {
@@ -379,6 +419,10 @@ describe("sync schema", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("1 log lines", function() {
 			assert.equal(logs.length, 1);
 		});
@@ -406,6 +450,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("17 log lines", function() {
@@ -445,6 +493,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("2 log lines", function() {
@@ -491,6 +543,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("15 log lines", function() {
@@ -556,6 +612,10 @@ describe("sync schema", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("2 log lines", function() {

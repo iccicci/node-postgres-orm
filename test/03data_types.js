@@ -40,6 +40,10 @@ describe("data types", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("15 log lines", function() {
 			assert.equal(logs.length, 15);
 		});
@@ -100,6 +104,10 @@ describe("data types", function() {
 			assert.ifError(this.err);
 		});
 
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
 		it("19 log lines", function() {
 			assert.equal(logs.length, 19);
 		});
@@ -155,6 +163,10 @@ describe("data types", function() {
 
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
 		it("5 log lines", function() {

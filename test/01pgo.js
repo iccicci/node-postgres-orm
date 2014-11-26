@@ -19,8 +19,20 @@ describe("pgo", function() {
 			});
 		});
 
+		after(function() {
+			helper.cleanCounter();
+		});
+
 		it("err is null", function() {
 			assert.ifError(this.err);
+		});
+
+		it("1 connect", function() {
+			assert.equal(helper.pgoc.connect, 1);
+		});
+
+		it("1 done", function() {
+			assert.equal(helper.pgoc.done, 1);
 		});
 	});
 
@@ -34,8 +46,20 @@ describe("pgo", function() {
 			});
 		});
 
+		after(function() {
+			helper.cleanCounter();
+		});
+
 		it("err.pgo.code is 1", function() {
 			assert.equal(this.err.pgo.code, 1);
+		});
+
+		it("1 connect", function() {
+			assert.equal(helper.pgoc.connect, 1);
+		});
+
+		it("1 done", function() {
+			assert.equal(helper.pgoc.done, 1);
 		});
 	});
 
@@ -49,9 +73,7 @@ describe("pgo", function() {
 			db          = new helper.pgo(process.env.PGO_TEST_DB);
 
 			db.log("test message");
-		});
 
-		after(function() {
 			console.log = oldLog;
 		});
 
