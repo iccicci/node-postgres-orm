@@ -77,8 +77,48 @@ describe("pgo", function() {
 			console.log = oldLog;
 		});
 
+		after(function() {
+			helper.cleanCounter();
+		});
+
 		it("log message", function() {
 			assert.equal("PgOrm: test message", testLog);
+		});
+	});
+
+	describe("mock", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.connect(function(err) {
+				if(err) {
+					t.err = err;
+					return done();
+				}
+
+				db.pg.connect(process.env.PGO_TEST_DB, function(err, client, pgdone) {
+					t.err  = err;
+					t.done = pgdone;
+					done();
+				});
+			});
+		});
+
+		after(function() {
+			helper.cleanCounter();
+			this.done();
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("2 connect", function() {
+			assert.equal(helper.pgoc.connect, 2);
+		});
+
+		it("1 done", function() {
+			assert.equal(helper.pgoc.done, 1);
 		});
 	});
 });

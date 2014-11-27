@@ -6,6 +6,8 @@
   "scripts": {
     "test": "echo .gitignore > .npmignore ; cat .gitignore >> .npmignore ; echo test >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
   },
+  "homepage": "https://bitbucket.org/cicci/node-postgres-orm/wiki/Home",
+  "bugs": "https://bitbucket.org/cicci/node-postgres-orm/issues?status=new&status=open",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/cicci/node-postgres-orm.git"
@@ -15,7 +17,10 @@
     "postgres",
     "orm"
   ],
-  "author": "Daniele Ricci https://bitbucket.org/cicci",
+  "author": {
+	  "name": "Daniele Ricci",
+	  "url": "https://bitbucket.org/cicci"
+  },
   "license": "",
   "readmeFilename": "README.md",
   "devDependencies": {

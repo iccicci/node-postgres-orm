@@ -14,7 +14,9 @@ later than January 2015; doing that and reporting bugs will help us to have a wo
 
 ## Installation
 
-    npm install pgo
+```sh
+npm install pgo
+```
 
 ## Example
 
@@ -25,8 +27,8 @@ var db  = new pgo("postgres://username:password@localhost/database");
 db.model('foo', {
   bar: db.VARCHAR(20),
   baz: {
-    type:db.JSON,
-    defaultValue:{a:84}
+    type: db.JSON,
+    defaultValue: { a: 42, b: ["c", {}] }
   }
 });
 
