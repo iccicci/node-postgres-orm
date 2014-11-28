@@ -1,6 +1,6 @@
 #node-postgres-orm
 
-PostgreSQL dedicated ORM for node.js with automatic database sync.
+PostgreSQL dedicated ORM for node.js with automatic schema sync.
 
 This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
 To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database

@@ -1,7 +1,7 @@
 {
   "name": "pgo",
   "version": "0.0.4",
-  "description": "PostgreSQL dedicated ORM with automatic database sync",
+  "description": "PostgreSQL dedicated ORM with automatic schema sync",
   "main": "lib/pgo.js",
   "scripts": {
     "test": "echo .gitignore > .npmignore ; cat .gitignore >> .npmignore ; echo test >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
