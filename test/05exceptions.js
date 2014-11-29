@@ -126,4 +126,21 @@ describe("exceptions", function() {
 			assert.equal(this.e.message, "PgOrm: Can't find a valid type for 'foo.a'");
 		});
 	});
+
+	describe("undefined field", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: undefined});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "PgOrm: Undefined field: 'foo.a'");
+		});
+	});
 });

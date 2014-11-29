@@ -91,6 +91,35 @@ describe("errors", function() {
 		pg.connect = oldConnect;
 	});
 
+	describe("2", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", { a: db.INT4 });
+			db.model("test2", { a: db.INT2 }, {parent: "test1"});
+			db.connect(function(err) {
+				t.err = err;
+				done();
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 2", function() {
+			assert.equal(this.err.pgo.code, 2);
+		});
+
+		it("err.pgo.field is a", function() {
+			assert.equal(this.err.pgo.field, "a");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
 	describe("1001", function() {
 		before(function(done) {
 			t = this;
