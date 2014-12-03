@@ -26,7 +26,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Model already defined: foo");
+			assert.equal(this.e.message, "Pgo: Model already defined: foo");
 		});
 	});
 
@@ -52,7 +52,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Can't call PgOrm.table after PgOrm.connect");
+			assert.equal(this.e.message, "Pgo: Can't call Pgo.table after Pgo.connect");
 		});
 	});
 
@@ -70,7 +70,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Parent model 'baz' for model 'bar' doesn't exists");
+			assert.equal(this.e.message, "Pgo: Parent model 'baz' for model 'bar' doesn't exists");
 		});
 	});
 
@@ -88,7 +88,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Can't find model 'baz' to create FOREING KEY on 'bar.a'");
+			assert.equal(this.e.message, "Pgo: Can't find model 'baz' to create FOREING KEY on 'bar.a'");
 		});
 	});
 
@@ -106,7 +106,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Can't find field 'foo.a' to create FOREING KEY on 'bar.a'");
+			assert.equal(this.e.message, "Pgo: Can't find field 'foo.a' to create FOREING KEY on 'bar.a'");
 		});
 	});
 
@@ -123,7 +123,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Can't find a valid type for 'foo.a'");
+			assert.equal(this.e.message, "Pgo: Can't find a valid type for 'foo.a'");
 		});
 	});
 
@@ -140,7 +140,7 @@ describe("exceptions", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "PgOrm: Undefined field: 'foo.a'");
+			assert.equal(this.e.message, "Pgo: Undefined field: 'foo.a'");
 		});
 	});
 });

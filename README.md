@@ -1,5 +1,7 @@
 #node-postgres-orm
 
+[![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
+
 PostgreSQL dedicated ORM for node.js with automatic schema sync.
 
 This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
@@ -21,8 +23,8 @@ npm install pgo
 ## Example
 
 ```javascript
-var pgo = require('pgo');
-var db  = new pgo("postgres://username:password@localhost/database");
+var Pgo = require('pgo');
+var db  = new Pgo("postgres://username:password@localhost/database");
 
 db.model('foo', {
   bar: db.VARCHAR(20),
@@ -62,46 +64,46 @@ db.connect(function(err) {
 On db creation:
 
 ```
-PgOrm: CREATE TABLE foos ()
-PgOrm: ALTER TABLE foos ADD COLUMN id int8
-PgOrm: UPDATE foos SET id = nextval('foos_id_seq'::regclass) WHERE id IS NULL
-PgOrm: ALTER TABLE foos ALTER COLUMN id SET NOT NULL
-PgOrm: ALTER TABLE foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass)
-PgOrm: ALTER TABLE foos ADD COLUMN bar int4
-PgOrm: ALTER TABLE foos ADD COLUMN baz varchar(20)
-PgOrm: ALTER TABLE foos ADD CONSTRAINT foo_id_unique UNIQUE(id)
-PgOrm: CREATE TABLE bars ()
-PgOrm: ALTER TABLE bars ADD COLUMN id int8
-PgOrm: UPDATE bars SET id = nextval('bars_id_seq'::regclass) WHERE id IS NULL
-PgOrm: ALTER TABLE bars ALTER COLUMN id SET NOT NULL
-PgOrm: ALTER TABLE bars ALTER COLUMN id SET DEFAULT nextval('bars_id_seq'::regclass)
-PgOrm: ALTER TABLE bars ADD COLUMN foo int4
-PgOrm: ALTER TABLE bars ALTER COLUMN foo SET NOT NULL
-PgOrm: ALTER TABLE bars ADD COLUMN baz int8
-PgOrm: ALTER TABLE bars ALTER COLUMN baz SET NOT NULL
-PgOrm: ALTER TABLE bars ADD CONSTRAINT bar_id_unique UNIQUE(id)
-PgOrm: ALTER TABLE bars ADD CONSTRAINT bar_baz_fkey FOREIGN KEY (baz) REFERENCES foos (id)
-PgOrm: CREATE TABLE bazs () INHERITS (foos)
-PgOrm: ALTER TABLE bazs ADD COLUMN tmp json
-PgOrm: UPDATE bazs SET tmp = '{"foo":"bar","baz":[1,"foo"]}'::json WHERE tmp IS NULL
-PgOrm: ALTER TABLE bazs ALTER COLUMN tmp SET NOT NULL
-PgOrm: ALTER TABLE bazs ALTER COLUMN tmp SET DEFAULT '{"foo":"bar","baz":[1,"foo"]}'::json
+Pgo: CREATE TABLE foos ()
+Pgo: ALTER TABLE foos ADD COLUMN id int8
+Pgo: UPDATE foos SET id = nextval('foos_id_seq'::regclass) WHERE id IS NULL
+Pgo: ALTER TABLE foos ALTER COLUMN id SET NOT NULL
+Pgo: ALTER TABLE foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass)
+Pgo: ALTER TABLE foos ADD COLUMN bar int4
+Pgo: ALTER TABLE foos ADD COLUMN baz varchar(20)
+Pgo: ALTER TABLE foos ADD CONSTRAINT foo_id_unique UNIQUE(id)
+Pgo: CREATE TABLE bars ()
+Pgo: ALTER TABLE bars ADD COLUMN id int8
+Pgo: UPDATE bars SET id = nextval('bars_id_seq'::regclass) WHERE id IS NULL
+Pgo: ALTER TABLE bars ALTER COLUMN id SET NOT NULL
+Pgo: ALTER TABLE bars ALTER COLUMN id SET DEFAULT nextval('bars_id_seq'::regclass)
+Pgo: ALTER TABLE bars ADD COLUMN foo int4
+Pgo: ALTER TABLE bars ALTER COLUMN foo SET NOT NULL
+Pgo: ALTER TABLE bars ADD COLUMN baz int8
+Pgo: ALTER TABLE bars ALTER COLUMN baz SET NOT NULL
+Pgo: ALTER TABLE bars ADD CONSTRAINT bar_id_unique UNIQUE(id)
+Pgo: ALTER TABLE bars ADD CONSTRAINT bar_baz_fkey FOREIGN KEY (baz) REFERENCES foos (id)
+Pgo: CREATE TABLE bazs () INHERITS (foos)
+Pgo: ALTER TABLE bazs ADD COLUMN tmp json
+Pgo: UPDATE bazs SET tmp = '{"foo":"bar","baz":[1,"foo"]}'::json WHERE tmp IS NULL
+Pgo: ALTER TABLE bazs ALTER COLUMN tmp SET NOT NULL
+Pgo: ALTER TABLE bazs ALTER COLUMN tmp SET DEFAULT '{"foo":"bar","baz":[1,"foo"]}'::json
 ```
 
 After some changes to the models:
 
 ```
-PgOrm: UPDATE foos SET baz = 'foo'::character varying WHERE baz IS NULL
-PgOrm: ALTER TABLE foos ALTER COLUMN baz SET NOT NULL
-PgOrm: ALTER TABLE foos ALTER COLUMN baz SET DEFAULT 'foo'::character varying
-PgOrm: ALTER TABLE bars DROP CONSTRAINT bar_baz_fkey
-PgOrm: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
-PgOrm: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
+Pgo: UPDATE foos SET baz = 'foo'::character varying WHERE baz IS NULL
+Pgo: ALTER TABLE foos ALTER COLUMN baz SET NOT NULL
+Pgo: ALTER TABLE foos ALTER COLUMN baz SET DEFAULT 'foo'::character varying
+Pgo: ALTER TABLE bars DROP CONSTRAINT bar_baz_fkey
+Pgo: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
+Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 ```
 
 ## Error reporting
 
-__new pgo()__ and  __pgo.model()__ have syncornous error reporting. Exceptions are thrown in case of error.
+__new Pgo()__ and  __Pgo.model()__ have syncornous error reporting. Exceptions are thrown in case of error.
 
 All other method have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with __err__ as first parameter containing
 error description or __null__ if everithing went well.
@@ -112,6 +114,6 @@ Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-po
 
 ## Documentation
 
-This is __under development__ as the package and scheduled at priority lower than unit tests and coverage.
+This is __under development__ as the package.
 
 Documentation can be found at [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).

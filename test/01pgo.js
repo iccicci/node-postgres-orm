@@ -82,7 +82,7 @@ describe("pgo", function() {
 		});
 
 		it("log message", function() {
-			assert.equal("PgOrm: test message", testLog);
+			assert.equal("Pgo: test message", testLog);
 		});
 	});
 

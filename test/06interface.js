@@ -54,16 +54,20 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("3 log lines", function() {
+			assert.equal(logs.length, 3);
+		});
+
+		it("SELECT sequence", function() {
+			assert.equal(logs[0], "SELECT nextval('test1s_id_seq')");
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[0], "INSERT INTO test1s (id,a,b,c) VALUES ($1,$2,$3,$4) :: [\"1\",10,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\"]");
+			assert.equal(logs[1], "INSERT INTO test1s (id,a,b,c) VALUES ($1,$2,$3,$4) :: [\"1\",10,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\"]");
 		});
 
 		it("SELECT", function() {
-			assert.equal(logs[1], "SELECT * FROM test1s WHERE id = $1 :: [1]");
+			assert.equal(logs[2], "SELECT * FROM test1s WHERE id = $1 :: [1]");
 		});
 
 		it("1 record", function() {
@@ -105,13 +109,13 @@ describe("interface", function() {
 				t.err = err;
 				if(err)
 					return done();
-				cleanLogs();
 				var tmp = new db.models.test1();
 				tmp.c = {a: "b", c: ["d", 10]};
 				tmp.save(function(err) {
 					t.err = err;
 					if(err)
 						return done();
+					cleanLogs();
 					tmp.a = 20;
 					tmp.save();
 					setTimeout(done, 20);
@@ -131,12 +135,12 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("1 log lines", function() {
+			assert.equal(logs.length, 1);
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[1], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4 WHERE id = $5 :: [20,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\",null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4 WHERE id = $5 :: [20,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\",null,\"1\"]");
 		});
 	});
 
@@ -187,8 +191,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("5 log lines", function() {
-			assert.equal(logs.length, 5);
+		it("6 log lines", function() {
+			assert.equal(logs.length, 6);
 		});
 
 		it("preSave", function() {
@@ -196,11 +200,11 @@ describe("interface", function() {
 		});
 
 		it("postSave", function() {
-			assert.equal(logs[2], "postSave");
+			assert.equal(logs[3], "postSave");
 		});
 
 		it("postLoad", function() {
-			assert.equal(logs[4], "postLoad");
+			assert.equal(logs[5], "postLoad");
 		});
 	});
 
@@ -254,8 +258,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("8 log lines", function() {
-			assert.equal(logs.length, 8);
+		it("9 log lines", function() {
+			assert.equal(logs.length, 9);
 		});
 
 		it("preSave1", function() {
@@ -267,23 +271,23 @@ describe("interface", function() {
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[2], "INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3) :: [\"1\",null,null]");
+			assert.equal(logs[3], "INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3) :: [\"1\",null,null]");
 		});
 
 		it("postSave1", function() {
-			assert.equal(logs[3], "postSave1");
+			assert.equal(logs[4], "postSave1");
 		});
 
 		it("postSave2", function() {
-			assert.equal(logs[4], "postSave2");
+			assert.equal(logs[5], "postSave2");
 		});
 
 		it("postLoad1", function() {
-			assert.equal(logs[6], "postLoad1");
+			assert.equal(logs[7], "postLoad1");
 		});
 
 		it("postLoad2", function() {
-			assert.equal(logs[7], "postLoad2");
+			assert.equal(logs[8], "postLoad2");
 		});
 	});
 
@@ -331,80 +335,6 @@ describe("interface", function() {
 
 		it("record 1 loaded", function() {
 			assert.equal(this.res[0].id, 1);
-		});
-	});
-
-
-	describe("strange save", function() {
-		before(function(done) {
-			t  = this;
-			db = newPgo();
-			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
-				b: db.VARCHAR,
-				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
-			db.connect(function(err) {
-				t.err = err;
-				if(err)
-					return done();
-				cleanLogs();
-				var tmp = new db.models.test1();
-				tmp.save();
-				setTimeout(done, 20);
-			});
-		});
-
-		after(function(done) {
-			clean(db, done);
-		});
-
-		it("err is null", function() {
-			assert.ifError(this.err);
-		});
-
-		it("nr connect == nr done", function() {
-			assert.equal(helper.pgoc.connect, helper.pgoc.done);
-		});
-
-		it("1 log lines", function() {
-			assert.equal(logs.length, 1);
-		});
-	});
-
-	describe("strange load", function() {
-		before(function(done) {
-			t  = this;
-			db = newPgo();
-			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
-				b: db.VARCHAR,
-				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
-			db.connect(function(err) {
-				t.err = err;
-				if(err)
-					return done();
-				cleanLogs();
-				db.load.test1({id:1});
-				setTimeout(done, 20);
-			});
-		});
-
-		after(function(done) {
-			clean(db, done);
-		});
-
-		it("err is null", function() {
-			assert.ifError(this.err);
-		});
-
-		it("nr connect == nr done", function() {
-			assert.equal(helper.pgoc.connect, helper.pgoc.done);
-		});
-
-		it("1 log lines", function() {
-			assert.equal(logs.length, 1);
 		});
 	});
 });
