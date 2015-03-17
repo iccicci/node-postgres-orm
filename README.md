@@ -9,7 +9,7 @@ To apply changes to database after releasing a new version of application is oft
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
-#UNDER DEVELOPMENT
+# UNDER DEVELOPMENT
 
 This package is still under development. __Do not use it in a production environment__. This package can be used in development environment of projects going to be live
 later than January 2015; doing that and reporting bugs will help us to have a working release as soon as possible.
