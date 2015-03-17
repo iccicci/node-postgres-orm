@@ -412,6 +412,50 @@ describe("interface errors", function() {
 		});
 	});
 
+	describe("strange load inheritance", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+			});
+			db.model("test2", {
+				b: db.INT4,
+			}, {
+				parent:   "test1",
+				postLoad: function() { return 1 / 0; },
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				var tmp = new db.models.test2();
+				tmp.save(function(err) {
+					t.err = err;
+					cleanLogs();
+					db.load.test1({id:1});
+					setTimeout(done, 20);
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("2 log lines", function() {
+			assert.equal(logs.length, 2);
+		});
+	});
+
 	describe("strange load with postLoad exception", function() {
 		before(function(done) {
 			t  = this;
