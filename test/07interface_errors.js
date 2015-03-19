@@ -321,8 +321,13 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var tmp = new db.models.test1();
-				tmp.save();
-				setTimeout(done, 20);
+				try {
+					tmp.save();
+				}
+				catch(e) {
+					t.e = e;
+					done();
+				}
 			});
 		});
 
@@ -338,41 +343,9 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
-		});
-	});
-
-	describe("strange save with preSave error", function() {
-		before(function(done) {
-			t  = this;
-			db = newPgo();
-			db.model("test1", {}, { preSave: function() { return "testError"; } });
-			db.connect(function(err) {
-				t.err = err;
-				if(err)
-					return done();
-				cleanLogs();
-				var tmp = new db.models.test1();
-				tmp.save();
-				setTimeout(done, 20);
-			});
-		});
-
-		after(function(done) {
-			clean(db, done);
-		});
-
-		it("err is null", function() {
-			assert.ifError(this.err);
-		});
-
-		it("nr connect == nr done", function() {
-			assert.equal(helper.pgoc.connect, helper.pgoc.done);
-		});
-
-		it("0 log lines", function() {
-			assert.equal(logs.length, 0);
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.record.save: callback must be a function");
 		});
 	});
 

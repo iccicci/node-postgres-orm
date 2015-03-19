@@ -117,8 +117,7 @@ describe("interface", function() {
 						return done();
 					cleanLogs();
 					tmp.a = 20;
-					tmp.save();
-					setTimeout(done, 20);
+					tmp.save(done);
 				});
 			});
 		});
