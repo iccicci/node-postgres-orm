@@ -1,4 +1,4 @@
-#node-postgres-orm
+# node-postgres-orm
 
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
@@ -8,11 +8,6 @@ This package is designed __to make easy the process to apply changes to database
 To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
-
-# UNDER DEVELOPMENT
-
-This package is still under development. __Do not use it in a production environment__. This package can be used in development environment of projects going to be live
-later than January 2015; doing that and reporting bugs will help us to have a working release as soon as possible.
 
 ## Installation
 
@@ -103,17 +98,21 @@ Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 
 ## Error reporting
 
-__new Pgo()__ and  __Pgo.model()__ have syncornous error reporting. Exceptions are thrown in case of error.
+### Usage error reporting
 
-All other method have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with __err__ as first parameter containing
-error description or __null__ if everithing went well.
+__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong parameters number or types.
+Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block, this kind of errors should be generated only at development time.
+
+### Data error reporting
+
+Many __pgo__ _methods_ and _function_ have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with
+__err__ as first parameter containing error description or __null__ if everithing went well.
+This is the way to check data integrity or consistency errors, database connection errors, etc...
 
 ## Bug report
 
 Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
 
 ## Documentation
-
-This is __under development__ as the package.
 
 Documentation can be found at [bitbucket wiki](https://bitbucket.org/cicci/node-postgres-orm/wiki/Home).

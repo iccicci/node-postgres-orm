@@ -40,6 +40,9 @@ var errors = {
 	"SELECT attname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1] AND attname = $2": 1023,
 	"SELECT relname, attname FROM pg_class, pg_index, pg_attribute, pg_am WHERE indrelid = $1 AND indexrelid = pg_class.oid AND attrelid = pg_class.oid AND relam = pg_am.oid AND amname = $2 ORDER BY relname": 1024,
 
+	// post sync errors
+	"SELECT tableoid, * FROM test2s WHERE id IN ($1)": -2,
+
 	// not related to tests
 	"SELECT conname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1] AND (contype <> $2 or attname <> $3) AND (contype <> $4 or attname <> $5)": -1,
 	"ALTER TABLE test1s ADD COLUMN a int4": -1,
@@ -57,6 +60,12 @@ var errors = {
 	"ALTER TABLE test2s ALTER COLUMN id SET DEFAULT nextval('test2s_id_seq'::regclass)": -1,
 	"ALTER TABLE test2s ADD CONSTRAINT test2_id_unique UNIQUE(id)": -1,
 	"SELECT relname, attname, amname FROM pg_class, pg_index, pg_attribute, pg_am WHERE indrelid = $1 AND indexrelid = pg_class.oid AND attrelid = pg_class.oid AND relam = pg_am.oid AND indexrelid <> $2 ORDER BY relname": -1,
+	"CREATE TABLE test2s () INHERITS (test1s)": -1,
+	"SELECT conname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1]": -1,
+	"ALTER TABLE test2s ADD COLUMN b int4": -1,
+	"SELECT nextval('test1s_id_seq')": -1,
+	"INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3)": -1,
+	"SELECT tableoid, * FROM test1s WHERE id = $1": -1,
 };
 
 describe("errors", function() {
@@ -810,6 +819,51 @@ describe("errors", function() {
 
 		it("err.pgo.code is 1024", function() {
 			assert.equal(this.err.pgo.code, 1024);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("inheritance true load error", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			er = -2;
+			db.model("test1", {
+				a: db.INT4,
+			});
+			db.model("test2", {
+				b: db.INT4,
+			}, {
+				parent:   "test1",
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				var tmp = new db.models.test2();
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					db.load.test1({id: 1}, function(err, res) {
+						t.err = err;
+						t.res = res;
+						done();
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is test", function() {
+			assert.equal(this.err.code, "test");
 		});
 
 		it("nr connect == nr done", function() {

@@ -143,4 +143,72 @@ describe("exceptions", function() {
 			assert.equal(this.e.message, "Pgo: Undefined field: 'foo.a'");
 		});
 	});
+
+	describe("VARCAHR len not integer", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: db.VARCHAR("test")});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.VARCHAR: len must be a positive integer");
+		});
+	});
+
+	describe("VARCAHR negative len", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: db.VARCHAR(-12)});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.VARCHAR: len must be a positive integer");
+		});
+	});
+
+	describe("Pgo.model wrong fields", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", "test");
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.model: fields must be an Object");
+		});
+	});
+
+	describe("Pgo.model wrong options", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: db.VARCHAR(12)}, "test");
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.model: options must be an Object");
+		});
+	});
 });

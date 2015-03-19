@@ -500,4 +500,82 @@ describe("interface", function() {
 			assert.equal(this.res[0].id, 1);
 		});
 	});
+
+	describe("order by", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {a: db.INT4});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				tmp = new db.models.test1();
+				tmp.a = 1;
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					tmp = new db.models.test1();
+					tmp.a = 2;
+					tmp.save(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						tmp = new db.models.test1();
+						tmp.a = 1;
+						tmp.save(function(err) {
+							t.err = err;
+							if(err)
+								return done();
+							tmp = new db.models.test1();
+							tmp.a = 2;
+							tmp.save(function(err) {
+								t.err = err;
+								if(err)
+									return done();
+								db.load.test1({}, ["a", "-id"], function(err, res) {
+									t.err = err;
+									t.res = res;
+									return done();
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("4 record loaded", function() {
+			assert.equal(this.res.length, 4);
+		});
+
+		it("record 1", function() {
+			assert.equal(this.res[0].id, 3);
+		});
+
+		it("record 2", function() {
+			assert.equal(this.res[1].id, 1);
+		});
+
+		it("record 3", function() {
+			assert.equal(this.res[2].id, 4);
+		});
+
+		it("record 4", function() {
+			assert.equal(this.res[3].id, 2);
+		});
+	});
 });

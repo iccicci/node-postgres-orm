@@ -390,52 +390,13 @@ describe("interface errors", function() {
 				if(err)
 					return done();
 				cleanLogs();
-				db.load.test1({id:1});
-				setTimeout(done, 20);
-			});
-		});
-
-		after(function(done) {
-			clean(db, done);
-		});
-
-		it("err is null", function() {
-			assert.ifError(this.err);
-		});
-
-		it("nr connect == nr done", function() {
-			assert.equal(helper.pgoc.connect, helper.pgoc.done);
-		});
-
-		it("1 log lines", function() {
-			assert.equal(logs.length, 1);
-		});
-	});
-
-	describe("strange load inheritance", function() {
-		before(function(done) {
-			t  = this;
-			db = newPgo();
-			db.model("test1", {
-				a: db.INT4,
-			});
-			db.model("test2", {
-				b: db.INT4,
-			}, {
-				parent:   "test1",
-				postLoad: function() { return 1 / 0; },
-			});
-			db.connect(function(err) {
-				t.err = err;
-				if(err)
-					return done();
-				var tmp = new db.models.test2();
-				tmp.save(function(err) {
-					t.err = err;
-					cleanLogs();
+				try {
 					db.load.test1({id:1});
-					setTimeout(done, 20);
-				});
+				}
+				catch(e) {
+					t.e = e;
+				}
+				done();
 			});
 		});
 
@@ -451,29 +412,29 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.load: callback must be a function");
 		});
 	});
 
-	describe("strange load with postLoad exception", function() {
+	describe("wrong where", function() {
 		before(function(done) {
 			t  = this;
 			db = newPgo();
-			db.model("test1", {}, { postLoad: function() { throw new Error("test Error"); } });
+			db.model("test1", {});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
 					return done();
-				var tmp = new db.models.test1();
-				tmp.save(function(err) {
-					t.err = err;
-					if(err)
-						return done();
-					cleanLogs();
-					db.load.test1({id: 1});
-					setTimeout(done, 20);
-				});
+				cleanLogs();
+				try {
+					db.load.test1();
+				}
+				catch(e) {
+					t.e = e;
+				}
+				done();
 			});
 		});
 
@@ -489,8 +450,9 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("1 log lines", function() {
-			assert.equal(logs.length, 1);
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.load: where must be an object");
 		});
 	});
 
