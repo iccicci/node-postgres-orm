@@ -338,13 +338,13 @@ describe("interface", function() {
 						t.err = err;
 						if(err)
 							return done();
-						db.load.test1({id: ["in", [1,2]]}, "-id", function(err, res) {
+						db.load.test1({id__in: [1,2]}, "-id", function(err, res) {
 							t.err = err;
 							t.res1 = res;
-							db.load.test2({id: ["in", [1,2]]}, "-id", function(err, res) {
+							db.load.test2({id__in: [1,2]}, "-id", function(err, res) {
 								t.err = err;
 								t.res2 = res;
-								db.load.test3({id: ["in", [1,2]]}, "-id", function(err, res) {
+								db.load.test3({id__in: [1,2]}, "-id", function(err, res) {
 									t.err = err;
 									t.res3 = res;
 									done();
