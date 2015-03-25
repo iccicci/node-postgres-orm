@@ -109,6 +109,10 @@ Many __pgo__ _methods_ and _function_ have asyncronous error reporting. The __ca
 __err__ as first parameter containing error description or __null__ if everithing went well.
 This is the way to check data integrity or consistency errors, database connection errors, etc...
 
+## Home page
+
+* https://www.npmjs.com/package/pgo
+
 ## Bug report
 
 Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
