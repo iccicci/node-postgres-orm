@@ -17,10 +17,7 @@
     "postgres",
     "orm"
   ],
-  "author": {
-	  "name": "Daniele Ricci",
-	  "url": "https://bitbucket.org/cicci"
-  },
+  "author": "Daniele Ricci <daniele.icc@gmail.com> (https://bitbucket.org/cicci)",
   "license": "",
   "readmeFilename": "README.md",
   "devDependencies": {

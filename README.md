@@ -113,6 +113,10 @@ This is the way to check data integrity or consistency errors, database connecti
 
 * https://www.npmjs.com/package/pgo
 
+## Requirements
+
+* PostgreSQL 9.x.x
+
 ## Bug report
 
 Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
