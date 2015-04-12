@@ -112,20 +112,20 @@ describe("data types", function() {
 			assert.equal(logs.length, 19);
 		});
 
-		it("UPDATE test1s SET a = 3 WHERE a IS NULL", function() {
-			assert.equal(logs[7], "UPDATE test1s SET a = 3 WHERE a IS NULL");
+		it("ALTER TABLE test1s ALTER COLUMN a SET DEFAULT 3", function() {
+			assert.equal(logs[7], "ALTER TABLE test1s ALTER COLUMN a SET DEFAULT 3");
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN a SET DEFAULT 3", function() {
-			assert.equal(logs[9], "ALTER TABLE test1s ALTER COLUMN a SET DEFAULT 3");
+		it("UPDATE test1s SET a = 3 WHERE a IS NULL", function() {
+			assert.equal(logs[8], "UPDATE test1s SET a = 3 WHERE a IS NULL");
 		});
 
 		it("ALTER TABLE test1s ALTER COLUMN b SET DEFAULT 'a'::character varying", function() {
-			assert.equal(logs[13], "ALTER TABLE test1s ALTER COLUMN b SET DEFAULT 'a'::character varying");
+			assert.equal(logs[11], "ALTER TABLE test1s ALTER COLUMN b SET DEFAULT 'a'::character varying");
 		});
 
 		it("ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '{\"a\":3,\"b\":\"a\"}'::json", function() {
-			assert.equal(logs[17], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '{\"a\":3,\"b\":\"a\"}'::json");
+			assert.equal(logs[15], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '{\"a\":3,\"b\":\"a\"}'::json");
 		});
 	});
 
@@ -191,6 +191,78 @@ describe("data types", function() {
 
 		it("ALTER TABLE test1s ALTER COLUMN e TYPE int2", function() {
 			assert.equal(logs[4], "ALTER TABLE test1s ALTER COLUMN e TYPE int2");
+		});
+	});
+
+	describe("timestamp", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.TIMESTAMP,
+				b: db.TIMESTAMP({precision: 5}),
+				c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
+				d: { type: db.TIMESTAMP, defaultValue: new Date("1983-10-23 16:45 UTC") },
+				e: { type: db.TIMESTAMP, insertNow: true },
+			});
+			db.connect(function(err) {
+				db = newPgo();
+				db.model("test1", {
+					a: db.TIMESTAMP,
+					b: db.TIMESTAMP({precision: 5}),
+					c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
+					d: { type: db.TIMESTAMP, defaultValue: new Date("1976-01-23 16:45 UTC") },
+					e: { type: db.TIMESTAMP, insertNow: true },
+				});
+				db.connect(function(err) {
+					t.err = err;
+					done();
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("22 log lines", function() {
+			assert.equal(logs.length, 22);
+		});
+
+		it("ALTER TABLE test1s ADD COLUMN a timestamptz(6)", function() {
+			assert.equal(logs[6], "ALTER TABLE test1s ADD COLUMN a timestamptz(6)");
+		});
+
+		it("ALTER TABLE test1s ADD COLUMN b timestamptz(5)", function() {
+			assert.equal(logs[7], "ALTER TABLE test1s ADD COLUMN b timestamptz(5)");
+		});
+
+		it("ALTER TABLE test1s ADD COLUMN c timestamptz(6)", function() {
+			assert.equal(logs[8], "ALTER TABLE test1s ADD COLUMN c timestamptz(6)");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz", function() {
+			assert.equal(logs[9], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 17:45:00+01'::timestamptz", function() {
+			assert.equal(logs[13], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 17:45:00+01'::timestamptz");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN e SET DEFAULT CURRENT_TIMESTAMP", function() {
+			assert.equal(logs[17], "ALTER TABLE test1s ALTER COLUMN e SET DEFAULT CURRENT_TIMESTAMP");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz", function() {
+			assert.equal(logs[21], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz");
 		});
 	});
 });

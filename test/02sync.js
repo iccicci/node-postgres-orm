@@ -56,16 +56,16 @@ describe("schema sync", function() {
 			assert.equal(logs[2], "ALTER TABLE test1s ADD COLUMN id int8");
 		});
 
+		it("ALTER TABLE test1s ALTER COLUMN id SET DEFAULT nextval('test1s_id_seq'::regclass)", function() {
+			assert.equal(logs[3], "ALTER TABLE test1s ALTER COLUMN id SET DEFAULT nextval('test1s_id_seq'::regclass)");
+		});
+
 		it("UPDATE test1s SET id = nextval('test1s_id_seq'::regclass) WHERE id IS NULL", function() {
-			assert.equal(logs[3], "UPDATE test1s SET id = nextval('test1s_id_seq'::regclass) WHERE id IS NULL");
+			assert.equal(logs[4], "UPDATE test1s SET id = nextval('test1s_id_seq'::regclass) WHERE id IS NULL");
 		});
 
 		it("ALTER TABLE test1s ALTER COLUMN id SET NOT NULL", function() {
-			assert.equal(logs[4], "ALTER TABLE test1s ALTER COLUMN id SET NOT NULL");
-		});
-
-		it("ALTER TABLE test1s ALTER COLUMN id SET DEFAULT nextval('test1s_id_seq'::regclass)", function() {
-			assert.equal(logs[5], "ALTER TABLE test1s ALTER COLUMN id SET DEFAULT nextval('test1s_id_seq'::regclass)");
+			assert.equal(logs[5], "ALTER TABLE test1s ALTER COLUMN id SET NOT NULL");
 		});
 
 		it("ALTER TABLE test1s ADD CONSTRAINT test1_id_unique UNIQUE(id)", function() {
@@ -354,12 +354,12 @@ describe("schema sync", function() {
 			assert.equal(logs.length, 2);
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN a DROP NOT NULL", function() {
-			assert.equal(logs[0], "ALTER TABLE test1s ALTER COLUMN a DROP NOT NULL");
+		it("ALTER TABLE test1s ALTER COLUMN a DROP DEFAULT", function() {
+			assert.equal(logs[0], "ALTER TABLE test1s ALTER COLUMN a DROP DEFAULT");
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN a DROP DEFAULT", function() {
-			assert.equal(logs[1], "ALTER TABLE test1s ALTER COLUMN a DROP DEFAULT");
+		it("ALTER TABLE test1s ALTER COLUMN a DROP NOT NULL", function() {
+			assert.equal(logs[1], "ALTER TABLE test1s ALTER COLUMN a DROP NOT NULL");
 		});
 	});
 

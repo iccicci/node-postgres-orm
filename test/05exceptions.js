@@ -211,4 +211,55 @@ describe("exceptions", function() {
 			assert.equal(this.e.message, "Pgo.model: options must be an Object");
 		});
 	});
+
+	describe("Pgo.model index without fields", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: db.VARCHAR(12)}, { index: ["a", {}] });
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.model: index (idx: 1) without fields");
+		});
+	});
+
+	describe("Pgo.model wrong datetime precision", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: db.TIMESTAMP({precision: 12})});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.TIMESTAMP: precision must be an integer between 0 and 6");
+		});
+	});
+
+	describe("Pgo.model datetime bot defaultValue and insertNow", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {a: {type: db.TIMESTAMP({insertNow: true}), defaultValue: "test"}});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.mopdel: only one of defaultValue or insertNow can be defined for 'foo.a'");
+		});
+	});
 });

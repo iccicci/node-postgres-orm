@@ -66,6 +66,8 @@ var errors = {
 	"SELECT nextval('test1s_id_seq')": -1,
 	"INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3)": -1,
 	"SELECT tableoid, * FROM test1s WHERE id = $1": -1,
+	"ALTER TABLE test1s ADD COLUMN a timestamptz(6)": -1,
+	"SELECT 'test test test'::timestamptz::character varying": -1,
 };
 
 describe("errors", function() {
@@ -864,6 +866,33 @@ describe("errors", function() {
 
 		it("err is test", function() {
 			assert.equal(this.err.code, "test");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("1025", function() {
+		before(function(done) {
+			t = this;
+			er = 1025;
+			db = newPgo();
+			db.model("test1", {
+				a: {type: db.TIMESTAMP, defaultValue: "test test test"},
+			});
+			db.connect(function(err) {
+				t.err = err;
+				done();
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 1025", function() {
+			assert.equal(this.err.pgo.code, 1025);
 		});
 
 		it("nr connect == nr done", function() {
