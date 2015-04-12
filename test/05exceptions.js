@@ -246,7 +246,7 @@ describe("exceptions", function() {
 		});
 	});
 
-	describe("Pgo.model datetime bot defaultValue and insertNow", function() {
+	describe("Pgo.model datetime both defaultValue and insertNow", function() {
 		before(function() {
 			try {
 				db = newPgo();
