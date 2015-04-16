@@ -54,20 +54,16 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("3 log lines", function() {
-			assert.equal(logs.length, 3);
-		});
-
-		it("SELECT sequence", function() {
-			assert.equal(logs[0], "SELECT nextval('test1s_id_seq')");
+		it("2 log lines", function() {
+			assert.equal(logs.length, 2);
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[1], "INSERT INTO test1s (id,a,b,c) VALUES ($1,$2,$3,$4) :: [\"1\",10,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\"]");
+			assert.equal(logs[0], "INSERT INTO test1s (b,c) VALUES ($1,$2) RETURNING * :: [\"test\",{\"a\":\"b\",\"c\":[\"d\",10]}]");
 		});
 
 		it("SELECT", function() {
-			assert.equal(logs[2], "SELECT tableoid, * FROM test1s WHERE id = $1 :: [1]");
+			assert.equal(logs[1], "SELECT tableoid, * FROM test1s WHERE id = $1 :: [1]");
 		});
 
 		it("1 record", function() {
@@ -139,7 +135,7 @@ describe("interface", function() {
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4 WHERE id = $5 :: [20,\"test\",\"{\\\"a\\\":\\\"b\\\",\\\"c\\\":[\\\"d\\\",10]}\",null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4 WHERE id = $5 RETURNING * :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,\"1\"]");
 		});
 	});
 
@@ -190,8 +186,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("6 log lines", function() {
-			assert.equal(logs.length, 6);
+		it("5 log lines", function() {
+			assert.equal(logs.length, 5);
 		});
 
 		it("preSave", function() {
@@ -199,11 +195,11 @@ describe("interface", function() {
 		});
 
 		it("postSave", function() {
-			assert.equal(logs[3], "postSave");
+			assert.equal(logs[2], "postSave");
 		});
 
 		it("postLoad", function() {
-			assert.equal(logs[5], "postLoad");
+			assert.equal(logs[4], "postLoad");
 		});
 	});
 
@@ -257,8 +253,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("9 log lines", function() {
-			assert.equal(logs.length, 9);
+		it("8 log lines", function() {
+			assert.equal(logs.length, 8);
 		});
 
 		it("preSave1", function() {
@@ -269,28 +265,24 @@ describe("interface", function() {
 			assert.equal(logs[1], "preSave2");
 		});
 
-		it("nextval", function() {
-			assert.equal(logs[2], "SELECT nextval('test1s_id_seq')");
-		});
-
 		it("INSERT", function() {
-			assert.equal(logs[3], "INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3) :: [\"1\",null,null]");
+			assert.equal(logs[2], "INSERT INTO test2s DEFAULT VALUES RETURNING * :: []");
 		});
 
 		it("postSave1", function() {
-			assert.equal(logs[4], "postSave1");
+			assert.equal(logs[3], "postSave1");
 		});
 
 		it("postSave2", function() {
-			assert.equal(logs[5], "postSave2");
+			assert.equal(logs[4], "postSave2");
 		});
 
 		it("postLoad1", function() {
-			assert.equal(logs[7], "postLoad1");
+			assert.equal(logs[6], "postLoad1");
 		});
 
 		it("postLoad2", function() {
-			assert.equal(logs[8], "postLoad2");
+			assert.equal(logs[7], "postLoad2");
 		});
 	});
 
@@ -368,8 +360,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("39 log lines", function() {
-			assert.equal(logs.length, 39);
+		it("37 log lines", function() {
+			assert.equal(logs.length, 37);
 		});
 
 		it("preSave1 1", function() {
@@ -384,48 +376,44 @@ describe("interface", function() {
 			assert.equal(logs[2], "preSave3");
 		});
 
-		it("nextval", function() {
-			assert.equal(logs[3], "SELECT nextval('test1s_id_seq')");
-		});
-
 		it("INSERT", function() {
-			assert.equal(logs[4], "INSERT INTO test3s (id,a,b,c) VALUES ($1,$2,$3,$4) :: [\"1\",null,null,8]");
+			assert.equal(logs[3], "INSERT INTO test3s (c) VALUES ($1) RETURNING * :: [8]");
 		});
 
 		it("postSave1 1", function() {
-			assert.equal(logs[5], "postSave1");
+			assert.equal(logs[4], "postSave1");
 		});
 
 		it("postSave2 1", function() {
-			assert.equal(logs[6], "postSave2");
+			assert.equal(logs[5], "postSave2");
 		});
 
 		it("postSave3 1", function() {
-			assert.equal(logs[7], "postSave3");
+			assert.equal(logs[6], "postSave3");
 		});
 
 		it("preSave1 2", function() {
-			assert.equal(logs[8], "preSave1");
+			assert.equal(logs[7], "preSave1");
 		});
 
 		it("preSave2 2", function() {
-			assert.equal(logs[9], "preSave2");
+			assert.equal(logs[8], "preSave2");
 		});
 
 		it("preSave3 2", function() {
-			assert.equal(logs[10], "preSave3");
+			assert.equal(logs[9], "preSave3");
 		});
 
 		it("postLoad1", function() {
-			assert.equal(logs[18], "postLoad1");
+			assert.equal(logs[16], "postLoad1");
 		});
 
 		it("postLoad2", function() {
-			assert.equal(logs[19], "postLoad2");
+			assert.equal(logs[17], "postLoad2");
 		});
 
 		it("postLoad3", function() {
-			assert.equal(logs[20], "postLoad3");
+			assert.equal(logs[18], "postLoad3");
 		});
 
 		it("load 1 1", function() {

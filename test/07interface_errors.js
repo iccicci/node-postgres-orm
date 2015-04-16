@@ -115,8 +115,8 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("1 log lines", function() {
+			assert.equal(logs.length, 1);
 		});
 	});
 
@@ -167,6 +167,7 @@ describe("interface errors", function() {
 		});
 	});
 
+	/*
 	describe("save DB error while SELECT from sequence", function() {
 		before(function(done) {
 			t  = this;
@@ -214,6 +215,7 @@ describe("interface errors", function() {
 			assert.equal(logs.length, 1);
 		});
 	});
+	*/
 
 	describe("postSave exception", function() {
 		before(function(done) {
@@ -253,8 +255,8 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("3 log lines", function() {
-			assert.equal(logs.length, 3);
+		it("2 log lines", function() {
+			assert.equal(logs.length, 2);
 		});
 
 		it("1 record loaded", function() {
