@@ -498,7 +498,7 @@ describe("interface errors", function() {
 		});
 	});
 
-	describe("changed id", function() {
+	describe("record disappered", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
@@ -513,7 +513,7 @@ describe("interface errors", function() {
 					t.err = err;
 					if(err)
 						return done();
-					tmp.id = 10;
+					tmp.__obj.id = 10;
 					tmp.save(function(err) {
 						t.err = err;
 						done();
