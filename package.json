@@ -27,6 +27,7 @@
     "mocha-istanbul": "0.2.0"
   },
   "dependencies": {
+    "js-object-clone": "0.4.2",
     "pg": "4.0.0"
   }
 }

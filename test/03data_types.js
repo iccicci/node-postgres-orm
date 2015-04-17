@@ -200,19 +200,19 @@ describe("data types", function() {
 			db = newPgo();
 			db.model("test1", {
 				a: db.TIMESTAMP,
-				b: db.TIMESTAMP({precision: 5}),
+				b: db.TIMESTAMP(5),
 				c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
 				d: { type: db.TIMESTAMP, defaultValue: new Date("1983-10-23 16:45 UTC") },
-				e: { type: db.TIMESTAMP, insertNow: true },
+				e: { type: db.TIMESTAMP, defaultValue: db.NOW },
 			});
 			db.connect(function(err) {
 				db = newPgo();
 				db.model("test1", {
 					a: db.TIMESTAMP,
-					b: db.TIMESTAMP({precision: 5}),
+					b: db.TIMESTAMP(5),
 					c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
 					d: { type: db.TIMESTAMP, defaultValue: new Date("1976-01-23 16:45 UTC") },
-					e: { type: db.TIMESTAMP, insertNow: true },
+					e: { type: db.TIMESTAMP, defaultValue: db.NOW },
 				});
 				db.connect(function(err) {
 					t.err = err;

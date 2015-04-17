@@ -245,21 +245,4 @@ describe("exceptions", function() {
 			assert.equal(this.e.message, "Pgo.TIMESTAMP: precision must be an integer between 0 and 6");
 		});
 	});
-
-	describe("Pgo.model datetime both defaultValue and insertNow", function() {
-		before(function() {
-			try {
-				db = newPgo();
-				db.model("foo", {a: {type: db.TIMESTAMP({insertNow: true}), defaultValue: "test"}});
-			}
-			catch(e) {
-				this.e = e;
-			}
-		});
-
-		it("exception", function() {
-			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.mopdel: only one of defaultValue or insertNow can be defined for 'foo.a'");
-		});
-	});
 });

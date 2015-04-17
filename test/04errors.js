@@ -64,10 +64,10 @@ var errors = {
 	"SELECT conname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1]": -1,
 	"ALTER TABLE test2s ADD COLUMN b int4": -1,
 	"SELECT nextval('test1s_id_seq')": -1,
-	"INSERT INTO test2s (id,a,b) VALUES ($1,$2,$3)": -1,
+	"INSERT INTO test2s DEFAULT VALUES RETURNING *": -1,
 	"SELECT tableoid, * FROM test1s WHERE id = $1": -1,
 	"ALTER TABLE test1s ADD COLUMN a timestamptz(6)": -1,
-	"SELECT 'test test test'::timestamptz::character varying": -1,
+	"SELECT 'test test test'::timestamp with time zone::character varying": -1,
 };
 
 describe("errors", function() {

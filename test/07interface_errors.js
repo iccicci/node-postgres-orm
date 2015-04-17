@@ -497,4 +497,41 @@ describe("interface errors", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done + 1);
 		});
 	});
+
+	describe("changed id", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", { a: db.INT4 });
+			db.connect(function(err) {
+				t.err = err;
+				if (err)
+					return done();
+				cleanLogs();
+				var tmp = new db.models.test1();
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					tmp.id = 10;
+					tmp.save(function(err) {
+						t.err = err;
+						done();
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 1026", function() {
+			assert.equal(this.err.pgo.code, "1026");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
 });

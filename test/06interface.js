@@ -11,6 +11,7 @@ var cleanLogs = helper.cleanLogs;
 var clean     = helper.clean;
 var logs      = helper.logs;
 var newPgo    = helper.newPgo;
+var util      = require("util");
 
 describe("interface", function() {
 	describe("init, save & load", function() {
@@ -100,6 +101,7 @@ describe("interface", function() {
 				b: db.VARCHAR,
 				c: db.JSON,
 				d: db.INT4,
+				e: db.INT4,
 			}, { init: function() { this.b = "test"; } });
 			db.connect(function(err) {
 				t.err = err;
@@ -107,12 +109,14 @@ describe("interface", function() {
 					return done();
 				var tmp = new db.models.test1();
 				tmp.c = {a: "b", c: ["d", 10]};
+				tmp.e = 10;
 				tmp.save(function(err) {
 					t.err = err;
 					if(err)
 						return done();
 					cleanLogs();
 					tmp.a = 20;
+					delete tmp.e;
 					tmp.save(done);
 				});
 			});
@@ -135,7 +139,7 @@ describe("interface", function() {
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4 WHERE id = $5 RETURNING * :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4, e = $5 WHERE id = $6 RETURNING * :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,null,\"1\"]");
 		});
 	});
 
@@ -563,6 +567,85 @@ describe("interface", function() {
 
 		it("record 4", function() {
 			assert.equal(this.res[3].id, 2);
+		});
+	});
+
+	describe("defaultValue Vs init", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: { type: db.INT4, defaultValue: 10 },
+				b: db.INT4,
+				c: { type: db.TIMESTAMP, defaultValue: db.NOW },
+				d: db.TIMESTAMP,
+			}, { init: function() {
+				this.b = 12;
+				this.d = new Date();
+			} });
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				var tmp = new db.models.test1();
+				t.res1 = Object.clone(tmp, true);
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					t.res2 = tmp;
+					done();
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("1 log lines", function() {
+			assert.equal(logs.length, 1);
+		});
+
+		it("a 1", function() {
+			assert.equal(this.res1.a, undefined);
+		});
+
+		it("b 1", function() {
+			assert.equal(this.res1.b, 12);
+		});
+
+		it("c 1", function() {
+			assert.equal(this.res1.c, undefined);
+		});
+
+		it("d 1", function() {
+			assert.ok(util.isDate(this.res1.d));
+		});
+
+		it("a 2", function() {
+			assert.equal(this.res2.a, 10);
+		});
+
+		it("b 2", function() {
+			assert.equal(this.res2.b, 12);
+		});
+
+		it("c 2", function() {
+			assert.ok(util.isDate(this.res2.c));
+		});
+
+		it("d 2", function() {
+			assert.ok(this.res2.c >= this.res2.d);
 		});
 	});
 });
