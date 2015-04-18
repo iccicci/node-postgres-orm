@@ -14,7 +14,7 @@ var newPgo    = helper.newPgo;
 var util      = require("util");
 
 describe("interface", function() {
-	describe("init, save & load", function() {
+	describe("init, save, load & delete", function() {
 		before(function(done) {
 			t  = this;
 			db = newPgo();
@@ -37,7 +37,7 @@ describe("interface", function() {
 					db.load.test1({id: 1}, function(err, res) {
 						t.err = err;
 						t.res = res;
-						done();
+						res[0].del(done);
 					});
 				});
 			});
@@ -55,8 +55,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("3 log lines", function() {
+			assert.equal(logs.length, 3);
 		});
 
 		it("INSERT", function() {
@@ -65,6 +65,10 @@ describe("interface", function() {
 
 		it("SELECT", function() {
 			assert.equal(logs[1], "SELECT tableoid, * FROM test1s WHERE id = $1 :: [1]");
+		});
+
+		it("DELETE", function() {
+			assert.equal(logs[2], "DELETE FROM test1s WHERE id = $1 :: [\"1\"]");
 		});
 
 		it("1 record", function() {
@@ -143,7 +147,7 @@ describe("interface", function() {
 		});
 	});
 
-	describe("pre & post - load & save", function() {
+	describe("pre & post - delete, load & save", function() {
 		before(function(done) {
 			t  = this;
 			db = newPgo();
@@ -152,9 +156,11 @@ describe("interface", function() {
 				b: db.VARCHAR,
 				c: db.JSON,
 			}, {
-				postLoad: function() { db.log("postLoad"); },
-				postSave: function() { db.log("postSave"); },
-				preSave:  function() { db.log("preSave"); },
+				postDelete: function() { db.log("postDelete"); },
+				postLoad:   function() { db.log("postLoad"); },
+				postSave:   function() { db.log("postSave"); },
+				preDelete:  function() { db.log("preDelete"); },
+				preSave:    function() { db.log("preSave"); },
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -172,7 +178,7 @@ describe("interface", function() {
 					db.load.test1({id: 1}, function(err, res) {
 						t.err = err;
 						t.res = res;
-						done();
+						res[0].del(done);
 					});
 				});
 			});
@@ -190,8 +196,8 @@ describe("interface", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("5 log lines", function() {
-			assert.equal(logs.length, 5);
+		it("8 log lines", function() {
+			assert.equal(logs.length, 8);
 		});
 
 		it("preSave", function() {
@@ -205,6 +211,15 @@ describe("interface", function() {
 		it("postLoad", function() {
 			assert.equal(logs[4], "postLoad");
 		});
+
+		it("preDelete", function() {
+			assert.equal(logs[5], "preDelete");
+		});
+
+		it("postDelete", function() {
+			assert.equal(logs[7], "postDelete");
+		});
+
 	});
 
 	describe("models inheritance", function() {
