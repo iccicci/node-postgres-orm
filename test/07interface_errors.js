@@ -620,6 +620,39 @@ describe("interface errors", function() {
 		});
 	});
 
+	describe("begin connect error", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {});
+			db.connect(function(err) {
+				t.err = err;
+				if (err)
+					return done();
+				cleanLogs();
+				var oldDatabase = db.database;
+				db.database = "testDB";
+				db.begin(function(err) {
+					db.database = oldDatabase;
+					t.err = err;
+					done();
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.code is 28P01", function() {
+			assert.equal(this.err.code, "28P01");
+		});
+
+		it("nr connect == nr done + 1", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done + 1);
+		});
+	});
+
 	describe("record disappered", function() {
 		before(function(done) {
 			t = this;
@@ -756,6 +789,314 @@ describe("interface errors", function() {
 
 		it("err.pgo.code is 1029", function() {
 			assert.equal(this.err.pgo.code, "1029");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("wrong BEGIN", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				try {
+					db.begin();
+				}
+				catch(e) {
+					t.e = e;
+					done();
+				}
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.begin: callback must be a function");
+		});
+	});
+
+	describe("wrong COMMIT", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					try {
+						tx.commit();
+					}
+					catch(e) {
+						t.e = e;
+						tx.rollback(done);
+					}
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Transaction.commit: callback must be a function");
+		});
+	});
+
+	describe("wrong ROLLBACK", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					try {
+						tx.rollback();
+					}
+					catch(e) {
+						t.e = e;
+						tx.rollback(done);
+					}
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Transaction.rollback: callback must be a function");
+		});
+	});
+
+	describe("new Record with a closed transaction", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					tx.rollback(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						try {
+							var tmp = new db.models.test1(tx);
+						}
+						catch(e) {
+							t.e = e;
+							done();
+						}
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Record: Can't create a new one within an already closed Transaction");
+		});
+	});
+
+	describe("load with a closed transaction", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					tx.rollback(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						tx.load.test1({id: 1}, function(err, res) {
+							t.err = err;
+							done();
+						});
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 1030", function() {
+			assert.equal(this.err.pgo.code, "1030");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("COMMIT with a closed transaction", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					tx.rollback(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						tx.commit(function(err, res) {
+							t.err = err;
+							done();
+						});
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 1031", function() {
+			assert.equal(this.err.pgo.code, "1031");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("ROLLBACK with a closed transaction", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+				b: db.VARCHAR,
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					tx.rollback(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						tx.rollback(function(err, res) {
+							t.err = err;
+							done();
+						});
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err.pgo.code is 1032", function() {
+			assert.equal(this.err.pgo.code, "1032");
 		});
 
 		it("nr connect == nr done", function() {

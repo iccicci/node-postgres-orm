@@ -60,7 +60,7 @@ describe("interface", function() {
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[0], "INSERT INTO test1s (b,c) VALUES ($1,$2) RETURNING * :: [\"test\",{\"a\":\"b\",\"c\":[\"d\",10]}]");
+			assert.equal(logs[0], "INSERT INTO test1s (b,c) VALUES ($1,$2) :: [\"test\",{\"a\":\"b\",\"c\":[\"d\",10]}]");
 		});
 
 		it("SELECT", function() {
@@ -143,7 +143,7 @@ describe("interface", function() {
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4, e = $5 WHERE id = $6 RETURNING * :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4, e = $5 WHERE id = $6 :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,null,\"1\"]");
 		});
 	});
 
@@ -285,7 +285,7 @@ describe("interface", function() {
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[2], "INSERT INTO test2s DEFAULT VALUES RETURNING * :: []");
+			assert.equal(logs[2], "INSERT INTO test2s DEFAULT VALUES :: []");
 		});
 
 		it("postSave1", function() {
@@ -396,7 +396,7 @@ describe("interface", function() {
 		});
 
 		it("INSERT", function() {
-			assert.equal(logs[3], "INSERT INTO test3s (c) VALUES ($1) RETURNING * :: [8]");
+			assert.equal(logs[3], "INSERT INTO test3s (c) VALUES ($1) :: [8]");
 		});
 
 		it("postSave1 1", function() {

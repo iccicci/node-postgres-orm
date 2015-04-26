@@ -42,6 +42,7 @@ var errors = {
 
 	// post sync errors
 	"SELECT tableoid, * FROM test2s WHERE id IN ($1)": -2,
+	"BEGIN": -3,
 
 	// not related to tests
 	"SELECT conname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1] AND (contype <> $2 or attname <> $3) AND (contype <> $4 or attname <> $5)": -1,
@@ -893,6 +894,36 @@ describe("errors", function() {
 
 		it("err.pgo.code is 1025", function() {
 			assert.equal(this.err.pgo.code, 1025);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("begin error", function() {
+		before(function(done) {
+			t  = this;
+			db = newPgo();
+			er = -3;
+			db.model("test1", { a: db.INT4, });
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				db.begin(function(err, tx) {
+					t.err = err;
+					done();
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is test", function() {
+			assert.equal(this.err.code, "test");
 		});
 
 		it("nr connect == nr done", function() {

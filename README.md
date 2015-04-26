@@ -2,7 +2,7 @@
 
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
-PostgreSQL dedicated ORM for node.js with automatic schema sync.
+PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
 This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
 To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database
@@ -59,6 +59,7 @@ db.connect(function(err) {
 On db creation:
 
 ```
+Pgo: CREATE SEQUENCE foos_id_seq
 Pgo: CREATE TABLE foos ()
 Pgo: ALTER TABLE foos ADD COLUMN id int8
 Pgo: UPDATE foos SET id = nextval('foos_id_seq'::regclass) WHERE id IS NULL
@@ -67,6 +68,7 @@ Pgo: ALTER TABLE foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclas
 Pgo: ALTER TABLE foos ADD COLUMN bar int4
 Pgo: ALTER TABLE foos ADD COLUMN baz varchar(20)
 Pgo: ALTER TABLE foos ADD CONSTRAINT foo_id_unique UNIQUE(id)
+Pgo: CREATE SEQUENCE bars_id_seq
 Pgo: CREATE TABLE bars ()
 Pgo: ALTER TABLE bars ADD COLUMN id int8
 Pgo: UPDATE bars SET id = nextval('bars_id_seq'::regclass) WHERE id IS NULL
@@ -116,6 +118,15 @@ This is the way to check data integrity or consistency errors, database connecti
 ## Requirements
 
 * PostgreSQL 9.x.x
+
+## Testing
+
+To test this package is strongly required the acces to a __PosgtreSQL__ database. The connection string should
+be specified in the _evironment variable_ __PGO_TEST_DB__.
+
+```
+$ PGO_TEST_DB="postgres://user:password@host/databse" npm test
+```
 
 ## Bug report
 
