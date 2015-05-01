@@ -62,6 +62,72 @@ describe("transactions", function() {
 		clean(db, done);
 	});
 
+	describe("ROLLBACK on INSERT", function() {
+		before(function(done) {
+			t = this;
+			db.load.test1({a: 3}, function(err, res) {
+				t.err = err;
+				if(err)
+					return done();
+				t.res1 = res;
+				db.begin(function(err, tx) {
+					t.err = err;
+					if(err)
+						return done();
+					var tmp = new db.models.test1(tx);
+					tmp.a = 3;
+					tmp.save(function(err) {
+						t.err = err;
+						if(err)
+							return done();
+						db.load.test1({a: 3}, function(err, res) {
+							t.err = err;
+							if(err)
+								return done();
+							t.res2 = res;
+							tx.load.test1({a: 3}, function(err, res) {
+								t.err = err;
+								if(err)
+									return done();
+								t.res3 = res;
+								tx.rollback(function(err) {
+									t.err = err;
+									if(err)
+										return done();
+									db.load.test1({a: 3}, function(err, res) {
+										t.err = err;
+										t.res4 = res;
+										done();
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("beginning", function() {
+			assert.equal(this.res1.length, 0);
+		});
+
+		it("after insert", function() {
+			assert.equal(this.res2.length, 0);
+		});
+
+		it("after insert in tx", function() {
+			assert.equal(this.res3[0].a, 3);
+		});
+
+		it("after rollback", function() {
+			assert.equal(this.res4.length, 0);
+		});
+	});
+
 	describe("ROLLBACK on UPDATE", function() {
 		before(function(done) {
 			t = this;
