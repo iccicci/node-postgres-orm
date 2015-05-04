@@ -125,7 +125,7 @@ To test this package is strongly required the acces to a __PosgtreSQL__ database
 be specified in the _evironment variable_ __PGO_TEST_DB__.
 
 ```
-$ PGO_TEST_DB="postgres://user:password@host/databse" npm test
+$ PGO_TEST_DB="postgres://user:password@host/database" npm test
 ```
 
 ## Bug report
