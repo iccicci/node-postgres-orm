@@ -5,21 +5,23 @@ var assert = require("assert");
 var db;
 var t;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
 
 describe("schema sync", function() {
 	before(function(done) {
 		db = newPgo();
-		db.connect(function() { clean(db, done); });
+		db.connect(function() {
+			clean(db, done);
+		});
 	});
 
 	describe("CREATE TABLE", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function(err) {
@@ -73,9 +75,49 @@ describe("schema sync", function() {
 		});
 	});
 
+	describe("CREATE TABLE noId", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4
+			}, {
+				noId: true
+			});
+			db.connect(function(err) {
+				t.err = err;
+				done();
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("2 log lines", function() {
+			assert.equal(logs.length, 2);
+		});
+
+		it("CREATE TABLE test1s ()", function() {
+			assert.equal(logs[0], "CREATE TABLE test1s ()");
+		});
+
+		it("ALTER TABLE test1s ADD COLUMN id int8", function() {
+			assert.equal(logs[1], "ALTER TABLE test1s ADD COLUMN a int4");
+		});
+	});
+
 	describe("CREATE TABLE already exists", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function() {
@@ -108,7 +150,7 @@ describe("schema sync", function() {
 
 	describe("DROP & CREATE TABLE add parent", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.model("test2", {});
@@ -116,7 +158,9 @@ describe("schema sync", function() {
 				cleanLogs();
 				db = newPgo();
 				db.model("test1", {});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -151,10 +195,12 @@ describe("schema sync", function() {
 
 	describe("DROP & CREATE TABLE remove parent", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
-			db.model("test2", {}, {parent: "test1"});
+			db.model("test2", {}, {
+				parent: "test1"
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
@@ -186,9 +232,11 @@ describe("schema sync", function() {
 
 	describe("ADD COLUMN", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: db.INT4});
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
 				done();
@@ -218,9 +266,11 @@ describe("schema sync", function() {
 
 	describe("DROP COLUMN", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: db.INT4});
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
@@ -255,9 +305,14 @@ describe("schema sync", function() {
 
 	describe("NULL CONSTRAINT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: {type: db.INT4, notNull: true}});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					notNull: true
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				done();
@@ -287,13 +342,20 @@ describe("schema sync", function() {
 
 	describe("DROP NULL CONSTRAINT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: {type: db.INT4, notNull: true}});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					notNull: true
+				}
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT4});
+				db.model("test1", {
+					a: db.INT4
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -324,13 +386,20 @@ describe("schema sync", function() {
 
 	describe("DROP DEFAULT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: {type: db.INT4, defaultValue: 8}});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					defaultValue: 8
+				}
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT4});
+				db.model("test1", {
+					a: db.INT4
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -365,9 +434,14 @@ describe("schema sync", function() {
 
 	describe("UNIQUE CONSTRAINT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: {type: db.INT4, unique: true}});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					unique: true
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				done();
@@ -397,13 +471,20 @@ describe("schema sync", function() {
 
 	describe("DROP UNIQUE CONSTRAINT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: {type: db.INT4, unique: true}});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					unique: true
+				}
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT4});
+				db.model("test1", {
+					a: db.INT4
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -434,10 +515,12 @@ describe("schema sync", function() {
 
 	describe("FOREING KEY", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
-			db.model("test2", {a: db.FKEY("test1")});
+			db.model("test2", {
+				a: db.FKEY("test1")
+			});
 			db.connect(function(err) {
 				t.err = err;
 				done();
@@ -471,15 +554,19 @@ describe("schema sync", function() {
 
 	describe("DROP FOREING KEY", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
-			db.model("test2", {a: db.FKEY("test1")});
+			db.model("test2", {
+				a: db.FKEY("test1")
+			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
 				db.model("test1", {});
-				db.model("test2", {a: db.INT8});
+				db.model("test2", {
+					a: db.INT8
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -514,11 +601,17 @@ describe("schema sync", function() {
 
 	describe("CREATE INDEX", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
-				b: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
+				b: {
+					type: db.INT4,
+					unique: true
+				},
 				c: db.INT4
 			}, {
 				index: [
@@ -527,8 +620,16 @@ describe("schema sync", function() {
 						type: "hash"
 					},
 					"b",
-					{fields: ["a", "b"]},
-					["a", "c"]
+					{
+						fields: [
+							"a",
+							"b"
+						]
+					},
+					[
+						"a",
+						"c"
+					]
 				]
 			});
 			db.connect(function(err) {
@@ -568,11 +669,17 @@ describe("schema sync", function() {
 
 	describe("DROP INDEX", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
-				b: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
+				b: {
+					type: db.INT4,
+					unique: true
+				},
 				c: db.INT4
 			}, {
 				index: [
@@ -581,22 +688,39 @@ describe("schema sync", function() {
 						type: "hash"
 					},
 					"b",
-					{fields: ["a", "b"]},
-					["a", "c"]
+					{
+						fields: [
+							"a",
+							"b"
+						]
+					},
+					[
+						"a",
+						"c"
+					]
 				]
 			});
 			db.connect(function() {
 				cleanLogs();
 				db = newPgo();
 				db.model("test1", {
-					a: {type: db.INT4, unique: true},
-					b: {type: db.INT4, unique: true},
+					a: {
+						type: db.INT4,
+						unique: true
+					},
+					b: {
+						type: db.INT4,
+						unique: true
+					},
 					c: db.INT4
 				}, {
 					index: [
 						"a",
 						"b",
-						["a", "c"]
+						[
+							"a",
+							"c"
+						]
 					]
 				});
 				db.connect(function(err) {

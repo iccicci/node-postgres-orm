@@ -5,11 +5,11 @@ var assert = require("assert");
 var db;
 var t;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
 
 describe("exceptions", function() {
 	describe("double model", function() {
@@ -32,7 +32,7 @@ describe("exceptions", function() {
 
 	describe("model after connect", function() {
 		before(function(done) {
-			t   = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function(err) {
@@ -61,7 +61,9 @@ describe("exceptions", function() {
 			try {
 				db = newPgo();
 				db.model("foo", {});
-				db.model("bar", {}, {parent: "baz"});
+				db.model("bar", {}, {
+					parent: "baz"
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -79,7 +81,9 @@ describe("exceptions", function() {
 			try {
 				db = newPgo();
 				db.model("foo", {});
-				db.model("bar", {a: db.FKEY("baz")});
+				db.model("bar", {
+					a: db.FKEY("baz")
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -97,7 +101,9 @@ describe("exceptions", function() {
 			try {
 				db = newPgo();
 				db.model("foo", {});
-				db.model("bar", {a: db.FKEY("foo", "a")});
+				db.model("bar", {
+					a: db.FKEY("foo", "a")
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -114,7 +120,9 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: "undefined type"});
+				db.model("foo", {
+					a: "undefined type"
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -131,7 +139,9 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: undefined});
+				db.model("foo", {
+					a: undefined
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -148,7 +158,9 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: db.VARCHAR("test")});
+				db.model("foo", {
+					a: db.VARCHAR("test")
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -165,7 +177,9 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: db.VARCHAR(-12)});
+				db.model("foo", {
+					a: db.VARCHAR(-12)
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -199,7 +213,9 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: db.VARCHAR(12)}, "test");
+				db.model("foo", {
+					a: db.VARCHAR(12)
+				}, "test");
 			}
 			catch(e) {
 				this.e = e;
@@ -216,7 +232,13 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: db.VARCHAR(12)}, { index: ["a", {}] });
+				db.model("foo", {
+					a: db.VARCHAR(12)
+				}, {
+					index: [
+						"a",
+						{}]
+				});
 			}
 			catch(e) {
 				this.e = e;
@@ -233,7 +255,11 @@ describe("exceptions", function() {
 		before(function() {
 			try {
 				db = newPgo();
-				db.model("foo", {a: db.TIMESTAMP({precision: 12})});
+				db.model("foo", {
+					a: db.TIMESTAMP({
+						precision: 12
+					})
+				});
 			}
 			catch(e) {
 				this.e = e;

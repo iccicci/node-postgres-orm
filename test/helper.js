@@ -2,8 +2,8 @@
 "use strict";
 
 var logs = [];
-var pg   = require("pg");
-var pgo  = require("../lib/pgo");
+var pg = require("pg");
+var pgo = require("../lib/pgo");
 var pgoc = {};
 
 if(! process.env.PGO_TEST_DB)
@@ -11,7 +11,7 @@ if(! process.env.PGO_TEST_DB)
 
 function cleanCounter() {
 	pgoc.connect = 0;
-	pgoc.done    = 0;
+	pgoc.done = 0;
 }
 
 cleanCounter();
@@ -51,7 +51,9 @@ function clean(db, callback) {
 }
 
 function newPgo() {
-	var newpgo = new pgo(process.env.PGO_TEST_DB, function(msg) { logs.push(msg); });
+	var newpgo = new pgo(process.env.PGO_TEST_DB, function(msg) {
+		logs.push(msg);
+	});
 
 	newpgo.pgoCounter = pgoc;
 
@@ -72,11 +74,11 @@ pg.connect = function(db, cbk) {
 };
 
 module.exports = {
-	clean:        clean,
+	clean: clean,
 	cleanCounter: cleanCounter,
-	cleanLogs:    cleanLogs,
-	logs:         logs,
-	newPgo:       newPgo,
-	pgo:          pgo,
-	pgoc:         pgoc,
+	cleanLogs: cleanLogs,
+	logs: logs,
+	newPgo: newPgo,
+	pgo: pgo,
+	pgoc: pgoc,
 };

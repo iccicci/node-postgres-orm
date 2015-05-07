@@ -6,35 +6,50 @@ var db;
 var t;
 var tmp;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
-var util      = require("util");
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
+var util = require("util");
 
 describe("interface", function() {
 	describe("init, save, load & delete", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.VARCHAR,
 				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
+			}, {
+				init: function() {
+					this.b = "test";
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
 					return done();
 				cleanLogs();
 				var tmp = new db.models.test1();
-				tmp.c = {a: "b", c: ["d", 10]};
+				tmp.c = {
+					a: "b",
+					c: [
+						"d",
+						10
+					]
+				};
 				tmp.save(function(err) {
 					t.err = err;
 					if(err)
 						return done();
-					db.load.test1({id: 1}, function(err, res) {
+					db.load.test1({
+						id: 1
+					}, function(err, res) {
 						t.err = err;
 						t.res = res;
 						res[0].del(done);
@@ -98,21 +113,34 @@ describe("interface", function() {
 
 	describe("modify", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.VARCHAR,
 				c: db.JSON,
 				d: db.INT4,
 				e: db.INT4,
-			}, { init: function() { this.b = "test"; } });
+			}, {
+				init: function() {
+					this.b = "test";
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
 					return done();
 				var tmp = new db.models.test1();
-				tmp.c = {a: "b", c: ["d", 10]};
+				tmp.c = {
+					a: "b",
+					c: [
+						"d",
+						10
+					]
+				};
 				tmp.e = 10;
 				tmp.save(function(err) {
 					t.err = err;
@@ -149,18 +177,28 @@ describe("interface", function() {
 
 	describe("pre & post - delete, load & save", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
 				b: db.VARCHAR,
 				c: db.JSON,
 			}, {
-				postDelete: function() { db.log("postDelete"); },
-				postLoad:   function() { db.log("postLoad"); },
-				postSave:   function() { db.log("postSave"); },
-				preDelete:  function() { db.log("preDelete"); },
-				preSave:    function() { db.log("preSave"); },
+				postDelete: function() {
+					db.log("postDelete");
+				},
+				postLoad: function() {
+					db.log("postLoad");
+				},
+				postSave: function() {
+					db.log("postSave");
+				},
+				preDelete: function() {
+					db.log("preDelete");
+				},
+				preSave: function() {
+					db.log("preSave");
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -170,12 +208,20 @@ describe("interface", function() {
 				var tmp = new db.models.test1();
 				tmp.a = 10;
 				tmp.b = "test";
-				tmp.c = {a: "b", c: ["d", 10]};
+				tmp.c = {
+					a: "b",
+					c: [
+						"d",
+						10
+					]
+				};
 				tmp.save(function(err) {
 					t.err = err;
 					if(err)
 						return done();
-					db.load.test1({id: 1}, function(err, res) {
+					db.load.test1({
+						id: 1
+					}, function(err, res) {
 						t.err = err;
 						t.res = res;
 						res[0].del(done);
@@ -224,22 +270,34 @@ describe("interface", function() {
 
 	describe("models inheritance", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
 			}, {
-				postLoad: function() { db.log("postLoad1"); },
-				postSave: function() { db.log("postSave1"); },
-				preSave:  function() { db.log("preSave1"); },
+				postLoad: function() {
+					db.log("postLoad1");
+				},
+				postSave: function() {
+					db.log("postSave1");
+				},
+				preSave: function() {
+					db.log("preSave1");
+				},
 			});
 			db.model("test2", {
 				b: db.INT4,
 			}, {
-				parent:   "test1",
-				postLoad: function() { db.log("postLoad2"); },
-				postSave: function() { db.log("postSave2"); },
-				preSave:  function() { db.log("preSave2"); },
+				parent: "test1",
+				postLoad: function() {
+					db.log("postLoad2");
+				},
+				postSave: function() {
+					db.log("postSave2");
+				},
+				preSave: function() {
+					db.log("preSave2");
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -251,7 +309,9 @@ describe("interface", function() {
 					t.err = err;
 					if(err)
 						return done();
-					db.load.test2({id: 1}, function(err, res) {
+					db.load.test2({
+						id: 1
+					}, function(err, res) {
 						t.err = err;
 						t.res = res;
 						done();
@@ -307,30 +367,48 @@ describe("interface", function() {
 
 	describe("true model load", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
 			}, {
-				postLoad: function() { db.log("postLoad1"); },
-				postSave: function() { db.log("postSave1"); },
-				preSave:  function() { db.log("preSave1"); },
+				postLoad: function() {
+					db.log("postLoad1");
+				},
+				postSave: function() {
+					db.log("postSave1");
+				},
+				preSave: function() {
+					db.log("preSave1");
+				},
 			});
 			db.model("test2", {
 				b: db.INT4,
 			}, {
-				parent:   "test1",
-				postLoad: function() { db.log("postLoad2"); },
-				postSave: function() { db.log("postSave2"); },
-				preSave:  function() { db.log("preSave2"); },
+				parent: "test1",
+				postLoad: function() {
+					db.log("postLoad2");
+				},
+				postSave: function() {
+					db.log("postSave2");
+				},
+				preSave: function() {
+					db.log("preSave2");
+				},
 			});
 			db.model("test3", {
 				c: db.INT4,
 			}, {
-				parent:   "test2",
-				postLoad: function() { db.log("postLoad3"); },
-				postSave: function() { db.log("postSave3"); },
-				preSave:  function() { db.log("preSave3"); },
+				parent: "test2",
+				postLoad: function() {
+					db.log("postLoad3");
+				},
+				postSave: function() {
+					db.log("postSave3");
+				},
+				preSave: function() {
+					db.log("preSave3");
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -349,13 +427,28 @@ describe("interface", function() {
 						t.err = err;
 						if(err)
 							return done();
-						db.load.test1({id__in: [1,2]}, "-id", function(err, res) {
+						db.load.test1({
+							id__in: [
+								1,
+								2
+							]
+						}, "-id", function(err, res) {
 							t.err = err;
 							t.res1 = res;
-							db.load.test2({id__in: [1,2]}, "-id", function(err, res) {
+							db.load.test2({
+								id__in: [
+									1,
+									2
+								]
+							}, "-id", function(err, res) {
 								t.err = err;
 								t.res2 = res;
-								db.load.test3({id__in: [1,2]}, "-id", function(err, res) {
+								db.load.test3({
+									id__in: [
+										1,
+										2
+									]
+								}, "-id", function(err, res) {
 									t.err = err;
 									t.res3 = res;
 									done();
@@ -462,10 +555,12 @@ describe("interface", function() {
 
 	describe("foreing key", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
-			db.model("test2", {a: db.FKEY("test1")});
+			db.model("test2", {
+				a: db.FKEY("test1")
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -509,9 +604,11 @@ describe("interface", function() {
 
 	describe("order by", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {a: db.INT4});
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -540,7 +637,8 @@ describe("interface", function() {
 								t.err = err;
 								if(err)
 									return done();
-								db.load.test1({}, ["a", "-id"], function(err, res) {
+								db.load.test1({}, [
+									"a", "-id"], function(err, res) {
 									t.err = err;
 									t.res = res;
 									return done();
@@ -587,17 +685,25 @@ describe("interface", function() {
 
 	describe("defaultValue Vs init", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.INT4,
-				c: { type: db.TIMESTAMP, defaultValue: db.NOW },
+				c: {
+					type: db.TIMESTAMP,
+					defaultValue: db.NOW
+				},
 				d: db.TIMESTAMP,
-			}, { init: function() {
-				this.b = 12;
-				this.d = new Date();
-			} });
+			}, {
+				init: function() {
+					this.b = 12;
+					this.d = new Date();
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)

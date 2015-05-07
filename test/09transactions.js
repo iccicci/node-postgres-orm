@@ -7,17 +7,23 @@ var t;
 var tmp;
 var tmp2;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
 
 describe("transactions", function() {
 	before(function(done) {
 		db = newPgo();
-		db.model("test1", {a: db.INT4, b: db.VARCHAR});
-		db.model("test2", {a: db.INT4, b: db.FKEY("test1")});
+		db.model("test1", {
+			a: db.INT4,
+			b: db.VARCHAR
+		});
+		db.model("test2", {
+			a: db.INT4,
+			b: db.FKEY("test1")
+		});
 		db.connect(function(err) {
 			if(err)
 				return done();
@@ -65,7 +71,9 @@ describe("transactions", function() {
 	describe("ROLLBACK on INSERT", function() {
 		before(function(done) {
 			t = this;
-			db.load.test1({a: 3}, function(err, res) {
+			db.load.test1({
+				a: 3
+			}, function(err, res) {
 				t.err = err;
 				if(err)
 					return done();
@@ -80,12 +88,16 @@ describe("transactions", function() {
 						t.err = err;
 						if(err)
 							return done();
-						db.load.test1({a: 3}, function(err, res) {
+						db.load.test1({
+							a: 3
+						}, function(err, res) {
 							t.err = err;
 							if(err)
 								return done();
 							t.res2 = res;
-							tx.load.test1({a: 3}, function(err, res) {
+							tx.load.test1({
+								a: 3
+							}, function(err, res) {
 								t.err = err;
 								if(err)
 									return done();
@@ -94,7 +106,9 @@ describe("transactions", function() {
 									t.err = err;
 									if(err)
 										return done();
-									db.load.test1({a: 3}, function(err, res) {
+									db.load.test1({
+										a: 3
+									}, function(err, res) {
 										t.err = err;
 										t.res4 = res;
 										done();
@@ -131,7 +145,9 @@ describe("transactions", function() {
 	describe("ROLLBACK on UPDATE", function() {
 		before(function(done) {
 			t = this;
-			db.load.test1({a__eq: 1}, "id", function(err, res) {
+			db.load.test1({
+				a__eq: 1
+			}, "id", function(err, res) {
 				t.err = err;
 				if(err)
 					return done();
@@ -140,7 +156,9 @@ describe("transactions", function() {
 					t.err = err;
 					if(err)
 						return done();
-					tx.load.test1({id: t.res1[0].id}, function(err, res) {
+					tx.load.test1({
+						id: t.res1[0].id
+					}, function(err, res) {
 						t.err = err;
 						if(err)
 							return done();
@@ -149,12 +167,16 @@ describe("transactions", function() {
 							t.err = err;
 							if(err)
 								return done();
-							db.load.test1({id: t.res1[0].id}, function(err, res) {
+							db.load.test1({
+								id: t.res1[0].id
+							}, function(err, res) {
 								t.err = err;
 								if(err)
 									return done();
 								t.res2 = res;
-								tx.load.test1({id: t.res1[0].id}, function(err, res) {
+								tx.load.test1({
+									id: t.res1[0].id
+								}, function(err, res) {
 									t.err = err;
 									if(err)
 										return done();
@@ -163,7 +185,9 @@ describe("transactions", function() {
 										t.err = err;
 										if(err)
 											return done();
-										db.load.test1({id: t.res1[0].id}, function(err, res) {
+										db.load.test1({
+											id: t.res1[0].id
+										}, function(err, res) {
 											t.err = err;
 											t.res4 = res;
 											done();
@@ -201,7 +225,9 @@ describe("transactions", function() {
 	describe("ROLLBACK on DELETE", function() {
 		before(function(done) {
 			t = this;
-			db.load.test1({a__eq: 1}, "id", function(err, res) {
+			db.load.test1({
+				a__eq: 1
+			}, "id", function(err, res) {
 				t.err = err;
 				if(err)
 					return done();
@@ -210,7 +236,9 @@ describe("transactions", function() {
 					t.err = err;
 					if(err)
 						return done();
-					tx.load.test1({id: t.res1[0].id}, function(err, res) {
+					tx.load.test1({
+						id: t.res1[0].id
+					}, function(err, res) {
 						t.err = err;
 						if(err)
 							return done();
@@ -218,12 +246,16 @@ describe("transactions", function() {
 							t.err = err;
 							if(err)
 								return done();
-							db.load.test1({id: t.res1[0].id}, function(err, res) {
+							db.load.test1({
+								id: t.res1[0].id
+							}, function(err, res) {
 								t.err = err;
 								if(err)
 									return done();
 								t.res2 = res;
-								tx.load.test1({id: t.res1[0].id}, function(err, res) {
+								tx.load.test1({
+									id: t.res1[0].id
+								}, function(err, res) {
 									t.err = err;
 									if(err)
 										return done();
@@ -232,7 +264,9 @@ describe("transactions", function() {
 										t.err = err;
 										if(err)
 											return done();
-										db.load.test1({id: t.res1[0].id}, function(err, res) {
+										db.load.test1({
+											id: t.res1[0].id
+										}, function(err, res) {
 											t.err = err;
 											t.res4 = res;
 											done();
@@ -270,7 +304,9 @@ describe("transactions", function() {
 	describe("COMMIT on UPDATE", function() {
 		before(function(done) {
 			t = this;
-			db.load.test1({a__eq: 1}, "id", function(err, res) {
+			db.load.test1({
+				a__eq: 1
+			}, "id", function(err, res) {
 				t.err = err;
 				if(err)
 					return done();
@@ -279,7 +315,9 @@ describe("transactions", function() {
 					t.err = err;
 					if(err)
 						return done();
-					tx.load.test1({id: t.res1[0].id}, function(err, res) {
+					tx.load.test1({
+						id: t.res1[0].id
+					}, function(err, res) {
 						t.err = err;
 						if(err)
 							return done();
@@ -288,12 +326,16 @@ describe("transactions", function() {
 							t.err = err;
 							if(err)
 								return done();
-							db.load.test1({id: t.res1[0].id}, function(err, res) {
+							db.load.test1({
+								id: t.res1[0].id
+							}, function(err, res) {
 								t.err = err;
 								if(err)
 									return done();
 								t.res2 = res;
-								tx.load.test1({id: t.res1[0].id}, function(err, res) {
+								tx.load.test1({
+									id: t.res1[0].id
+								}, function(err, res) {
 									t.err = err;
 									if(err)
 										return done();
@@ -302,7 +344,9 @@ describe("transactions", function() {
 										t.err = err;
 										if(err)
 											return done();
-										db.load.test1({id: t.res1[0].id}, function(err, res) {
+										db.load.test1({
+											id: t.res1[0].id
+										}, function(err, res) {
 											t.err = err;
 											t.res4 = res;
 											done();
@@ -340,7 +384,9 @@ describe("transactions", function() {
 	describe("COMMIT on DELETE", function() {
 		before(function(done) {
 			t = this;
-			db.load.test1({a__eq: 1}, "id", function(err, res) {
+			db.load.test1({
+				a__eq: 1
+			}, "id", function(err, res) {
 				t.err = err;
 				if(err)
 					return done();
@@ -349,7 +395,9 @@ describe("transactions", function() {
 					t.err = err;
 					if(err)
 						return done();
-					tx.load.test1({id: t.res1[0].id}, function(err, res) {
+					tx.load.test1({
+						id: t.res1[0].id
+					}, function(err, res) {
 						t.err = err;
 						if(err)
 							return done();
@@ -357,12 +405,16 @@ describe("transactions", function() {
 							t.err = err;
 							if(err)
 								return done();
-							db.load.test1({id: t.res1[0].id}, function(err, res) {
+							db.load.test1({
+								id: t.res1[0].id
+							}, function(err, res) {
 								t.err = err;
 								if(err)
 									return done();
 								t.res2 = res;
-								tx.load.test1({id: t.res1[0].id}, function(err, res) {
+								tx.load.test1({
+									id: t.res1[0].id
+								}, function(err, res) {
 									t.err = err;
 									if(err)
 										return done();
@@ -371,7 +423,9 @@ describe("transactions", function() {
 										t.err = err;
 										if(err)
 											return done();
-										db.load.test1({id: t.res1[0].id}, function(err, res) {
+										db.load.test1({
+											id: t.res1[0].id
+										}, function(err, res) {
 											t.err = err;
 											t.res4 = res;
 											done();
@@ -436,12 +490,16 @@ describe("transactions", function() {
 									t.err = err;
 									if(err)
 										return done();
-									db.load.test1({id: t.res0[0].b}, function(err, res) {
+									db.load.test1({
+										id: t.res0[0].b
+									}, function(err, res) {
 										t.err = err;
 										if(err)
 											return done();
 										t.res2 = res;
-										tx.load.test1({id: t.res0[0].b}, function(err, res) {
+										tx.load.test1({
+											id: t.res0[0].b
+										}, function(err, res) {
 											t.err = err;
 											if(err)
 												return done();
@@ -450,7 +508,9 @@ describe("transactions", function() {
 												t.err = err;
 												if(err)
 													return done();
-												db.load.test1({id: t.res0[0].b}, function(err, res) {
+												db.load.test1({
+													id: t.res0[0].b
+												}, function(err, res) {
 													t.err = err;
 													t.res4 = res;
 													done();
@@ -495,7 +555,9 @@ describe("transactions", function() {
 				t.err = err;
 				if(err)
 					return done();
-				tx.lock.test1({id: 2}, function(err, res) {
+				tx.lock.test1({
+					id: 2
+				}, function(err, res) {
 					t.err = err;
 					if(err)
 						return done();
@@ -503,7 +565,9 @@ describe("transactions", function() {
 						t.err = err;
 						if(err)
 							return done();
-						tx.lock.test1({id: 2}, function(err, res) {
+						tx.lock.test1({
+							id: 2
+						}, function(err, res) {
 							t.steps.push("selected");
 							setTimeout(tx.rollback.bind(tx, done), 50);
 						});

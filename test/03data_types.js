@@ -5,16 +5,16 @@ var assert = require("assert");
 var db;
 var t;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
 
 describe("data types", function() {
 	describe("types", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT2,
@@ -23,8 +23,12 @@ describe("data types", function() {
 				d: db.VARCHAR,
 				e: db.VARCHAR(20),
 				f: db.JSON,
-				g: { type: db.VARCHAR },
-				h: { type: db.VARCHAR(10) },
+				g: {
+					type: db.VARCHAR
+				},
+				h: {
+					type: db.VARCHAR(10)
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -83,12 +87,24 @@ describe("data types", function() {
 
 	describe("default values", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4,    defaultValue: 3 },
-				b: { type: db.VARCHAR, defaultValue: "a" },
-				c: { type: db.JSON,    defaultValue: {a: 3, b: "a"} },
+				a: {
+					type: db.INT4,
+					defaultValue: 3
+				},
+				b: {
+					type: db.VARCHAR,
+					defaultValue: "a"
+				},
+				c: {
+					type: db.JSON,
+					defaultValue: {
+						a: 3,
+						b: "a"
+					}
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -131,7 +147,7 @@ describe("data types", function() {
 
 	describe("change", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -196,23 +212,41 @@ describe("data types", function() {
 
 	describe("timestamp", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.TIMESTAMP,
 				b: db.TIMESTAMP(5),
-				c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
-				d: { type: db.TIMESTAMP, defaultValue: new Date("1983-10-23 16:45 UTC") },
-				e: { type: db.TIMESTAMP, defaultValue: db.NOW },
+				c: {
+					type: db.TIMESTAMP,
+					defaultValue: "1976-01-23 16:45 UTC"
+				},
+				d: {
+					type: db.TIMESTAMP,
+					defaultValue: new Date("1983-10-23 16:45 UTC")
+				},
+				e: {
+					type: db.TIMESTAMP,
+					defaultValue: db.NOW
+				},
 			});
 			db.connect(function(err) {
 				db = newPgo();
 				db.model("test1", {
 					a: db.TIMESTAMP,
 					b: db.TIMESTAMP(5),
-					c: { type: db.TIMESTAMP, defaultValue: "1976-01-23 16:45 UTC" },
-					d: { type: db.TIMESTAMP, defaultValue: new Date("1976-01-23 16:45 UTC") },
-					e: { type: db.TIMESTAMP, defaultValue: db.NOW },
+					c: {
+						type: db.TIMESTAMP,
+						defaultValue: "1976-01-23 16:45 UTC"
+					},
+					d: {
+						type: db.TIMESTAMP,
+						defaultValue: new Date("1976-01-23 16:45 UTC")
+					},
+					e: {
+						type: db.TIMESTAMP,
+						defaultValue: db.NOW
+					},
 				});
 				db.connect(function(err) {
 					t.err = err;

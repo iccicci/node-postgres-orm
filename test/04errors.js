@@ -82,14 +82,16 @@ describe("errors", function() {
 				};
 
 				client.query = function(q, p, c) {
-					if (!errors[q])
+					if(! errors[q])
 						console.log(q);
 
-					if (er == 1001 && errors[q] == 1002)
+					if(er == 1001 && errors[q] == 1002)
 						return c(null, true);
 
-					if (errors[q] == er)
-						return c({code: "test"}, null);
+					if(errors[q] == er)
+						return c({
+							code: "test"
+						}, null);
 
 					oldQuery.call(client, q, p, c);
 				};
@@ -105,10 +107,16 @@ describe("errors", function() {
 
 	describe("2", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
-			db.model("test2", { a: db.INT2 }, {parent: "test1"});
+			db.model("test1", {
+				a: db.INT4
+			});
+			db.model("test2", {
+				a: db.INT2
+			}, {
+				parent: "test1"
+			});
 			db.connect(function(err) {
 				t.err = err;
 				done();
@@ -194,17 +202,23 @@ describe("errors", function() {
 				},
 				b: db.INT4,
 			}, {
-				index: [ "a" ]
+				index: [
+					"a"
+				]
 			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -306,18 +320,29 @@ describe("errors", function() {
 			er = 1007;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, {index: ["b"]});
+			}, {
+				index: [
+					"b"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -440,13 +465,20 @@ describe("errors", function() {
 
 	describe("1012", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			er = 1012;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, { index: ["a"] });
+			}, {
+				index: [
+					"a"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
@@ -454,8 +486,12 @@ describe("errors", function() {
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -507,18 +543,29 @@ describe("errors", function() {
 			er = 1014;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, {index: [ "a" ]});
+			}, {
+				index: [
+					"a"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -545,18 +592,29 @@ describe("errors", function() {
 			er = 1015;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, {index: ["b"]});
+			}, {
+				index: [
+					"b"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -583,18 +641,29 @@ describe("errors", function() {
 			er = 1016;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, {index: ["b"]});
+			}, {
+				index: [
+					"b"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					er = -2;
 					t.err = err;
@@ -797,18 +866,29 @@ describe("errors", function() {
 			er = 1024;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.INT4, unique: true},
+				a: {
+					type: db.INT4,
+					unique: true
+				},
 				b: db.INT4,
-			}, {index: ["a"]});
+			}, {
+				index: [
+					"a"
+				]
+			});
 			db.model("test2", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				db = newPgo();
-				db.model("test1", {a: db.INT2});
-				db.model("test2", {}, {parent: "test1"});
+				db.model("test1", {
+					a: db.INT2
+				});
+				db.model("test2", {}, {
+					parent: "test1"
+				});
 				db.connect(function(err) {
 					t.err = err;
 					done();
@@ -831,7 +911,7 @@ describe("errors", function() {
 
 	describe("inheritance true load error", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			er = -2;
 			db.model("test1", {
@@ -840,7 +920,7 @@ describe("errors", function() {
 			db.model("test2", {
 				b: db.INT4,
 			}, {
-				parent:   "test1",
+				parent: "test1",
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -852,7 +932,9 @@ describe("errors", function() {
 					t.err = err;
 					if(err)
 						return done();
-					db.load.test1({id: 1}, function(err, res) {
+					db.load.test1({
+						id: 1
+					}, function(err, res) {
 						t.err = err;
 						t.res = res;
 						done();
@@ -880,7 +962,10 @@ describe("errors", function() {
 			er = 1025;
 			db = newPgo();
 			db.model("test1", {
-				a: {type: db.TIMESTAMP, defaultValue: "test test test"},
+				a: {
+					type: db.TIMESTAMP,
+					defaultValue: "test test test"
+				},
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -903,10 +988,12 @@ describe("errors", function() {
 
 	describe("begin error", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			er = -3;
-			db.model("test1", { a: db.INT4, });
+			db.model("test1", {
+				a: db.INT4,
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)

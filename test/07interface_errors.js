@@ -6,19 +6,25 @@ var db;
 var t;
 var tmp;
 
-var helper    = require("./helper");
+var helper = require("./helper");
 var cleanLogs = helper.cleanLogs;
-var clean     = helper.clean;
-var logs      = helper.logs;
-var newPgo    = helper.newPgo;
+var clean = helper.clean;
+var logs = helper.logs;
+var newPgo = helper.newPgo;
 
 describe("interface errors", function() {
 	describe("preSave exception", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {}, { preSave: function() { throw new Error("test Error"); } });
-			db.model("test2", {}, { parent: "test1" });
+			db.model("test1", {}, {
+				preSave: function() {
+					throw new Error("test Error");
+				}
+			});
+			db.model("test2", {}, {
+				parent: "test1"
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -51,10 +57,16 @@ describe("interface errors", function() {
 
 	describe("preDelete exception", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {}, { preDelete: function() { throw new Error("test Error"); } });
-			db.model("test2", {}, { parent: "test1" });
+			db.model("test1", {}, {
+				preDelete: function() {
+					throw new Error("test Error");
+				}
+			});
+			db.model("test2", {}, {
+				parent: "test1"
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -92,9 +104,14 @@ describe("interface errors", function() {
 
 	describe("save DB error", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", { a: { type: db.INT4, notNull: true }});
+			db.model("test1", {
+				a: {
+					type: db.INT4,
+					notNull: true
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -127,9 +144,11 @@ describe("interface errors", function() {
 
 	describe("delete DB error", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -168,7 +187,7 @@ describe("interface errors", function() {
 
 	describe("load DB error", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function(err) {
@@ -186,7 +205,9 @@ describe("interface errors", function() {
 							pgdone();
 							return done();
 						}
-						db.load.test1({id: 1}, function(err) {
+						db.load.test1({
+							id: 1
+						}, function(err) {
 							t.err = err;
 							pgdone();
 							done();
@@ -215,9 +236,13 @@ describe("interface errors", function() {
 
 	describe("postSave exception", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {}, { postSave: function() { throw new Error("test Error"); } });
+			db.model("test1", {}, {
+				postSave: function() {
+					throw new Error("test Error");
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -226,9 +251,11 @@ describe("interface errors", function() {
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
 					t.err = err;
-					db.load.test1({id: 1}, function(err, res) {
+					db.load.test1({
+						id: 1
+					}, function(err, res) {
 						t.err2 = err;
-						t.res  = res;
+						t.res = res;
 						done();
 					});
 				});
@@ -266,9 +293,13 @@ describe("interface errors", function() {
 
 	describe("postDelete exception", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {}, { postDelete: function() { throw new Error("test Error"); } });
+			db.model("test1", {}, {
+				postDelete: function() {
+					throw new Error("test Error");
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -310,9 +341,13 @@ describe("interface errors", function() {
 
 	describe("postLoad exception", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
-			db.model("test1", {}, { postLoad: function() { throw new Error("test Error"); } });
+			db.model("test1", {}, {
+				postLoad: function() {
+					throw new Error("test Error");
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -323,7 +358,9 @@ describe("interface errors", function() {
 					if(err)
 						return done();
 					cleanLogs();
-					db.load.test1({id: 1}, function(err, res) {
+					db.load.test1({
+						id: 1
+					}, function(err, res) {
 						t.err = err;
 						done();
 					});
@@ -350,13 +387,20 @@ describe("interface errors", function() {
 
 	describe("strange save", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.VARCHAR,
 				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
+			}, {
+				init: function() {
+					this.b = "test";
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -393,20 +437,29 @@ describe("interface errors", function() {
 
 	describe("strange load", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.VARCHAR,
 				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
+			}, {
+				init: function() {
+					this.b = "test";
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
 					return done();
 				cleanLogs();
 				try {
-					db.load.test1({id:1});
+					db.load.test1({
+						id: 1
+					});
 				}
 				catch(e) {
 					t.e = e;
@@ -435,13 +488,20 @@ describe("interface errors", function() {
 
 	describe("strange delete", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: { type: db.INT4, defaultValue: 10 },
+				a: {
+					type: db.INT4,
+					defaultValue: 10
+				},
 				b: db.VARCHAR,
 				c: db.JSON,
-			}, { init: function() { this.b = "test"; } });
+			}, {
+				init: function() {
+					this.b = "test";
+				}
+			});
 			db.connect(function(err) {
 				t.err = err;
 				if(err)
@@ -478,7 +538,7 @@ describe("interface errors", function() {
 
 	describe("wrong where", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function(err) {
@@ -521,7 +581,7 @@ describe("interface errors", function() {
 			db.model("test1", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
@@ -555,13 +615,13 @@ describe("interface errors", function() {
 			db.model("test1", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
 					t.err = err;
-					if (err)
+					if(err)
 						return done();
 					var oldDatabase = db.database;
 					db.database = "testDB";
@@ -594,12 +654,14 @@ describe("interface errors", function() {
 			db.model("test1", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
 				db.database = "testDB";
-				db.load.test1({id: 1}, function(err) {
+				db.load.test1({
+					id: 1
+				}, function(err) {
 					db.database = oldDatabase;
 					t.err = err;
 					done();
@@ -627,7 +689,7 @@ describe("interface errors", function() {
 			db.model("test1", {});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
@@ -657,10 +719,12 @@ describe("interface errors", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				cleanLogs();
 				var tmp = new db.models.test1();
@@ -694,10 +758,12 @@ describe("interface errors", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
@@ -732,10 +798,12 @@ describe("interface errors", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
@@ -770,10 +838,12 @@ describe("interface errors", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
-			db.model("test1", { a: db.INT4 });
+			db.model("test1", {
+				a: db.INT4
+			});
 			db.connect(function(err) {
 				t.err = err;
-				if (err)
+				if(err)
 					return done();
 				var tmp = new db.models.test1();
 				tmp.del(function(err) {
@@ -798,7 +868,7 @@ describe("interface errors", function() {
 
 	describe("wrong BEGIN", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -838,7 +908,7 @@ describe("interface errors", function() {
 
 	describe("wrong COMMIT", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -883,7 +953,7 @@ describe("interface errors", function() {
 
 	describe("wrong ROLLBACK", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -928,7 +998,7 @@ describe("interface errors", function() {
 
 	describe("new Record with a closed transaction", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -979,7 +1049,7 @@ describe("interface errors", function() {
 
 	describe("load with a closed transaction", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -998,7 +1068,9 @@ describe("interface errors", function() {
 						t.err = err;
 						if(err)
 							return done();
-						tx.load.test1({id: 1}, function(err, res) {
+						tx.load.test1({
+							id: 1
+						}, function(err, res) {
 							t.err = err;
 							done();
 						});
@@ -1022,7 +1094,7 @@ describe("interface errors", function() {
 
 	describe("COMMIT with a closed transaction", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,
@@ -1064,7 +1136,7 @@ describe("interface errors", function() {
 
 	describe("ROLLBACK with a closed transaction", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4,

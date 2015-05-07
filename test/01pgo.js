@@ -11,7 +11,7 @@ var newPgo = helper.newPgo;
 describe("pgo", function() {
 	describe("correct connect", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.connect(function(err) {
 				t.err = err;
@@ -38,7 +38,7 @@ describe("pgo", function() {
 
 	describe("wrong connect", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = new helper.pgo("wrong db string");
 			db.connect(function(err) {
 				t.err = err;
@@ -68,9 +68,11 @@ describe("pgo", function() {
 		var testLog;
 
 		before(function() {
-			oldLog      = console.log;
-			console.log = function(msg) { testLog = msg; };
-			db          = new helper.pgo(process.env.PGO_TEST_DB);
+			oldLog = console.log;
+			console.log = function(msg) {
+				testLog = msg;
+			};
+			db = new helper.pgo(process.env.PGO_TEST_DB);
 
 			db.log("test message");
 
@@ -88,7 +90,7 @@ describe("pgo", function() {
 
 	describe("mock", function() {
 		before(function(done) {
-			t  = this;
+			t = this;
 			db = newPgo();
 			db.connect(function(err) {
 				if(err) {
@@ -97,7 +99,7 @@ describe("pgo", function() {
 				}
 
 				db.pg.connect(process.env.PGO_TEST_DB, function(err, client, pgdone) {
-					t.err  = err;
+					t.err = err;
 					t.done = pgdone;
 					done();
 				});
