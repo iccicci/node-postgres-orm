@@ -76,6 +76,25 @@ describe("exceptions", function() {
 		});
 	});
 
+	describe("undefined primary key", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {}, {
+					noId: "test"
+				});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo: Undefined field: 'foo.test' specified as primary key");
+		});
+	});
+
 	describe("undefined FK reference", function() {
 		before(function() {
 			try {

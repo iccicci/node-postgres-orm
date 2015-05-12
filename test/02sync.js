@@ -82,7 +82,7 @@ describe("schema sync", function() {
 			db.model("test1", {
 				a: db.INT4
 			}, {
-				noId: true
+				noId: "a"
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -102,8 +102,8 @@ describe("schema sync", function() {
 			assert.equal(helper.pgoc.connect, helper.pgoc.done);
 		});
 
-		it("2 log lines", function() {
-			assert.equal(logs.length, 2);
+		it("4 log lines", function() {
+			assert.equal(logs.length, 4);
 		});
 
 		it("CREATE TABLE test1s ()", function() {
@@ -112,6 +112,14 @@ describe("schema sync", function() {
 
 		it("ALTER TABLE test1s ADD COLUMN id int8", function() {
 			assert.equal(logs[1], "ALTER TABLE test1s ADD COLUMN a int4");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN a SET NOT NULL", function() {
+			assert.equal(logs[2], "ALTER TABLE test1s ALTER COLUMN a SET NOT NULL");
+		});
+
+		it("ALTER TABLE test1s ADD CONSTRAINT test1_a_unique UNIQUE(a)", function() {
+			assert.equal(logs[3], "ALTER TABLE test1s ADD CONSTRAINT test1_a_unique UNIQUE(a)");
 		});
 	});
 
