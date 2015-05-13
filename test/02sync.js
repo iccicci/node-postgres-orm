@@ -75,14 +75,14 @@ describe("schema sync", function() {
 		});
 	});
 
-	describe("CREATE TABLE noId", function() {
+	describe("CREATE TABLE primaryKey", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
 			db.model("test1", {
 				a: db.INT4
 			}, {
-				noId: "a"
+				primaryKey: "a"
 			});
 			db.connect(function(err) {
 				t.err = err;

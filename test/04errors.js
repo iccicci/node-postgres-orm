@@ -52,6 +52,7 @@ var errors = {
 	"DROP SEQUENCE test1s_id_seq CASCADE": -1,
 	"DROP TABLE test1s CASCADE": -1,
 	"DROP SEQUENCE test2s_id_seq CASCADE": -1,
+	"DROP TABLE test3s CASCADE": -1,
 	"SELECT currval('test2s_id_seq')": -1,
 	"CREATE SEQUENCE test2s_id_seq": -1,
 	"CREATE TABLE test2s ()": -1,

@@ -720,7 +720,8 @@ describe("interface errors", function() {
 			t = this;
 			db = newPgo();
 			db.model("test1", {
-				a: db.INT4
+				a: db.INT4,
+				b: db.INT4
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -733,6 +734,7 @@ describe("interface errors", function() {
 					if(err)
 						return done();
 					tmp.__obj.id = 10;
+					tmp.b = 10;
 					tmp.save(function(err) {
 						t.err = err;
 						done();

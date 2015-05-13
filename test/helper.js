@@ -41,8 +41,13 @@ function clean(db, callback) {
 						if(err && err.code != "42P01")
 							throw err;
 
-						done();
-						callback();
+						client.query("DROP TABLE test3s CASCADE", null, function(err, res) {
+							if(err && err.code != "42P01")
+								throw err;
+
+							done();
+							callback();
+						});
 					});
 				});
 			});

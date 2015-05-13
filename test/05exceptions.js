@@ -81,7 +81,7 @@ describe("exceptions", function() {
 			try {
 				db = newPgo();
 				db.model("foo", {}, {
-					noId: "test"
+					primaryKey: "test"
 				});
 			}
 			catch(e) {

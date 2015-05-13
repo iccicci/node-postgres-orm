@@ -52,7 +52,12 @@ describe("interface", function() {
 					}, function(err, res) {
 						t.err = err;
 						t.res = res;
-						res[0].del(done);
+						if(err)
+							return done();
+						res[0].del(function(err) {
+							t.err = err;
+							done();
+						});
 					});
 				});
 			});
@@ -171,7 +176,7 @@ describe("interface", function() {
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[0], "UPDATE test1s SET a = $1, b = $2, c = $3, d = $4, e = $5 WHERE id = $6 :: [20,\"test\",{\"a\":\"b\",\"c\":[\"d\",10]},null,null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, c = $2, e = $3 WHERE id = $4 :: [20,{\"a\":\"b\",\"c\":[\"d\",10]},null,\"1\"]");
 		});
 	});
 
@@ -223,8 +228,13 @@ describe("interface", function() {
 						id: 1
 					}, function(err, res) {
 						t.err = err;
-						t.res = res;
-						res[0].del(done);
+						if(err)
+							return done();
+						res[0].del(function(err) {
+							t.err = err;
+							t.res = res;
+							done();
+						});
 					});
 				});
 			});
@@ -265,7 +275,61 @@ describe("interface", function() {
 		it("postDelete", function() {
 			assert.equal(logs[7], "postDelete");
 		});
+	});
 
+	describe("postSave", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+			}, {
+				postSave: function(saved) {
+					db.log("postSave " + saved);
+				},
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				var tmp = new db.models.test1();
+				tmp.a = 10;
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					tmp.save(function(err) {
+						t.err = err;
+						done();
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("3 log lines", function() {
+			assert.equal(logs.length, 3);
+		});
+
+		it("preSave 1", function() {
+			assert.equal(logs[1], "postSave true");
+		});
+
+		it("postSave 2", function() {
+			assert.equal(logs[2], "postSave false");
+		});
 	});
 
 	describe("models inheritance", function() {
@@ -767,6 +831,96 @@ describe("interface", function() {
 
 		it("d 2", function() {
 			assert.ok(this.res2.c >= this.res2.d);
+		});
+	});
+
+	describe("primaryKey true model, save & delete", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4,
+			}, {
+				primaryKey: "a"
+			});
+			db.model("test2", {
+				b: db.INT4,
+			}, {
+				parent: "test1"
+			});
+			db.model("test3", {
+				c: db.INT4,
+			}, {
+				parent: "test2"
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				cleanLogs();
+				var tmp = new db.models.test3();
+				tmp.a = 10;
+				tmp.b = 11;
+				tmp.c = 12;
+				tmp.save(function(err) {
+					t.err = err;
+					if(err)
+						return done();
+					db.load.test2({
+						a: 10,
+					}, function(err, res) {
+						t.err = err;
+						if(err)
+							return done();
+						res[0].b = 12;
+						res[0].save(function(err) {
+							t.err = err;
+							if(err)
+								return done();
+							res[0].del(function(err) {
+								t.err = err;
+								done();
+							});
+						});
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("5 log lines", function() {
+			assert.equal(logs.length, 5);
+		});
+
+		it("INSERT INTO test3s (a,b,c) VALUES ($1,$2,$3) :: [10,11,12]", function() {
+			assert.equal(logs[0], "INSERT INTO test3s (a,b,c) VALUES ($1,$2,$3) :: [10,11,12]");
+		});
+
+		it("SELECT tableoid, * FROM test2s WHERE a = $1 :: [10]", function() {
+			assert.equal(logs[1], "SELECT tableoid, * FROM test2s WHERE a = $1 :: [10]");
+		});
+
+		it("SELECT tableoid, * FROM test3s WHERE a IN ($1) :: [\"10\"]", function() {
+			assert.equal(logs[2], "SELECT tableoid, * FROM test3s WHERE a IN ($1) :: [\"10\"]");
+		});
+
+		it("UPDATE test3s SET b = $1 WHERE a = $2 :: [12,10]", function() {
+			assert.equal(logs[3], "UPDATE test3s SET b = $1 WHERE a = $2 :: [12,10]");
+		});
+
+		it("DELETE FROM test3s WHERE a = $1 :: [10]", function() {
+			assert.equal(logs[4], "DELETE FROM test3s WHERE a = $1 :: [10]");
 		});
 	});
 });
