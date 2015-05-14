@@ -290,4 +290,25 @@ describe("exceptions", function() {
 			assert.equal(this.e.message, "Pgo.TIMESTAMP: precision must be an integer between 0 and 6");
 		});
 	});
+
+	describe("Pgo.model wrong attributes type", function() {
+		before(function() {
+			try {
+				db = newPgo();
+				db.model("foo", {
+					a: db.INT4
+				}, {
+					attributes: 12
+				});
+			}
+			catch(e) {
+				this.e = e;
+			}
+		});
+
+		it("exception", function() {
+			assert.ok(this.e);
+			assert.equal(this.e.message, "Pgo.model: options.attributes must be an Object");
+		});
+	});
 });

@@ -180,6 +180,51 @@ describe("interface", function() {
 		});
 	});
 
+	describe("attributes", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {
+				a: db.INT4
+			}, {
+				attributes: {
+					b: function() {
+						db.log(this.a);
+					}
+				}
+			});
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				var tmp = new db.models.test1();
+				tmp.a = 12;
+				tmp.b();
+				done();
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+
+		it("9 log lines", function() {
+			assert.equal(logs.length, 9);
+		});
+
+		it("method called", function() {
+			assert.equal(logs[8], 12);
+		});
+	});
+
 	describe("pre & post - delete, load & save", function() {
 		before(function(done) {
 			t = this;
