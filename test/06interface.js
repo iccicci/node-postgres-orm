@@ -129,6 +129,7 @@ describe("interface", function() {
 				c: db.JSON,
 				d: db.INT4,
 				e: db.INT4,
+				f: db.INT4,
 			}, {
 				init: function() {
 					this.b = "test";
@@ -176,7 +177,7 @@ describe("interface", function() {
 		});
 
 		it("UPDATE", function() {
-			assert.equal(logs[0], "UPDATE test1s SET a = $1, c = $2, e = $3 WHERE id = $4 :: [20,{\"a\":\"b\",\"c\":[\"d\",10]},null,\"1\"]");
+			assert.equal(logs[0], "UPDATE test1s SET a = $1, e = $2 WHERE id = $3 :: [20,null,\"1\"]");
 		});
 	});
 
