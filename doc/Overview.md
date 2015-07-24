@@ -12,7 +12,7 @@ __pgo__ uses two methods of error reporting: exceptions and asyncronous errors.
 
 Exceptions are used to check the correct usage of the module. If there is an error in the number or in
 the types of parameters of a function call, an exception may be raised. The same can happen if a bad
-[model definition](Models definition) is called.
+[model definition](ModelsDefinition.md) is called.
 Theese kind of checks are done at run time to make the developer aware as soon as possible of any
 error committed in the module usage.
 

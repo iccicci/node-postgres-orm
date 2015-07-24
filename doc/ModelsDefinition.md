@@ -41,7 +41,7 @@ Set the __NOT NULL__ constraint at table definition.
 ### type
 
 Specifies the _data type_ for the field setting it in table definition.
-For more details about possible values, please refere to [Data types](DataType.md).
+For more details about possible values, please refere to [Data types](DataTypes.md).
 
 ### unique
 

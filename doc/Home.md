@@ -42,7 +42,7 @@ npm install pgo
 - [Models definition](ModelsDefinition.md)
 - [Models inheritance](ModelsInheritance.md)
 - [Accessing data](AccessingData.md)
-- [Foreign keys](ForeignKeys.pm)
+- [Foreign keys](ForeignKeys.md)
 - [Transactions](Transactions.md)
 - Classes reference
     - [Pgo](Pgo.md)

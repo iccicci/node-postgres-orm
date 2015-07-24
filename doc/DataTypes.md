@@ -69,5 +69,5 @@ db.model('foo', {
 
 ### FKEY
 
-Used to specify a __FOREIGN KEY__ to another table. More details in [Foreign keys](ForeignKeys.pm)
+Used to specify a __FOREIGN KEY__ to another table. More details in [Foreign keys](ForeignKeys.md)
 documentation.
