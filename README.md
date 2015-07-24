@@ -134,4 +134,4 @@ Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-po
 
 ## Documentation
 
-Documentation can be found at [documentation index](https://bitbucket.org/cicci/node-postgres-orm/src/doc/doc/Index.md).
+Documentation can be found at [documentation index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md).
