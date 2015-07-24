@@ -4,8 +4,8 @@
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
-This package is designed __to make easy the process to apply changes to database after model definition changes__, more than offer a quick and easy database access interface.
-To apply changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. To apply changes to database
+This package is designed __to make easy the process of applying changes to database after model definition changes__, more than offer a quick and easy database access interface.
+Applying changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. Applying changes to database
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
