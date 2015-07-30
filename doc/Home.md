@@ -15,11 +15,11 @@ once.
 
 ## Preface
 
-Due this package is at his embryonal stage it doesn't supports all of PostgreSQL features and
-data types, there can be any possible bug and this documentation may be wrong or incomplete.
+This package is at his embryonal stage, hence it doesn't supports all of PostgreSQL features and
+data types, there may be other bugs with the current version or documentation may be wrong or incomplete.
 Please report to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues)
-everithing found which doesn't respect documentation, everithing is working not as expected or
-any request for new feature or support for any PostgreSQL feature.
+everything found which doesn't respect documentation. Not all the features are working as expected, also if you have
+a request for a new feature or support please feel free to inform me of such.
 
 Low level PostgreSQL access is done thanks to [node-postgres](https://www.npmjs.org/package/pg)
 which __client pooling__ interface is exposed by this package to achieve solution for those
