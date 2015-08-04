@@ -14,7 +14,7 @@ __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
 
 ## Older versions
 
-- [0.1.7](https://bitbucket.org/cicci/node-postgres-orm/src/c39754027efd7fc2d9663a9458043d13f70b7e12/doc/Home.md)
+- [0.1.7](https://bitbucket.org/cicci/node-postgres-orm/src/7cd997b6e64dc3c825506e18d963763b4d55f15d/doc/Home.md)
 [comment]: <> (doc end)
 
  | |
