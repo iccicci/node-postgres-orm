@@ -1,3 +1,15 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [node-postgres-orm](#markdown-header-node-postgres-orm)
+    - [Preface](#markdown-header-preface)
+    - [Installation](#markdown-header-installation)
+    - [Table of content](#markdown-header-table-of-content)
+    - [TODO](#markdown-header-todo)
+
+[comment]: <> (doc begin)
 # node-postgres-orm
 
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
@@ -56,3 +68,8 @@ npm install pgo
 * Many other PostgreSQL features
 * Model representation of a given DB schema
 * Interaction with tables not administrated by __node-postgres-orm__
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

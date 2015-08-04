@@ -1,3 +1,24 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [Fields definition](#markdown-header-fields-definition)
+    - [Field attributes](#markdown-header-field-attributes)
+        - [defaultValue](#markdown-header-defaultvalue)
+        - [notNull](#markdown-header-notnull)
+        - [type](#markdown-header-type)
+        - [unique](#markdown-header-unique)
+- [Options definition](#markdown-header-options-definition)
+    - [Options](#markdown-header-options)
+        - [attributes](#markdown-header-attributes)
+        - [index](#markdown-header-index)
+        - [parent](#markdown-header-parent)
+        - [primaryKey](#markdown-header-primarykey)
+        - [init, postDelete, postLoad, postSave, preDelete & preSave](#markdown-header-init,-postdelete,-postload,-postsave,-predelete-&-presave)
+- [defaultValue Vs init](#markdown-header-defaultvalue-vs-init)
+
+[comment]: <> (doc begin)
 __Pgo.model__, the method used to define a model, has two parameters: _fields_ and _options_.
 Both of them are JSON objects, the first is used to define the fields of the model, the second
 to define model level options.
@@ -184,3 +205,8 @@ db.connect(function(err) {
   // here rec has no baz attribute
 });
 ```
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

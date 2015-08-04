@@ -1,3 +1,20 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [Attributes](#markdown-header-attributes)
+    - [client](#markdown-header-client)
+- [Methods](#markdown-header-methods)
+    - [commit](#markdown-header-commit)
+        - [callback(err)](#markdown-header-callback(err))
+    - [client](#markdown-header-client)
+        - [callback(err)](#markdown-header-callback(err))
+- [Accessors](#markdown-header-accessors)
+    - [load](#markdown-header-load)
+    - [lock](#markdown-header-lock)
+
+[comment]: <> (doc begin)
 # Attributes
 
 ## client
@@ -63,3 +80,8 @@ Pgo.lock.<model_name>(where, callback)
 
 It works as __Transaction.load__ but it __locks__ the records untill the _transaction_ is
 closed.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

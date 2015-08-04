@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 This module is written to be as light as possible.
 Due this it does a very few checks on data integrity, it just makes __PostregreSQL__ doing them.
 Another aspect of this decision is that only asyncronous interface is offered, if you like to use
@@ -30,3 +36,8 @@ function__ which is called at the end of the job. This function has two (or more
 first one is __err__, it has a value of __null__ if job was completed correctly, otherwise an object
 describing the error occurred; the second parameter is __res__: __null__ in case of error or job
 result in case of work complete.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

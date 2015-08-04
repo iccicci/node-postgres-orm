@@ -1,3 +1,45 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [Constructor](#markdown-header-constructor)
+    - [database](#markdown-header-database)
+    - [log](#markdown-header-log)
+- [Data types](#markdown-header-data-types)
+    - [FKEY](#markdown-header-fkey)
+        - [table](#markdown-header-table)
+        - [field](#markdown-header-field)
+    - [JSON](#markdown-header-json)
+    - [INT2](#markdown-header-int2)
+    - [INT4](#markdown-header-int4)
+    - [INT8](#markdown-header-int8)
+    - [TIMESTAMP](#markdown-header-timestamp)
+        - [precision](#markdown-header-precision)
+    - [VARCHAR](#markdown-header-varchar)
+        - [length](#markdown-header-length)
+- [Default Values](#markdown-header-default-values)
+    - [NOW](#markdown-header-now)
+- [Methods](#markdown-header-methods)
+    - [begin](#markdown-header-begin)
+        - [callback(err, tx)](#markdown-header-callback(err,-tx))
+    - [client](#markdown-header-client)
+        - [callback(err, client, done)](#markdown-header-callback(err,-client,-done))
+    - [connect](#markdown-header-connect)
+        - [callback(err)](#markdown-header-callback(err))
+    - [model](#markdown-header-model)
+        - [name](#markdown-header-name)
+        - [fields](#markdown-header-fields)
+        - [options](#markdown-header-options)
+- [Accessors](#markdown-header-accessors)
+    - [load](#markdown-header-load)
+        - [where](#markdown-header-where)
+        - [order](#markdown-header-order)
+        - [callback(err, res)](#markdown-header-callback(err,-res))
+    - [models](#markdown-header-models)
+        - [return value](#markdown-header-return-value)
+
+[comment]: <> (doc begin)
 # Constructor
 ```javascript
 var Pgo = require('pgo');
@@ -171,3 +213,8 @@ Creates a __new pgo.record__ to be saved later in database.
 
 #### return value
 The newly created __pgo__ [Record](Record.md).
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

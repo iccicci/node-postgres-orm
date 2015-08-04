@@ -1,3 +1,14 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [Syntax](#markdown-header-syntax)
+- [Database](#markdown-header-database)
+- [Access](#markdown-header-access)
+- [Example](#markdown-header-example)
+
+[comment]: <> (doc begin)
 For detaild about _foreign keys_, please refer to PostreSQL documentation.
 
 The __FKEY__ pseudo type is used to instruct __pgo__ to create a _foreign key_ on database.
@@ -50,3 +61,8 @@ db.baz.load({id: 1}, fnction(err, res) {
   });
 });
 ```
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

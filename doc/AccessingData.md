@@ -1,3 +1,16 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [where](#markdown-header-where)
+    - [example](#markdown-header-example)
+    - [operations](#markdown-header-operations)
+    - [custom condition](#markdown-header-custom-condition)
+- [order](#markdown-header-order)
+    - [examples](#markdown-header-examples)
+
+[comment]: <> (doc begin)
 The first way to read data from _database_ is to use the two following accessors:
 
 ```javascript
@@ -36,15 +49,15 @@ WHERE foo = 'string' AND bar = 12 AND baz < 300
 
 ### operations
 
-* __eq: _equal to_ (optional: can be omitted)
-* __ne: _not equal to_
-* __lt: _lesser than_
-* __le: _lesser than or equal to_
-* __gt: _greater than_
-* __ge: _greater than or equal to_
-* __in: _in_ (expected value must be an _Array_)
-* __like: _like_ the given string
-* __null: (accepts a boolean) __IS NULL__ if _true_, __IS NOT NULL__ if _false_
+* \_\_eq: _equal to_ (optional: can be omitted)
+* \_\_ne: _not equal to_
+* \_\_lt: _lesser than_
+* \_\_le: _lesser than or equal to_
+* \_\_gt: _greater than_
+* \_\_ge: _greater than or equal to_
+* \_\_in: _in_ (expected value must be an _Array_)
+* \_\_like: _like_ the given string
+* \_\_null: (accepts a boolean) __IS NULL__ if _true_, __IS NOT NULL__ if _false_
 
 ### custom condition
 
@@ -100,3 +113,8 @@ Third:
 ```SQL
 ORDER BY foo DESC, bar
 ```
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
