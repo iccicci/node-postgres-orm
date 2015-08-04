@@ -1,8 +1,9 @@
+
  | |
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
-<!-- doc begin -->
+[comment]: <> (doc begin)
 To open a _transaction_ the __Pgo.begin__ method should be called. It returns the newly
 created [Transaction](Transaction.md) object as parameter of the _callback_ function it takes
 as parameter and it opens a [node-postgres](https://www.npmjs.org/package/pg) _client_.
@@ -24,7 +25,8 @@ used: it is called by __Transaction.commit__ and __Transaction.rollback__.
 
 Once the [Transaction](Transaction.md) is closed, all the records bound to it will be relesed
 and next _save_ or _del_ will operate without _transaction_.
-<!-- doc end -->
+[comment]: <> (doc end)
+
  | |
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

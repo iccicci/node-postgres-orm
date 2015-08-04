@@ -16,6 +16,7 @@ for(var i in files) {
 
 	var out = [];
 	var toc = [
+		"",
 		" | |",
 		":-|:-:|-:",
 		"__Version: " + version + "__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)",
@@ -41,11 +42,11 @@ function getMarkers(lines) {
 	var ret = [0, 0];
 
 	for(var l in lines) {
-		if(lines[l] == "<!-- doc begin -->") {
+		if(lines[l] == "[comment]: <> (doc begin)") {
 			begin = false;
 			ret[0] = parseInt(l);
 		}
-		if(lines[l] == "<!-- doc end -->") {
+		if(lines[l] == "[comment]: <> (doc end)") {
 			end = false;
 			ret[1] = parseInt(l);
 		}
