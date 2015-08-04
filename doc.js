@@ -16,12 +16,9 @@ for(var i in files) {
 
 	var out = [];
 	var toc = [
-		"",
-		"<table><tr width=\"100%\">",
-		"<td width=\"33%\"><b>Version: " + version + "</b></td>",
-		"<td align=\"center\" width=\"33%\"><a href=\"Home.md\">Home</a></td>",
-		"<td align=\"right\" width=\"33%\"><a href=\"https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md\">Versions Index</a></td>",
-		"</tr></table>",
+		" | |",
+		":-|:-:|-:",
+		"__Version: " + version + "__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)",
 		""
 	];
 
