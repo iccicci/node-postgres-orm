@@ -14,6 +14,7 @@ __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
         - [VARCHAR](#markdown-header-varchar)
     - [Pseudo data types](#markdown-header-pseudo-data-types)
         - [FKEY](#markdown-header-fkey)
+
 [comment]: <> (doc begin)
 __pgo__ implements only a subset of __PostgreSQL__ native data types. Support for other data
 types may be requestes as new feature at

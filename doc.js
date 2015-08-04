@@ -93,7 +93,7 @@ for(var i in files) {
 		for(var l in toc)
 			out.push(toc[l]);
 
-		toc.push("");
+		out.push("");
 	}
 
 	for(var l in lines)

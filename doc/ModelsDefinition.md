@@ -17,6 +17,7 @@ __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
         - [primaryKey](#markdown-header-primarykey)
         - [init, postDelete, postLoad, postSave, preDelete & preSave](#markdown-header-init,-postdelete,-postload,-postsave,-predelete-&-presave)
 - [defaultValue Vs init](#markdown-header-defaultvalue-vs-init)
+
 [comment]: <> (doc begin)
 __Pgo.model__, the method used to define a model, has two parameters: _fields_ and _options_.
 Both of them are JSON objects, the first is used to define the fields of the model, the second

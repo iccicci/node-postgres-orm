@@ -38,6 +38,7 @@ __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
         - [callback(err, res)](#markdown-header-callback(err,-res))
     - [models](#markdown-header-models)
         - [return value](#markdown-header-return-value)
+
 [comment]: <> (doc begin)
 # Constructor
 ```javascript
