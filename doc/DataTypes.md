@@ -3,6 +3,17 @@
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
+- [Native data types](#markdown-header-native-data-types)
+    - [The INT8 exception](#markdown-header-the-int8-exception)
+    - [Types](#markdown-header-types)
+        - [JSON](#markdown-header-json)
+        - [INT2](#markdown-header-int2)
+        - [INT4](#markdown-header-int4)
+        - [INT8](#markdown-header-int8)
+        - [TIMESTAMP](#markdown-header-timestamp)
+        - [VARCHAR](#markdown-header-varchar)
+    - [Pseudo data types](#markdown-header-pseudo-data-types)
+        - [FKEY](#markdown-header-fkey)
 [comment]: <> (doc begin)
 __pgo__ implements only a subset of __PostgreSQL__ native data types. Support for other data
 types may be requestes as new feature at

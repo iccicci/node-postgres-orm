@@ -3,6 +3,12 @@
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
+- [where](#markdown-header-where)
+    - [example](#markdown-header-example)
+    - [operations](#markdown-header-operations)
+    - [custom condition](#markdown-header-custom-condition)
+- [order](#markdown-header-order)
+    - [examples](#markdown-header-examples)
 [comment]: <> (doc begin)
 The first way to read data from _database_ is to use the two following accessors:
 

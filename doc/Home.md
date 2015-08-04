@@ -3,6 +3,11 @@
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
+- [node-postgres-orm](#markdown-header-node-postgres-orm)
+    - [Preface](#markdown-header-preface)
+    - [Installation](#markdown-header-installation)
+    - [Table of content](#markdown-header-table-of-content)
+    - [TODO](#markdown-header-todo)
 [comment]: <> (doc begin)
 # node-postgres-orm
 

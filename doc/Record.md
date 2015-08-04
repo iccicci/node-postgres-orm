@@ -3,6 +3,19 @@
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
+- [Constructor](#markdown-header-constructor)
+    - [tx](#markdown-header-tx)
+- [Methods](#markdown-header-methods)
+    - [del](#markdown-header-del)
+        - [callback(err)](#markdown-header-callback(err))
+    - [save](#markdown-header-save)
+        - [callback(err)](#markdown-header-callback(err))
+- [Hooks](#markdown-header-hooks)
+    - [postDelete](#markdown-header-postdelete)
+    - [postLoad](#markdown-header-postload)
+    - [postSave](#markdown-header-postsave)
+    - [preDelete](#markdown-header-predelete)
+    - [preSave](#markdown-header-presave)
 [comment]: <> (doc begin)
 This __class__ is not directly accessed by the __pgo developer__. For each __defined model__, 
 __pgo__ defines a new __class__ which inherits this one.

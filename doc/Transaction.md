@@ -3,6 +3,16 @@
 :-|:-:|-:
 __Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
+- [Attributes](#markdown-header-attributes)
+    - [client](#markdown-header-client)
+- [Methods](#markdown-header-methods)
+    - [commit](#markdown-header-commit)
+        - [callback(err)](#markdown-header-callback(err))
+    - [client](#markdown-header-client)
+        - [callback(err)](#markdown-header-callback(err))
+- [Accessors](#markdown-header-accessors)
+    - [load](#markdown-header-load)
+    - [lock](#markdown-header-lock)
 [comment]: <> (doc begin)
 # Attributes
 
