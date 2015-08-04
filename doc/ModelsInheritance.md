@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 __pgo__ fully supports _table inheritance_ feature offered by __PostgreSQL__.
 
 Nothing new respect standard concepts of __class inheritance__ in object oriented programming.
@@ -38,3 +44,8 @@ One of the most exciting features of __pgo__ is this one!
 When retieving _Objects_ from _foo_ model, __pgo__ checks the real type of the _record_ and returns an _Object_ of the appropriate type.
 
 In the example above, reading a _foo Object_ which was saved as a _star Object_, __pgo__ will return a _star Object_ after executing all the _postLoad_ chain against it.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 __Pgo.model__, the method used to define a model, has two parameters: _fields_ and _options_.
 Both of them are JSON objects, the first is used to define the fields of the model, the second
 to define model level options.
@@ -184,3 +190,8 @@ db.connect(function(err) {
   // here rec has no baz attribute
 });
 ```
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

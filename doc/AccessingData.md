@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 The first way to read data from _database_ is to use the two following accessors:
 
 ```javascript
@@ -100,3 +106,8 @@ Third:
 ```SQL
 ORDER BY foo DESC, bar
 ```
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

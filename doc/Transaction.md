@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 # Attributes
 
 ## client
@@ -63,3 +69,8 @@ Pgo.lock.<model_name>(where, callback)
 
 It works as __Transaction.load__ but it __locks__ the records untill the _transaction_ is
 closed.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

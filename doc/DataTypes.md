@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 __pgo__ implements only a subset of __PostgreSQL__ native data types. Support for other data
 types may be requestes as new feature at
 [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
@@ -71,3 +77,8 @@ db.model('foo', {
 
 Used to specify a __FOREIGN KEY__ to another table. More details in [Foreign keys](ForeignKeys.md)
 documentation.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

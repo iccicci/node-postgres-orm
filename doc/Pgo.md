@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 # Constructor
 ```javascript
 var Pgo = require('pgo');
@@ -171,3 +177,8 @@ Creates a __new pgo.record__ to be saved later in database.
 
 #### return value
 The newly created __pgo__ [Record](Record.md).
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

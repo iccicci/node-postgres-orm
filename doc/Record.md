@@ -1,3 +1,9 @@
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+[comment]: <> (doc begin)
 This __class__ is not directly accessed by the __pgo developer__. For each __defined model__, 
 __pgo__ defines a new __class__ which inherits this one.
 
@@ -80,3 +86,8 @@ Can be used both to make some adjustment or consistency checks on the __record__
 it.
 
 To make a consistency check is true what said for __preDelete__ method.
+[comment]: <> (doc end)
+
+ | |
+:-|:-:|-:
+__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
