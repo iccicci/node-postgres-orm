@@ -49,15 +49,15 @@ WHERE foo = 'string' AND bar = 12 AND baz < 300
 
 ### operations
 
-* __eq: _equal to_ (optional: can be omitted)
-* __ne: _not equal to_
-* __lt: _lesser than_
-* __le: _lesser than or equal to_
-* __gt: _greater than_
-* __ge: _greater than or equal to_
-* __in: _in_ (expected value must be an _Array_)
-* __like: _like_ the given string
-* __null: (accepts a boolean) __IS NULL__ if _true_, __IS NOT NULL__ if _false_
+* \_\_eq: _equal to_ (optional: can be omitted)
+* \_\_ne: _not equal to_
+* \_\_lt: _lesser than_
+* \_\_le: _lesser than or equal to_
+* \_\_gt: _greater than_
+* \_\_ge: _greater than or equal to_
+* \_\_in: _in_ (expected value must be an _Array_)
+* \_\_like: _like_ the given string
+* \_\_null: (accepts a boolean) __IS NULL__ if _true_, __IS NOT NULL__ if _false_
 
 ### custom condition
 
