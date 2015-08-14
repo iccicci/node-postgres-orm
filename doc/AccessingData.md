@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [where](#markdown-header-where)
     - [example](#markdown-header-example)
@@ -117,4 +117,4 @@ ORDER BY foo DESC, bar
 
  | |
 :-|:-:|-:
-__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

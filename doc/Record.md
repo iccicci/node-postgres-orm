@@ -1,15 +1,12 @@
 
  | |
 :-|:-:|-:
-__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Constructor](#markdown-header-constructor)
-    - [tx](#markdown-header-tx)
 - [Methods](#markdown-header-methods)
     - [del](#markdown-header-del)
-        - [callback(err)](#markdown-header-callback(err))
     - [save](#markdown-header-save)
-        - [callback(err)](#markdown-header-callback(err))
 - [Hooks](#markdown-header-hooks)
     - [postDelete](#markdown-header-postdelete)
     - [postLoad](#markdown-header-postload)
@@ -104,4 +101,4 @@ To make a consistency check is true what said for __preDelete__ method.
 
  | |
 :-|:-:|-:
-__Version: devel__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

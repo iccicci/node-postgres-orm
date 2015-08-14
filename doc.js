@@ -5,6 +5,9 @@ String.prototype.href = function() {
 }
 
 String.prototype.level = function() {
+	if(!this.search(/^####/))
+		return 0;
+
 	if(!this.search(/^###/))
 		return 3;
 

@@ -6,6 +6,8 @@ var db;
 var t;
 
 var helper = require("./helper");
+var clean = helper.clean;
+var logs = helper.logs;
 var newPgo = helper.newPgo;
 
 describe("pgo", function() {
@@ -121,6 +123,57 @@ describe("pgo", function() {
 
 		it("1 done", function() {
 			assert.equal(helper.pgoc.done, 1);
+		});
+	});
+
+	describe("clone", function() {
+		var logs2 = [];
+
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {});
+			db.model("test2", {
+				a: db.FKEY("test1")
+			});
+			db.connect(function(err) {
+				if(err) {
+					t.err = err;
+
+					return done();
+				}
+
+				var db2 = db.clone(function(msg) { logs2.push(msg); });
+				db2.load.test1({id: 5}, function(err, res) {
+					if(err) {
+						t.err = err;
+
+						return done();
+					}
+
+					var t2 = new db2.models.test1();
+					t2.save(function(err) {
+						t.err = err;
+						done();
+					});
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("17 log lines", function() {
+			assert.equal(logs.length, 17);
+		});
+
+		it("2 alternative log lines", function() {
+			assert.equal(logs2.length, 2);
 		});
 	});
 });
