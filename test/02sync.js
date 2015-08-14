@@ -568,7 +568,13 @@ describe("schema sync", function() {
 			db.model("test2", {
 				a: db.FKEY("test1")
 			});
-			db.connect(function() {
+			db.connect(function(err) {
+				if(err) {
+					t.err = err;
+
+					return done();
+				}
+
 				cleanLogs();
 				db = newPgo();
 				db.model("test1", {});

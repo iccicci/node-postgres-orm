@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.7__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 [comment]: <> (doc begin)
 __pgo__ fully supports _table inheritance_ feature offered by __PostgreSQL__.
@@ -48,4 +48,4 @@ In the example above, reading a _foo Object_ which was saved as a _star Object_,
 
  | |
 :-|:-:|-:
-__Version: 0.1.7__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
