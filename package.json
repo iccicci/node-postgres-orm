@@ -4,7 +4,7 @@
   "description": "PostgreSQL dedicated ORM with automatic schema sync, table inheritance and much more",
   "main": "lib/pgo.js",
   "scripts": {
-    "test": "echo .gitignore > .npmignore ; cat .gitignore >> .npmignore ; echo test >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
+    "test": "echo '.gitignore\\ndoc\\ntest' > .npmignore ; cat .gitignore >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
   },
   "homepage": "https://bitbucket.org/cicci/node-postgres-orm/wiki",
   "bugs": "https://bitbucket.org/cicci/node-postgres-orm/issues",
