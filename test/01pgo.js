@@ -176,4 +176,31 @@ describe("pgo", function() {
 			assert.equal(logs2.length, 2);
 		});
 	});
+
+	describe("end", function() {
+		var logs2 = [];
+
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			db.model("test1", {});
+			db.connect(function(err) {
+				t.err = err;
+				done();
+				db.end();
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is null", function() {
+			assert.ifError(this.err);
+		});
+
+		it("7 log lines", function() {
+			assert.equal(logs.length, 7);
+		});
+	});
 });
