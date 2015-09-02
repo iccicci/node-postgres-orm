@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Constructor](#markdown-header-constructor)
 - [Data types](#markdown-header-data-types)
@@ -19,6 +19,7 @@ __Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
     - [client](#markdown-header-client)
     - [clone](#markdown-header-clone)
     - [connect](#markdown-header-connect)
+    - [end](#markdown-header-end)
     - [model](#markdown-header-model)
 - [Accessors](#markdown-header-accessors)
     - [load](#markdown-header-load)
@@ -225,4 +226,4 @@ The newly created __pgo__ [Record](Record.md).
 
  | |
 :-|:-:|-:
-__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

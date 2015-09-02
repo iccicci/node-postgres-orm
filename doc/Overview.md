@@ -1,7 +1,13 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+
+- [Description](#markdown-header-description)
+- [Error reporting](#markdown-header-error-reporting)
+    - [Exceptions](#markdown-header-exceptions)
+    - [Asyncronous errors](#markdown-header-asyncronous-errors)
+- [Application shutdown](#markdown-header-application-shutdown)
 
 [comment]: <> (doc begin)
 ## Description
@@ -50,4 +56,4 @@ used.
 
  | |
 :-|:-:|-:
-__Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
