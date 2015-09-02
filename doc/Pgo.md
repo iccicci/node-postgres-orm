@@ -165,7 +165,7 @@ Pgo.end()
 Releases all idle connection in the [connections pool](https://github.com/coopernurse/node-pool).
 Note that this method releases idle connections: this can't be used to close all open
 connections, this should be used to avoid the 30 seconds delay at application graceful shutdown
-([node-pool documentation](https://github.com/coopernurse/node-pool#step-3---drain-pool-during-shutdown-optional)).
+([details: node-pool](https://github.com/coopernurse/node-pool#step-3---drain-pool-during-shutdown-optional)).
 
 ## model
 ```javascript
