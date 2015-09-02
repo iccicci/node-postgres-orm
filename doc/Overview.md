@@ -4,6 +4,8 @@
 __Version: 0.1.8__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 [comment]: <> (doc begin)
+## Description
+
 This module is written to be as light as possible.
 Due this it does a very few checks on data integrity, it just makes __PostregreSQL__ doing them.
 Another aspect of this decision is that only asyncronous interface is offered, if you like to use
@@ -36,6 +38,14 @@ function__ which is called at the end of the job. This function has two (or more
 first one is __err__, it has a value of __null__ if job was completed correctly, otherwise an object
 describing the error occurred; the second parameter is __res__: __null__ in case of error or job
 result in case of work complete.
+
+## Application shutdown
+
+As explained in
+[node-pool documentation](https://github.com/coopernurse/node-pool#step-3---drain-pool-during-shutdown-optional)
+a 30 seconds delay may be noticed at application shutdown. To avoid the delay __Pgo.end__ can be
+used.
+
 [comment]: <> (doc end)
 
  | |
