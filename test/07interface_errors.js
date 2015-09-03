@@ -585,7 +585,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "postgres://postgres@localhost/does_not_exists";
+				db.database = "testDB";
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
 					db.database = oldDatabase;
@@ -600,6 +600,7 @@ describe("interface errors", function() {
 		});
 
 		it("err.code is 28P01", function() {
+			console.log(this.err);
 			assert.equal(this.err.code, "28P01");
 		});
 
