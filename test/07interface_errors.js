@@ -585,7 +585,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "a_db_which_does_not_exists";
+				db.database = "postgres://postgres@localhost/does_not_exists";
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
 					db.database = oldDatabase;
@@ -624,7 +624,7 @@ describe("interface errors", function() {
 					if(err)
 						return done();
 					var oldDatabase = db.database;
-					db.database = "a_db_which_does_not_exists";
+					db.database = "postgres://postgres@localhost/does_not_exists";
 					tmp.del(function(err) {
 						db.database = oldDatabase;
 						t.err = err;
@@ -658,7 +658,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "a_db_which_does_not_exists";
+				db.database = "postgres://postgres@localhost/does_not_exists";
 				db.load.test1({
 					id: 1
 				}, function(err) {
@@ -693,7 +693,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "a_db_which_does_not_exists";
+				db.database = "postgres://postgres@localhost/does_not_exists";
 				db.begin(function(err) {
 					db.database = oldDatabase;
 					t.err = err;
