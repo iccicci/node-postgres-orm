@@ -9,7 +9,13 @@ addons:
   postgresql: "9.3"
 
 before_script:
-  - echo 'UTC' | sudo tee /etc/timezone
+  - date
+  - echo UTC | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
+  - date
+  - sudo ntpdate ntp.ubuntu.com
+  - date
+  - export TZ=UTC
+  - date
   - psql -c "CREATE DATABASE pgo;" -U postgres
   - psql -c "ALTER DATABASE pgo SET timezone TO 'GMT';" -U postgres
