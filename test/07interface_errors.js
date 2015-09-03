@@ -585,7 +585,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "testDB";
+				db.database = "postgres://localhost:22222/test";
 				var tmp = new db.models.test1();
 				tmp.save(function(err) {
 					db.database = oldDatabase;
@@ -599,9 +599,8 @@ describe("interface errors", function() {
 			clean(db, done);
 		});
 
-		it("err.code is 28P01", function() {
-			console.log(this.err);
-			assert.equal(this.err.code, "28P01");
+		it("err.code is ECONNREFUSED", function() {
+			assert.equal(this.err.code, "ECONNREFUSED");
 		});
 
 		it("nr connect == nr done + 1", function() {
@@ -625,7 +624,7 @@ describe("interface errors", function() {
 					if(err)
 						return done();
 					var oldDatabase = db.database;
-					db.database = "postgres://postgres@localhost/does_not_exists";
+					db.database = "postgres://localhost:22222/test";
 					tmp.del(function(err) {
 						db.database = oldDatabase;
 						t.err = err;
@@ -639,8 +638,8 @@ describe("interface errors", function() {
 			clean(db, done);
 		});
 
-		it("err.code is 28P01", function() {
-			assert.equal(this.err.code, "28P01");
+		it("err.code is ECONNREFUSED", function() {
+			assert.equal(this.err.code, "ECONNREFUSED");
 		});
 
 		it("nr connect == nr done + 1", function() {
@@ -659,7 +658,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "postgres://postgres@localhost/does_not_exists";
+				db.database = "postgres://localhost:22222/test";
 				db.load.test1({
 					id: 1
 				}, function(err) {
@@ -674,8 +673,8 @@ describe("interface errors", function() {
 			clean(db, done);
 		});
 
-		it("err.code is 28P01", function() {
-			assert.equal(this.err.code, "28P01");
+		it("err.code is ECONNREFUSED", function() {
+			assert.equal(this.err.code, "ECONNREFUSED");
 		});
 
 		it("nr connect == nr done + 1", function() {
@@ -694,7 +693,7 @@ describe("interface errors", function() {
 					return done();
 				cleanLogs();
 				var oldDatabase = db.database;
-				db.database = "postgres://postgres@localhost/does_not_exists";
+				db.database = "postgres://localhost:22222/test";
 				db.begin(function(err) {
 					db.database = oldDatabase;
 					t.err = err;
@@ -707,8 +706,8 @@ describe("interface errors", function() {
 			clean(db, done);
 		});
 
-		it("err.code is 28P01", function() {
-			assert.equal(this.err.code, "28P01");
+		it("err.code is ECONNREFUSED", function() {
+			assert.equal(this.err.code, "ECONNREFUSED");
 		});
 
 		it("nr connect == nr done + 1", function() {
