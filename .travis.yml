@@ -9,5 +9,5 @@ addons:
   postgresql: "9.3"
 
 before_script:
-  - psql -c 'CREATE DATABASE pgo;' -U postgres
-  - psql -c 'ALTER DATABASE pgo SET timezone TO \'GMT\';' -U postgres
+  - psql -c "CREATE DATABASE pgo;" -U postgres
+  - psql -c "ALTER DATABASE pgo SET timezone TO 'GMT';" -U postgres
