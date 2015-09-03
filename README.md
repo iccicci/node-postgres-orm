@@ -1,5 +1,6 @@
 # node-postgres-orm
 
+[![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
