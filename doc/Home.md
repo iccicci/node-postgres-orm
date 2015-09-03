@@ -38,6 +38,11 @@ which __client pooling__ interface is exposed by this package to achieve solutio
 kind of problems which require a low level DB access or feature which support are too far in
 the TODO list.
 
+## Timezone
+
+__Node.js__ and __PostgreSQL__ timezone support should do all the work for us, anyway this module is
+tested on UTC server and UTC database: unexpected errors may occur if timezones are not UTC.
+
 ## Installation
 
 Just install the [npm package](https://www.npmjs.org/package/pgo):
@@ -64,6 +69,7 @@ npm install pgo
 ## TODO
 
 * Many native PostgreSQL data types
+* Timezone support
 * Foreign keys with more than one field
 * Many other PostgreSQL features
 * Model representation of a given DB schema

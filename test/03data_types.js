@@ -283,20 +283,20 @@ describe("data types", function() {
 			assert.equal(logs[8], "ALTER TABLE test1s ADD COLUMN c timestamptz(6)");
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz", function() {
-			assert.equal(logs[9], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz");
+		it("ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 16:45:00+00'::timestamptz", function() {
+			assert.equal(logs[9], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '1976-01-23 16:45:00+00'::timestamptz");
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 17:45:00+01'::timestamptz", function() {
-			assert.equal(logs[13], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 17:45:00+01'::timestamptz");
+		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 16:45:00+00'::timestamptz", function() {
+			assert.equal(logs[13], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1983-10-23 16:45:00+00'::timestamptz");
 		});
 
 		it("ALTER TABLE test1s ALTER COLUMN e SET DEFAULT CURRENT_TIMESTAMP", function() {
 			assert.equal(logs[17], "ALTER TABLE test1s ALTER COLUMN e SET DEFAULT CURRENT_TIMESTAMP");
 		});
 
-		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz", function() {
-			assert.equal(logs[21], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 17:45:00+01'::timestamptz");
+		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 16:45:00+00'::timestamptz", function() {
+			assert.equal(logs[21], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT '1976-01-23 16:45:00+00'::timestamptz");
 		});
 	});
 });

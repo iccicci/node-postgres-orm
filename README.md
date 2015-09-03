@@ -128,6 +128,8 @@ be specified in the _evironment variable_ __PGO_TEST_DB__.
 $ PGO_TEST_DB="postgres://user:password@host/database" npm test
 ```
 
+System timezone and database timezone must be UTC.
+
 ## Bug report
 
 Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
