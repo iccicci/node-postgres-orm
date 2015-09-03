@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Constructor](#markdown-header-constructor)
 - [Methods](#markdown-header-methods)
@@ -101,4 +101,4 @@ To make a consistency check is true what said for __preDelete__ method.
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

@@ -1,10 +1,11 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [node-postgres-orm](#markdown-header-node-postgres-orm)
     - [Preface](#markdown-header-preface)
+    - [Timezone](#markdown-header-timezone)
     - [Installation](#markdown-header-installation)
     - [Table of content](#markdown-header-table-of-content)
     - [TODO](#markdown-header-todo)
@@ -79,4 +80,4 @@ npm install pgo
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

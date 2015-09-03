@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 [comment]: <> (doc begin)
 To open a _transaction_ the __Pgo.begin__ method should be called. It returns the newly
@@ -29,4 +29,4 @@ and next _save_ or _del_ will operate without _transaction_.
 
  | |
 :-|:-:|-:
-__Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
