@@ -19,3 +19,4 @@ before_script:
   - date
   - psql -c "CREATE DATABASE pgo;" -U postgres
   - psql -c "ALTER DATABASE pgo SET timezone TO 'GMT';" -U postgres
+  - export PGO_TEST_DB="postgres://postgres@localhost/pgo"
