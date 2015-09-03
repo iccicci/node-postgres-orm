@@ -11,3 +11,4 @@ addons:
 before_script:
   - psql -c "CREATE DATABASE pgo;" -U postgres
   - psql -c "ALTER DATABASE pgo SET timezone TO 'GMT';" -U postgres
+  - ln -sf /usr/share/zoneinfo/UTC /etc/localtime
