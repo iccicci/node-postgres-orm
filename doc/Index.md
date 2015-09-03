@@ -14,6 +14,7 @@ __Version: 0.1.9__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/ci
 
 ## Older versions
 
+- [0.1.9](https://bitbucket.org/cicci/node-postgres-orm/src/8527883c955a7cfd680e4f8b4fd6f931274e9235/doc/Home.md)
 - [0.1.8](https://bitbucket.org/cicci/node-postgres-orm/src/8af6f5f7388695a74c342ead0a4f04fb804938aa/doc/Home.md)
 - [0.1.7](https://bitbucket.org/cicci/node-postgres-orm/src/7cd997b6e64dc3c825506e18d963763b4d55f15d/doc/Home.md)
 [comment]: <> (doc end)
