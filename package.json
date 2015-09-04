@@ -6,12 +6,9 @@
   "scripts": {
     "test": "echo '.gitignore\\n.travis.yml\\ndoc\\ntest' > .npmignore ; cat .gitignore >> .npmignore\n  ./node_modules/.bin/jshint lib test || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
   },
-  "homepage": "https://bitbucket.org/cicci/node-postgres-orm/wiki",
+  "homepage": "https://bitbucket.org/cicci/node-postgres-orm",
   "bugs": "https://bitbucket.org/cicci/node-postgres-orm/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/cicci/node-postgres-orm"
-  },
+  "repository": "https://bitbucket.org/cicci/node-postgres-orm",
   "keywords": [
     "database",
     "postgres",
