@@ -15,7 +15,7 @@
     "orm"
   ],
   "author": "Daniele Ricci <daniele.icc@gmail.com> (https://bitbucket.org/cicci)",
-  "license": "",
+  "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
     "istanbul": "0.3.2",
