@@ -14,6 +14,12 @@ __Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/c
 # node-postgres-orm
 
 [![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
+[![codecov.io](http://codecov.io/github/iccicci/node-postgres-orm/coverage.svg)](http://codecov.io/github/iccicci/node-postgres-orm/lib)
+
+[![dependency status](https://david-dm.org/iccicci/node-postgres-orm.svg)](https://david-dm.org/iccicci/node-postgres-orm#info=dependencies)
+
+[![dev dependency status](https://david-dm.org/iccicci/node-postgres-orm/dev-status.svg)](https://david-dm.org/iccicci/node-postgres-orm#info=devDependencies)
+
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync.
