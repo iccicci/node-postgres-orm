@@ -16,4 +16,5 @@ before_script:
   - export PGO_TEST_DB="postgres://postgres@localhost/pgo"
 
 after_script:
+  - npm install codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
