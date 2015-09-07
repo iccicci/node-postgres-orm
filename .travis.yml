@@ -7,8 +7,13 @@ node_js:
 
 addons:
   postgresql: "9.3"
+  code_climate:
+    repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
 
 before_script:
   - psql -c "CREATE DATABASE pgo;" -U postgres
   - psql -c "ALTER DATABASE pgo SET timezone TO 'GMT';" -U postgres
   - export PGO_TEST_DB="postgres://postgres@localhost/pgo"
+
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
