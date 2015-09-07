@@ -69,7 +69,7 @@ describe("query", function() {
 			t = this;
 			try {
 				db.load.test1({
-					test_where: 1
+					id_test_where: 1
 				}, function() {});
 			}
 			catch(e) {
@@ -80,7 +80,7 @@ describe("query", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.load: can't find any valid field-operation for: test_where");
+			assert.equal(this.e.message, "Pgo.load: can't find any valid field-operation for: id_test_where");
 		});
 	});
 

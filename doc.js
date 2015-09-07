@@ -2,7 +2,7 @@
 
 String.prototype.href = function() {
 	return this.toLowerCase().replace(/ /g, "-");
-}
+};
 
 String.prototype.level = function() {
 	if(!this.search(/^####/))
@@ -30,6 +30,25 @@ String.prototype.repeat = function(count) {
 String.prototype.title = function() {
 	return this.replace(/^#+ ?/, "").replace(/ ?$/, "");
 };
+
+function getMarkers(lines) {
+	var begin = true;
+	var end = true;
+	var ret = [0, 0];
+
+	for(var l in lines) {
+		if(lines[l] == "[comment]: <> (doc begin)") {
+			begin = false;
+			ret[0] = parseInt(l);
+		}
+		if(lines[l] == "[comment]: <> (doc end)") {
+			end = false;
+			ret[1] = parseInt(l);
+		}
+	}
+
+	return begin || end ? false : ret;
+}
 
 var fs = require("fs");
 var files = fs.readdirSync("doc");
@@ -107,23 +126,4 @@ for(var i in files) {
 		out.push(hdr[l]);
 
 	fs.writeFileSync("doc/" + files[i], out.join("\n"), "utf8");
-}
-
-function getMarkers(lines) {
-	var begin = true;
-	var end = true;
-	var ret = [0, 0];
-
-	for(var l in lines) {
-		if(lines[l] == "[comment]: <> (doc begin)") {
-			begin = false;
-			ret[0] = parseInt(l);
-		}
-		if(lines[l] == "[comment]: <> (doc end)") {
-			end = false;
-			ret[1] = parseInt(l);
-		}
-	}
-
-	return begin || end ? false : ret;
 }
