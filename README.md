@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
 [![Code Climate](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/gpa.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm)
 [![Test Coverage](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/coverage.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm/coverage)
+[![Donate](http://img.shields.io/bitcoin/donate.png?color=red)](https://www.coinbase.com/cicci)
 
 [![dependency status](https://david-dm.org/iccicci/node-postgres-orm.svg)](https://david-dm.org/iccicci/node-postgres-orm#info=dependencies)
 [![dev dependency status](https://david-dm.org/iccicci/node-postgres-orm/dev-status.svg)](https://david-dm.org/iccicci/node-postgres-orm#info=devDependencies)
