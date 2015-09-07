@@ -14,7 +14,7 @@ __Version: 0.1.10__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/c
 # node-postgres-orm
 
 [![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
-[![codecov.io](http://codecov.io/github/iccicci/node-postgres-orm/coverage.svg)](http://codecov.io/github/iccicci/node-postgres-orm/lib)
+[![Test Coverage](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/coverage.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm/coverage)
 
 [![dependency status](https://david-dm.org/iccicci/node-postgres-orm.svg)](https://david-dm.org/iccicci/node-postgres-orm#info=dependencies)
 
