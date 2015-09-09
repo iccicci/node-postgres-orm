@@ -22,10 +22,9 @@ addons:
 before_install:
   - sudo service postgresql stop
   - sudo service postgresql start $PG_VERSION
-  - sudo -u postgres createuser -s -p 5432 travis &>/dev/null
-  - sudo -u postgres createdb -O travis -p 5432 travis &>/dev/null
-  - sudo -u postgres createuser -s -p 5433 travis &>/dev/null
-  - sudo -u postgres createdb -O travis -p 5433 travis &>/dev/null
+  - echo $PG_VERSION
+  - sudo -u postgres createuser -s -p 5433 travis
+  - sudo -u postgres createdb -O travis -p 5433 travis
 
 before_script:
   - psql -c "CREATE DATABASE pgo;" -U postgres
