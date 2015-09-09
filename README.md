@@ -125,7 +125,7 @@ This is the way to check data integrity or consistency errors, database connecti
 
 ## Requirements
 
-* PostgreSQL 9.x.x
+* PostgreSQL __9.3__ or higher.
 
 ## Testing
 
@@ -137,6 +137,13 @@ $ PGO_TEST_DB="postgres://user:password@host/database" npm test
 ```
 
 System timezone and database timezone must be UTC.
+
+## Tested environments
+
+__Pgo__ is tested under follwing environments combined as a matrix.
+
+* Node.js: 0.10, 0.11, 0.12, 4.0
+* PostgreSQL: 9.3, 9.4
 
 ## Bug report
 
