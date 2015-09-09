@@ -14,9 +14,16 @@ env:
     - PG_VERSION=9.4
 
 addons:
-  postgresql: `echo $PG_VERSION`
   code_climate:
     repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
+
+before_install:
+  - sudo service postgresql stop
+  - sudo service postgresql start $PG_VERSION
+  - sudo -u postgres createuser -s -p 5432 travis &>/dev/null
+  - sudo -u postgres createdb -O travis -p 5432 travis &>/dev/null
+  - sudo -u postgres createuser -s -p 5433 travis &>/dev/null
+  - sudo -u postgres createdb -O travis -p 5433 travis &>/dev/null
 
 before_script:
   - psql -c "CREATE DATABASE pgo;" -U postgres
