@@ -4,12 +4,17 @@ node_js:
   - "0.10"
   - "0.11"
   - "0.12"
+  - "4.0"
+
+env:
+  matrix:
+    - PG_VERSION=9.1
+    - PG_VERSION=9.2
+    - PG_VERSION=9.3
+    - PG_VERSION=9.4
 
 addons:
-  postgresql:
-    matrix:
-      - "9.2"
-      - "9.3"
+  postgresql: $PG_VERSION
   code_climate:
     repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
 
