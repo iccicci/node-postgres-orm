@@ -14,7 +14,7 @@ env:
     - PG_VERSION=9.4
 
 addons:
-  postgresql: $PG_VERSION
+  postgresql: "$PG_VERSION"
   code_climate:
     repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
 
