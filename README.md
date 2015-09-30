@@ -10,6 +10,8 @@
 
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
+<IMG SRC="pgo.png" STYLE="width:130px;height:150px;border:0px" />
+
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
 This package is designed __to make easy the process of applying changes to database after model definition changes__, more than offer a quick and easy database access interface.
