@@ -10,7 +10,7 @@
 
 [![NPM](https://nodei.co/npm/pgo.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/pgo/)
 
-<IMG SRC="https://bitbucket.org/cicci/node-postgres-orm/src/devel/pgo.png" WIDTH="130" HEIGHT="150" />
+<IMG SRC="https://bytebucket.org/cicci/node-postgres-orm/raw/dc1e5c635c80c0c0b81c2c181faa02c0e1c8301b/pgo.png" WIDTH="130" HEIGHT="150" />
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
