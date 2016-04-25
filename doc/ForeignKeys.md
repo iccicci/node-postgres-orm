@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Syntax](#markdown-header-syntax)
 - [Database](#markdown-header-database)
@@ -65,4 +65,4 @@ db.baz.load({id: 1}, fnction(err, res) {
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

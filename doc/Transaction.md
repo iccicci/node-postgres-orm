@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Attributes](#markdown-header-attributes)
     - [client](#markdown-header-client)
@@ -82,4 +82,4 @@ closed.
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

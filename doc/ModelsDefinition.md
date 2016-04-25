@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 - [Fields definition](#markdown-header-fields-definition)
     - [Field attributes](#markdown-header-field-attributes)
@@ -217,4 +217,4 @@ db.connect(function(err) {
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)

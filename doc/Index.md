@@ -1,7 +1,7 @@
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
 
 [comment]: <> (doc begin)
 # Documentation Index
@@ -23,4 +23,4 @@ __Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/c
 
  | |
 :-|:-:|-:
-__Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
+__Version: 0.1.12__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md)
