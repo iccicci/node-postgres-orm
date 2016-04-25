@@ -15,6 +15,7 @@ __Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/c
         - [index](#markdown-header-index)
         - [parent](#markdown-header-parent)
         - [primaryKey](#markdown-header-primarykey)
+        - [tableName](#markdown-header-tablename)
         - [init, postDelete, postLoad, postSave, preDelete & preSave](#markdown-header-init,-postdelete,-postload,-postsave,-predelete-&-presave)
 - [defaultValue Vs init](#markdown-header-defaultvalue-vs-init)
 
@@ -151,7 +152,13 @@ _sequence_ as __primary key__ of each _table_. If this _option_ is specified, th
 _filed_ is not added, but the specified _field_ is used as __primary key__. Doing that, __pgo__
 sets _true_ __unique__ and __notNull__ attributes of that _field_.
 
+### tableName
+
+By default, __pgo__ creates _tables_ with the name of the _model_ plus __"s"__. Using this option
+a differente _table name_ can be specified.
+
 ### init, postDelete, postLoad, postSave, preDelete & preSave
+
 Specify the __pgo.record method__ which __pgo__ will run on the appropriate event for each
 _record_ created, deleted, read or written from or to database.
 
@@ -160,6 +167,7 @@ __pgo.record.save__ did a _database query_; the parameter is _false_ if __pgo.re
 called on a _record_ which was not changed and no _database query_ was done.
 
 # defaultValue Vs init
+
 __pgo__ offers two methods to initialize a record: __defaultValue__, which is at _database_
 level, has effect on records inserted by other applications; __init__ is at _application_ level.
 

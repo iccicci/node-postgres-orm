@@ -132,10 +132,8 @@ describe("pgo", function() {
 		before(function(done) {
 			t = this;
 			db = newPgo();
-			db.model("test1", {});
-			db.model("test2", {
-				a: db.FKEY("test1")
-			});
+			db.model("test1", { a: db.INT4 }, { tableName: "test2s" });
+			db.model("test2", {            }, { tableName: "test3s", parent: "test1" });
 			db.connect(function(err) {
 				if(err) {
 					t.err = err;
@@ -145,16 +143,29 @@ describe("pgo", function() {
 
 				var db2 = db.clone(function(msg) { logs2.push(msg); });
 				db2.load.test1({id: 5}, function(err, res) {
+					t.a = res.length;
 					if(err) {
 						t.err = err;
 
 						return done();
 					}
 
-					var t2 = new db2.models.test1();
+					t.a = res.length;
+
+					var t2 = new db2.models.test2();
+					t2.a   = 3;
 					t2.save(function(err) {
 						t.err = err;
-						done();
+						db.load.test1({a: 3}, function(err, res) {
+							if(err) {
+								t.err = err;
+
+								return done();
+							}
+
+							t.b = res[0].id;
+							done();
+						});
 					});
 				});
 			});
@@ -168,8 +179,16 @@ describe("pgo", function() {
 			assert.ifError(this.err);
 		});
 
-		it("17 log lines", function() {
-			assert.equal(logs.length, 17);
+		it("first load 0 records", function() {
+			assert.equal(this.a, 0);
+		});
+
+		it("second load record 1", function() {
+			assert.equal(this.b, 1);
+		});
+
+		it("11 log lines", function() {
+			assert.equal(logs.length, 11);
 		});
 
 		it("2 alternative log lines", function() {

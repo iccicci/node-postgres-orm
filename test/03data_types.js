@@ -29,6 +29,7 @@ describe("data types", function() {
 				h: {
 					type: db.VARCHAR(10)
 				},
+				j: db.TEXT,
 			});
 			db.connect(function(err) {
 				t.err = err;
@@ -49,7 +50,7 @@ describe("data types", function() {
 		});
 
 		it("15 log lines", function() {
-			assert.equal(logs.length, 15);
+			assert.equal(logs.length, 16);
 		});
 
 		it("ALTER TABLE test1s ADD COLUMN a int2", function() {
@@ -83,13 +84,16 @@ describe("data types", function() {
 		it("ALTER TABLE test1s ADD COLUMN h varchar(10)", function() {
 			assert.equal(logs[13], "ALTER TABLE test1s ADD COLUMN h varchar(10)");
 		});
+
+		it("ALTER TABLE test1s ADD COLUMN j text", function() {
+			assert.equal(logs[14], "ALTER TABLE test1s ADD COLUMN j text");
+		});
 	});
 
 	describe("default values", function() {
 		before(function(done) {
 			t = this;
-			db = newPgo();
-			db.model("test1", {
+			var models = function() { return {
 				a: {
 					type: db.INT4,
 					defaultValue: 3
@@ -105,10 +109,25 @@ describe("data types", function() {
 						b: "a"
 					}
 				},
-			});
+				d: {
+					type: db.TEXT,
+					defaultValue: "a"
+				},
+			}; };
+			db = newPgo();
+			db.model("test1", models());
 			db.connect(function(err) {
-				t.err = err;
-				done();
+				if(err) {
+					t.err = err;
+
+					return done();
+				}
+				db = newPgo();
+				db.model("test1", models());
+				db.connect(function(err) {
+					t.err = err;
+					done();
+				});
 			});
 		});
 
@@ -125,7 +144,7 @@ describe("data types", function() {
 		});
 
 		it("19 log lines", function() {
-			assert.equal(logs.length, 19);
+			assert.equal(logs.length, 23);
 		});
 
 		it("ALTER TABLE test1s ALTER COLUMN a SET DEFAULT 3", function() {
@@ -142,6 +161,10 @@ describe("data types", function() {
 
 		it("ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '{\"a\":3,\"b\":\"a\"}'::json", function() {
 			assert.equal(logs[15], "ALTER TABLE test1s ALTER COLUMN c SET DEFAULT '{\"a\":3,\"b\":\"a\"}'::json");
+		});
+
+		it("ALTER TABLE test1s ALTER COLUMN d SET DEFAULT 'a'::text", function() {
+			assert.equal(logs[19], "ALTER TABLE test1s ALTER COLUMN d SET DEFAULT 'a'::text");
 		});
 	});
 

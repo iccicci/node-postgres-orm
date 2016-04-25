@@ -4,7 +4,11 @@
   "description": "PostgreSQL dedicated ORM with automatic schema sync, table inheritance and much more",
   "main": "lib/pgo.js",
   "scripts": {
-    "test": "echo '.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo.png' > .npmignore ; cat .gitignore >> .npmignore\n  ./node_modules/.bin/jshint lib test doc.js || exit 1\n  ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test"
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
+    "jshint": "./node_modules/.bin/jshint lib test doc.js",
+    "npmignore": "echo '.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo.png' > .npmignore ; cat .gitignore >> .npmignore",
+    "t": "./node_modules/.bin/_mocha test",
+    "test": "npm run npmignore && npm run jshint && npm run coverage"
   },
   "homepage": "https://bitbucket.org/cicci/node-postgres-orm",
   "bugs": "https://bitbucket.org/cicci/node-postgres-orm/issues",
@@ -18,13 +22,13 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "istanbul": "0.3.19",
-    "jshint": "2.8.0",
-    "mocha": "2.3.2",
+    "istanbul": "0.4.3",
+    "jshint": "2.9.2",
+    "mocha": "2.4.5",
     "mocha-istanbul": "0.2.0"
   },
   "dependencies": {
     "js-object-clone": "0.4.2",
-    "pg": "4.4.1"
+    "pg": "4.5.3"
   }
 }

@@ -10,6 +10,7 @@ __Version: 0.1.11__ | [Home](Home.md) | [Versions Index](https://bitbucket.org/c
         - [INT2](#markdown-header-int2)
         - [INT4](#markdown-header-int4)
         - [INT8](#markdown-header-int8)
+        - [TEXT](#markdown-header-text)
         - [TIMESTAMP](#markdown-header-timestamp)
         - [VARCHAR](#markdown-header-varchar)
     - [Pseudo data types](#markdown-header-pseudo-data-types)
@@ -48,6 +49,9 @@ Used to store integer numbers. 32 bits precision.
 ### INT8
 Used to store integer numbers. 64 bits precision.
 
+### TEXT
+Used to store __TEXT__ fields. To see __PostgreSQL__ documentation for details.
+
 ### TIMESTAMP
 Used to store dates and times. A precision between 0 and 6 (as per __PostgreSQL__
 specifications) for second fractions can be specified. The special __Pgo.NOW defaultValue__ can
@@ -69,7 +73,7 @@ db.model('foo', {
 ```
 
 ### VARCHAR
-Used to store strings. A maximum string length may be specified. In the following example model _foo_
+Used to store strings. A maximum string length can be specified. In the following example model _foo_
 has a _bar_ attribute of type string with a maximum length of 20 characters and a _baz_ attribute of
 type string without any limit on the length.
 

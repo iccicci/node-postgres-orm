@@ -2,8 +2,8 @@
 "use strict";
 
 var logs = [];
-var pg = require("pg");
-var pgo = require("../lib/pgo");
+var pg   = require("pg");
+var Pgo  = require("../lib/pgo");
 var pgoc = {};
 
 if(! process.env.PGO_TEST_DB)
@@ -56,7 +56,7 @@ function clean(db, callback) {
 }
 
 function newPgo() {
-	var newpgo = new pgo(process.env.PGO_TEST_DB, function(msg) {
+	var newpgo = new Pgo(process.env.PGO_TEST_DB, function(msg) {
 		logs.push(msg);
 	});
 
@@ -84,6 +84,6 @@ module.exports = {
 	cleanLogs: cleanLogs,
 	logs: logs,
 	newPgo: newPgo,
-	pgo: pgo,
+	pgo: Pgo,
 	pgoc: pgoc,
 };
