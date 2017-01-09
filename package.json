@@ -21,7 +21,7 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "3.12.2",
+    "eslint": "3.13.0",
     "istanbul": "0.4.5",
     "mocha": "3.2.0",
     "mocha-istanbul": "0.3.0"
