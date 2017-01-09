@@ -1,3 +1,4 @@
+dist: trusty
 sudo: required
 
 language: node_js
@@ -35,7 +36,6 @@ addons:
     repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
 
 before_install:
-  - echo $PG_VERSION
   - sudo service postgresql stop
   - sudo service postgresql start $PG_VERSION
 
