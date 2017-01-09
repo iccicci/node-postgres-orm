@@ -5,14 +5,13 @@
   "main": "lib/pgo.js",
   "scripts": {
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
-    "jshint": "./node_modules/.bin/jshint lib test doc.js",
+    "eslint": "./node_modules/.bin/eslint lib/*js test/*js",
     "npmignore": "echo '.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo.png' > .npmignore ; cat .gitignore >> .npmignore",
     "t": "./node_modules/.bin/_mocha test",
-    "test": "npm run npmignore && npm run jshint && npm run coverage"
+    "test": "npm run npmignore && npm run eslint && npm run coverage"
   },
-  "homepage": "https://bitbucket.org/cicci/node-postgres-orm",
-  "bugs": "https://bitbucket.org/cicci/node-postgres-orm/issues",
-  "repository": "https://bitbucket.org/cicci/node-postgres-orm",
+  "bugs": "https://github.com/iccicci/node-postgres-orm/issues",
+  "repository": "https://github.com/iccicci/node-postgres-orm",
   "keywords": [
     "database",
     "postgres",
@@ -22,13 +21,13 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "istanbul": "0.4.3",
-    "jshint": "2.9.2",
-    "mocha": "2.4.5",
-    "mocha-istanbul": "0.2.0"
+    "eslint": "3.12.2",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "mocha-istanbul": "0.3.0"
   },
   "dependencies": {
     "js-object-clone": "0.4.2",
-    "pg": "4.5.3"
+    "pg": "6.1.2"
   }
 }

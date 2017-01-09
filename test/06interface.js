@@ -747,8 +747,7 @@ describe("interface", function() {
 								t.err = err;
 								if(err)
 									return done();
-								db.load.test1({}, [
-									"a", "-id"], function(err, res) {
+								db.load.test1({}, ["a", "-id"], function(err, res) {
 									t.err = err;
 									t.res = res;
 									return done();

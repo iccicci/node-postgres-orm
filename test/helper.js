@@ -25,24 +25,27 @@ function clean(db, callback) {
 	cleanLogs();
 
 	db.client(function(err, client, done) {
+		if(err)
+			return done(err);
+
 		client.query("DROP SEQUENCE test1s_id_seq CASCADE", null, function(err, res) {
-			if(err && err.code != "42P01")
+			if(err && err.code !== "42P01")
 				throw err;
 
 			client.query("DROP TABLE test1s CASCADE", null, function(err, res) {
-				if(err && err.code != "42P01")
+				if(err && err.code !== "42P01")
 					throw err;
 
 				client.query("DROP SEQUENCE test2s_id_seq CASCADE", null, function(err, res) {
-					if(err && err.code != "42P01")
+					if(err && err.code !== "42P01")
 						throw err;
 
 					client.query("DROP TABLE test2s CASCADE", null, function(err, res) {
-						if(err && err.code != "42P01")
+						if(err && err.code !== "42P01")
 							throw err;
 
 						client.query("DROP TABLE test3s CASCADE", null, function(err, res) {
-							if(err && err.code != "42P01")
+							if(err && err.code !== "42P01")
 								throw err;
 
 							done();

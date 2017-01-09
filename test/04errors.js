@@ -86,10 +86,10 @@ describe("errors", function() {
 					if(! errors[q])
 						console.log(q);
 
-					if(er == 1001 && errors[q] == 1002)
+					if(er === 1001 && errors[q] === 1002)
 						return c(null, true);
 
-					if(errors[q] == er)
+					if(errors[q] === er)
 						return c({
 							code: "test"
 						}, null);

@@ -36,6 +36,8 @@ describe("exceptions", function() {
 			db = newPgo();
 			db.model("test1", {});
 			db.connect(function(err) {
+				if(err)
+					return done(err);
 				try {
 					db.model("foo", {});
 				}

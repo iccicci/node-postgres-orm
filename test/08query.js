@@ -52,7 +52,7 @@ describe("query", function() {
 							test1: 1
 						};
 						tmp.save(function(err) {
-							done();
+							done(err);
 						});
 					});
 				});

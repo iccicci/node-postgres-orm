@@ -254,6 +254,8 @@ describe("data types", function() {
 				},
 			});
 			db.connect(function(err) {
+				if(err)
+					return done(err);
 				db = newPgo();
 				db.model("test1", {
 					a: db.TIMESTAMP,

@@ -55,7 +55,7 @@ describe("transactions", function() {
 							tmp2.a = 2;
 							tmp2.b = tmp.id;
 							tmp2.save(function(err) {
-								done();
+								done(err);
 							});
 						});
 					});
@@ -560,14 +560,16 @@ describe("transactions", function() {
 				}, function(err, res) {
 					t.err = err;
 					if(err)
-						return done();
+						return done(err);
 					db.begin(function(err, tx) {
 						t.err = err;
 						if(err)
-							return done();
+							return done(err);
 						tx.lock.test1({
 							id: 2
 						}, function(err, res) {
+							if(err)
+								return done(err);
 							t.steps.push("selected");
 							setTimeout(tx.rollback.bind(tx, done), 50);
 						});
