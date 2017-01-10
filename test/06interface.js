@@ -12,6 +12,7 @@ var clean = helper.clean;
 var logs = helper.logs;
 var newPgo = helper.newPgo;
 var util = require("util");
+var Record = require("../lib/record");
 
 describe("interface", function() {
 	describe("init, save, load & delete", function() {
@@ -819,7 +820,7 @@ describe("interface", function() {
 					return done();
 				cleanLogs();
 				var tmp = new db.models.test1();
-				t.res1 = Object.clone(tmp, true);
+				t.res1 = tmp.clone();
 				tmp.save(function(err) {
 					t.err = err;
 					if(err)
@@ -966,6 +967,24 @@ describe("interface", function() {
 
 		it("DELETE FROM test3s WHERE a = $1 :: [10]", function() {
 			assert.equal(logs[4], "DELETE FROM test3s WHERE a = $1 :: [10]");
+		});
+	});
+
+	describe("Record.compare", function() {
+		before(function() {
+			this.d = new Date();
+			this.o = { a: 123 };
+		});
+
+		it("dates", function() {
+			assert.equal(false, Record.prototype.compare.call(this.d, this.d));
+			assert.equal(true,  Record.prototype.compare.call(this.d, 123));
+		});
+
+		it("objects", function() {
+			assert.equal(true, Record.prototype.compare.call(this.o, { a: 123, b: 123 }));
+			assert.equal(true, Record.prototype.compare.call(this.o, 123));
+			assert.equal(true, Record.prototype.compare.call(this.o, {}));
 		});
 	});
 });

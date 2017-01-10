@@ -17,8 +17,9 @@ working in team with concurrent changes to the models (or database schema). This
 
 ## Installation
 
+With [npm](https://www.npmjs.com/package/pgo):
 ```sh
-npm install pgo
+$ npm install --save pgo
 ```
 
 ## Example
@@ -117,13 +118,10 @@ Many __pgo__ _methods_ and _function_ have asyncronous error reporting. The __ca
 __err__ as first parameter containing error description or __null__ if everithing went well.
 This is the way to check data integrity or consistency errors, database connection errors, etc...
 
-## Home page
-
-* https://www.npmjs.com/package/pgo
-
 ## Requirements
 
-* PostgreSQL __9.3__ or higher.
+* __Node.js 4.0__ or higher.
+* __PostgreSQL 9.3__ or higher.
 
 ## Testing
 
@@ -138,14 +136,12 @@ System timezone and database timezone must be UTC.
 
 ## Tested environments
 
-__Pgo__ is tested under follwing environments combined as a matrix.
+__Pgo__ is tested under a [wide version matrix](https://travis-ci.org/iccicci/node-postgres-orm) of __Node.js__ and
+__PostgreSQL__.
 
-* Node.js: 0.10, 0.11, 0.12, 4.0
-* PostgreSQL: 9.3, 9.4
+## Bugs
 
-## Bug report
-
-Please report any bug to [bitbucket tracker](https://bitbucket.org/cicci/node-postgres-orm/issues).
+Do not hesitate to report any bug or inconsistency [@github](https://github.com/iccicci/node-postgres-orm/issues).
 
 ## Documentation
 

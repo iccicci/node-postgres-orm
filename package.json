@@ -17,7 +17,7 @@
     "postgres",
     "orm"
   ],
-  "author": "Daniele Ricci <daniele.icc@gmail.com> (https://bitbucket.org/cicci)",
+  "author": "Daniele Ricci <daniele.icc@gmail.com> (https://github.com/iccicci)",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
@@ -27,7 +27,6 @@
     "mocha-istanbul": "0.3.0"
   },
   "dependencies": {
-    "js-object-clone": "0.4.2",
     "pg": "6.1.2"
   }
 }
