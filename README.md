@@ -9,7 +9,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/dependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/devDependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 
-<img src="https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/pgo.png" alt="pgo logo" style="max-width: 50px"/>
+![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/double-done/pgo-min.png)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
