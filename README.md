@@ -25,6 +25,21 @@ With [npm](https://www.npmjs.com/package/pgo):
 $ npm install --save pgo
 ```
 
+## Error reporting
+
+### Usage error reporting
+
+__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
+parameters number or types. Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block,
+this kind of errors should be generated only at development time.
+
+### Data error reporting
+
+All __pgo__ _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
+consistency errors, database connection errors, etc...
+
+__Pgo__ implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
+
 ## Example
 
 ```javascript
@@ -107,19 +122,6 @@ Pgo: ALTER TABLE bars DROP CONSTRAINT bar_baz_fkey
 Pgo: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
 Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 ```
-
-## Error reporting
-
-### Usage error reporting
-
-__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong parameters number or types.
-Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block, this kind of errors should be generated only at development time.
-
-### Data error reporting
-
-Many __pgo__ _methods_ and _function_ have asyncronous error reporting. The __callback__ parameter they accept is a function which is called with
-__err__ as first parameter containing error description or __null__ if everithing went well.
-This is the way to check data integrity or consistency errors, database connection errors, etc...
 
 ## Requirements
 
