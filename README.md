@@ -54,22 +54,13 @@ db.model('foo', {
   }
 });
 
-db.connect(function(err) {
-  if(err)
-    return console.log(err);
-
+db.connect(console.log, function() {
   var foo = new db.models.foo();
 
-  foo.save(function(err) {
-    if(err)
-      return console.log(err);
-
+  foo.save(console.log, function() {
     console.log("foo saved");
 
-    db.load.foo({id: 1}, function(err, res) {
-      if(err)
-        return console.log(err);
-
+    db.load.foo({id: 1}, console.log, function(res) {
       if(! res.length)
         return console.log("no records found");
 
