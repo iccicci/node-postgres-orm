@@ -5,8 +5,11 @@
 [![Test Coverage](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/coverage.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm/coverage)
 [![Donate](http://img.shields.io/bitcoin/donate.png?color=blue)](https://www.coinbase.com/cicci)
 
+[![NPM version](https://badge.fury.io/js/pgo.svg)](https://www.npmjs.com/package/pgo)
 [![bitHound Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/dependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/devDependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
+
+![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/pgo.png =50)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
