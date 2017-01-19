@@ -18,29 +18,47 @@ Applying changes to database after releasing a new version of application is oft
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
-## Installation
+# Table of Contents
+
+* [node-postgres-orm](#node-postgres-orm)
+* [Installation](#installation)
+* [Error reporting](#error-reporting])
+  * [Usage error reporting](#usage-error-reporting)
+  * [Data error reporting](#data-error-reporting)
+* [Quick Start Example](#quick-start-example)
+* [Bugs](#bugs)
+* [Documentation](#documentation)
+* [Changelog](#changelog)
+* [Requirements](#requirements)
+* [Testing](#testing)
+
+# Installation
 
 With [npm](https://www.npmjs.com/package/pgo):
 ```sh
 $ npm install --save pgo
 ```
 
-## Error reporting
+Back to: [top](#) - [ToC](#table-of-contents)
 
-### Usage error reporting
+# Error reporting
+
+## Usage error reporting
 
 __Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
 parameters number or types. Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block,
 this kind of errors should be generated only at development time.
 
-### Data error reporting
+## Data error reporting
 
 All __pgo__ _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
 consistency errors, database connection errors, etc...
 
 __Pgo__ implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
 
-## Example
+Back to: [top](#) - [ToC](#table-of-contents)
+
+# Quick Start Example
 
 ```javascript
 var Pgo = require('pgo');
@@ -114,12 +132,12 @@ Pgo: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
 Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 ```
 
-## Requirements
+# Requirements
 
-* __Node.js 4.0__ or higher.
+* __Node.js 5.0__ or higher.
 * __PostgreSQL 9.3__ or higher.
 
-## Testing
+# Testing
 
 To test this package is strongly required the acces to a __PosgtreSQL__ database. The connection string should
 be specified in the _evironment variable_ __PGO_TEST_DB__.
@@ -130,15 +148,23 @@ $ PGO_TEST_DB="postgres://user:password@host/database" npm test
 
 System timezone and database timezone must be UTC.
 
-## Tested environments
-
 __Pgo__ is tested under a [wide version matrix](https://travis-ci.org/iccicci/node-postgres-orm) of __Node.js__ and
 __PostgreSQL__.
 
-## Bugs
+# Bugs
 
 Do not hesitate to report any bug or inconsistency [@github](https://github.com/iccicci/node-postgres-orm/issues).
 
-## Documentation
+# Documentation
 
-Documentation can be found at [documentation index](https://bitbucket.org/cicci/node-postgres-orm/src/master/doc/Index.md).
+Documentation can be found at
+[documentation index](https://github.com/iccicci/node-postgres-orm/blob/master/doc/Home.md).
+__Pay attention:__ this documentation needs to be completely reviewed, it has an old style and may be incomplete. Do
+not hesitate to report [@github](https://github.com/iccicci/node-postgres-orm/issues) anything not correct, incomplete
+or not working as described.
+
+# Changelog
+
+* 2017-??-?? - v0.2.0
+  * Added [double done](https://www.npmjs.com/package/double-done)
+  * Single __models__ entry point.

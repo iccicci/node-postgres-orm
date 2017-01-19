@@ -27,7 +27,7 @@
     "mocha-istanbul": "0.3.0"
   },
   "dependencies": {
-    "double-done": "0.0.4",
+    "double-done": "0.1.0",
     "pg": "6.1.2"
   }
 }

@@ -32,24 +32,26 @@ The [Transaction](Transaction.md) object, if working in a _transaction_.
 
 ## del
 ```javascript
-Record.del(callback)
+Record.del(done [, doneOk])
 ```
 
 Deletes the __pgo.record__ from database.
 
-#### callback(err)
+#### done(err)
+#### doneOk()
 The _callback_ function __pgo__ will call after __record__ is deleted.
 
 * __err__: the error description, __null__ if record was deleted without errors.
 
 ## save
 ```javascript
-Record.save(callback)
+Record.save(done [, doneOk])
 ```
 
 Saves the __pgo.record__ in database and refreshes it reflecting the record in _database_.
 
-#### callback(err)
+#### done(err)
+#### doneOk()
 The _callback_ function __pgo__ will call after __record__ is saved.
 
 * __err__: the error description, __null__ if record was saved without errors.
@@ -72,8 +74,12 @@ Can be used to make some adjustment on the __record__ before using it.
 
 ## postSave
 ```javascript
-Record.postSave()
+Record.postSave(saved)
 ```
+
+#### saved
+Tells if the __Record__ was really saved in DB or not: if __Record.save__ was called on a __Record__ which was not
+changed since it was _loaded_, __saved__ is __false__; otherwise it is __true__ in all other cases.
 
 Can be used to notify that a __record__ have been saved.
 

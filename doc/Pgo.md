@@ -106,12 +106,13 @@ Pgo.NOW
 
 ## begin
 ```javascript
-Pgo.begin(callback)
+Pgo.begin(done [, doneOk])
 ```
 
 Begins a __SQL transaction__. Please refer to [Transactions](Transactions.md) for details.
 
-#### callback(err, tx)
+#### done(err [, tx])
+#### doneOk(tx)
 The _callback_ function __pgo__ will call after the __BEGIN__ command is issued to database.
 
 * __err__: the error description, __null__ if sync ran without errors.
@@ -119,13 +120,14 @@ The _callback_ function __pgo__ will call after the __BEGIN__ command is issued 
 
 ## client
 ```javascript
-Pgo.client(callback)
+Pgo.client(done [, doneOk])
 ```
 
 Fronted to the [node-postgres](https://www.npmjs.org/package/pg) _connect_ call. It can be used
 to do custom actions on _database_.
 
-#### callback(err, client, done)
+#### done(err [, client, done])
+#### doneOk(client, done)
 The _callback_ function __pg__ will call after connection to database.
 
 * __err__: the error description, __null__ if connected without errors.
@@ -147,13 +149,14 @@ The _log_ function __pg__ will use for logging.
 
 ## connect
 ```javascript
-Pgo.connec(callback)
+Pgo.connec(done [, doneOk])
 ```
 
 Executes the __sync__ step. It tries to create (or change) the _db schema_ required to enforce
 the _models definition_.
 
-#### callback(err)
+#### done(err)
+#### doneOk()
 The _callback_ function __pgo__ will call after connection and sync to database.
 
 * __err__: the error description, __null__ if sync ran without errors.
@@ -188,13 +191,7 @@ The object which defines _model_ or _table_ options.
 
 ## load
 ```javascript
-Pgo.load.<model_name>(where, order, callback)
-```
-
-or
-
-```javascript
-Pgo.load.<model_name>(where, callback)
+Pgo.load.<model_name>(where [, order], callback)
 ```
 
 Reads data from database with a standard __SQL query__ and makes it a set of __pgo.record__(s).
