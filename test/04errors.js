@@ -1,4 +1,4 @@
-/* jshint mocha: true */
+/* eslint max-statements: ["error", 50] */
 "use strict";
 
 var assert = require("assert");
@@ -43,6 +43,7 @@ var errors = {
 	// post sync errors
 	"SELECT tableoid, * FROM test2s WHERE id IN ($1)": -2,
 	"BEGIN": -3,
+	"SELECT tableoid, * FROM test2s WHERE id = $1": -4,
 
 	// not related to tests
 	"SELECT conname FROM pg_attribute, pg_constraint WHERE attrelid = $1 AND conrelid = $1 AND attnum = conkey[1] AND (contype <> $2 or attname <> $3) AND (contype <> $4 or attname <> $5)": -1,
@@ -70,6 +71,11 @@ var errors = {
 	"SELECT tableoid, * FROM test1s WHERE id = $1": -1,
 	"ALTER TABLE test1s ADD COLUMN a timestamptz(6)": -1,
 	"SELECT 'test test test'::timestamp with time zone::character varying": -1,
+	"ALTER TABLE test2s ADD COLUMN a int4": -1,
+	"ALTER TABLE test1s ADD COLUMN a int8": -1,
+	"ALTER TABLE test1s ALTER COLUMN a SET NOT NULL": -1,
+	"ALTER TABLE test1s ADD CONSTRAINT test1_a_fkey FOREIGN KEY (a) REFERENCES test2s (id)": -1,
+	"INSERT INTO test1s (a) VALUES ($1) RETURNING *": -1,
 };
 
 describe("errors", function() {
@@ -1002,6 +1008,52 @@ describe("errors", function() {
 				db.begin(function(err, tx) {
 					t.err = err;
 					done();
+				});
+			});
+		});
+
+		after(function(done) {
+			clean(db, done);
+		});
+
+		it("err is test", function() {
+			assert.equal(this.err.code, "test");
+		});
+
+		it("nr connect == nr done", function() {
+			assert.equal(helper.pgoc.connect, helper.pgoc.done);
+		});
+	});
+
+	describe("foreing key load error", function() {
+		before(function(done) {
+			t = this;
+			db = newPgo();
+			er = -4;
+			db.model("test2", { a: db.INT4 });
+			db.model("test1", {	a: db.FKEY("test2") });
+			db.connect(function(err) {
+				t.err = err;
+				if(err)
+					return done();
+				var t2 = new db.models.test1();
+				var t1 = new db.models.test2();
+				t1.save(function(err) {
+					if(err)
+						return done();
+					t2.a = t1.id;
+					t2.save(function(err) {
+						if(err)
+							return done();
+						db.load.test1({id: 1}, function(err, res) {
+							if(err)
+								return done();
+							res[0].aLoad(function(err, res) {
+								t.err = err;
+								done();
+							});
+						});
+					});
 				});
 			});
 		});

@@ -1,4 +1,3 @@
-/* jshint mocha: true */
 "use strict";
 
 var assert = require("assert");
@@ -126,7 +125,7 @@ describe("pgo", function() {
 		});
 	});
 
-	describe("clone", function() {
+	xdescribe("clone", function() {
 		var logs2 = [];
 
 		before(function(done) {
