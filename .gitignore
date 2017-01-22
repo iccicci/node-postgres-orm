@@ -1,5 +1,5 @@
 .npmignore
-*project
 .settings
 coverage
 node_modules
+npm-debug.log

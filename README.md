@@ -151,9 +151,38 @@ System timezone and database timezone must be UTC.
 __Pgo__ is tested under a [wide version matrix](https://travis-ci.org/iccicci/node-postgres-orm) of __Node.js__ and
 __PostgreSQL__.
 
+Back to: [top](#) - [ToC](#table-of-contents)
+
 # Bugs
 
 Do not hesitate to report any bug or inconsistency [@github](https://github.com/iccicci/node-postgres-orm/issues).
+
+## Known bugs
+
+### Inheritance in clone
+
+Model inheritance is not respected in __models__ of _cloned_ __Pgo__.
+
+```javascript
+var Pgo = require('pgo');
+var db1 = new Pgo("postgres://username:password@localhost/database");
+
+db1.model("foo", { a: db.INT4 });
+db1.model("bar", { b: db.INT4 }, { parent: "foo" });
+db1.connect(console.log, function() {
+  var db2  = db1.clone(console.log);
+  var foo1 = new db1.models.foo();
+  var bar1 = new db1.models.bar();
+  var foo2 = new db2.models.foo();
+  var bar2 = new db2.models.bar();
+
+  bar1 instanceof db1.models.foo; // true
+  bar2 instanceof db2.models.foo; // false; the effect of this bug
+  bar2 instanceof db1.models.foo; // true;  this can be used as a workaround
+});
+```
+
+Back to: [top](#) - [ToC](#table-of-contents)
 
 # Documentation
 
@@ -163,8 +192,9 @@ __Pay attention:__ this documentation needs to be completely reviewed, it has an
 not hesitate to report [@github](https://github.com/iccicci/node-postgres-orm/issues) anything not correct, incomplete
 or not working as described.
 
+Back to: [top](#) - [ToC](#table-of-contents)
+
 # Changelog
 
 * 2017-??-?? - v0.2.0
   * Added [double done](https://www.npmjs.com/package/double-done)
-  * Single __models__ entry point.

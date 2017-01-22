@@ -1,6 +1,7 @@
 "use strict";
 
 var assert = require("assert");
+var util   = require("util");
 var db;
 var t;
 
@@ -125,7 +126,7 @@ describe("pgo", function() {
 		});
 	});
 
-	xdescribe("clone", function() {
+	describe("clone", function() {
 		var logs2 = [];
 
 		before(function(done) {
@@ -162,7 +163,11 @@ describe("pgo", function() {
 								return done();
 							}
 
-							t.b = res[0].id;
+							t.b  = res[0].id;
+							t.i1 = t2 instanceof db.models.test1;
+							t.i2 = t2 instanceof db2.models.test1;
+							t.i3 = t2 instanceof db.models.test2;
+							db.log(util.format(t2));
 							done();
 						});
 					});
@@ -186,12 +191,28 @@ describe("pgo", function() {
 			assert.equal(this.b, 1);
 		});
 
-		it("11 log lines", function() {
-			assert.equal(logs.length, 11);
+		it("12 log lines", function() {
+			assert.equal(logs.length, 12);
 		});
 
 		it("2 alternative log lines", function() {
 			assert.equal(logs2.length, 2);
+		});
+
+		it("model type", function() {
+			assert.equal(logs[11], "test2 { a: 3, id: '1' }");
+		});
+
+		it("inheritance 1", function() {
+			assert.equal(this.i1, true);
+		});
+
+		it("inheritance 2 (known bug)", function() {
+			assert.equal(this.i2, false);
+		});
+
+		it("inheritance 3", function() {
+			assert.equal(this.i3, true);
 		});
 	});
 
