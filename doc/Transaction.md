@@ -27,24 +27,26 @@ actions on _database_ in the current _transaction_.
 
 ## commit
 ```javascript
-Pgo.commit(callback)
+Transaction.commit(done [, doneOk])
 ```
 
 Issues the __COMMIT__ command and closes the __pg__ client.
 
-#### callback(err)
+#### done(err)
+#### doneOk()
 The _callback_ function __pgo__ will call after the __COMMIT__ command is issued to database.
 
 * __err__: the error description, __null__ if no errors occurred.
 
 ## client
 ```javascript
-Pgo.rollback(callback)
+Transaction.rollback(done [, doneOk])
 ```
 
 Issues the __ROLLBACK__ command and closes the __pg__ client.
 
-#### callback(err)
+#### done(err)
+#### doneOk()
 The _callback_ function __pgo__ will call after the __ROLLBACK__ command is issued to database.
 
 * __err__: the error description, __null__ if no errors occurred.
@@ -54,26 +56,14 @@ The _callback_ function __pgo__ will call after the __ROLLBACK__ command is issu
 
 ## load
 ```javascript
-Pgo.load.<model_name>(where, order, callback)
-```
-
-or
-
-```javascript
-Pgo.load.<model_name>(where, callback)
+Transaction.load.<model_name>(where, [order,] done [, doneOk])
 ```
 
 It works as __Pgo.load__ but it works within _transaction_.
 
 ## lock
 ```javascript
-Pgo.lock.<model_name>(where, order, callback)
-```
-
-or
-
-```javascript
-Pgo.lock.<model_name>(where, callback)
+Transaction.lock.<model_name>(where, [order,] done [, doneOk])
 ```
 
 It works as __Transaction.load__ but it __locks__ the records untill the _transaction_ is

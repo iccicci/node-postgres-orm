@@ -191,7 +191,7 @@ The object which defines _model_ or _table_ options.
 
 ## load
 ```javascript
-Pgo.load.<model_name>(where [, order], callback)
+Pgo.load.<model_name>(where [, order], done [, doneOk])
 ```
 
 Reads data from database with a standard __SQL query__ and makes it a set of __pgo.record__(s).
@@ -204,7 +204,8 @@ Please refer to [Accessing data](AccessingData.md) for details.
 The _Array_ which defines the __ORDER BY__ field list. It can be simply omitted.
 Please refer to [Accessing data](AccessingData.md) for details.
 
-#### callback(err, res)
+#### done(err [, res])
+#### doneOk(res)
 The _callback_ function __pgo__ will call after data is loaded.
 
 * __err__: the error description, __null__ if data loaded without errors.
@@ -216,6 +217,10 @@ new Pgo.models.<model_name>([tx])
 ```
 
 Creates a __new pgo.record__ to be saved later in database.
+
+#### tx
+
+The transaction within the __Pgo.record__ must be saved (_inserted_).
 
 #### return value
 The newly created __pgo__ [Record](Record.md).

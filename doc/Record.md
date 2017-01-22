@@ -56,6 +56,37 @@ The _callback_ function __pgo__ will call after __record__ is saved.
 
 * __err__: the error description, __null__ if record was saved without errors.
 
+# Accessors
+
+## <FKEY_name>Load
+```javascript
+Record.<FKEY_name>Load(done [, doneOk])
+```
+
+Loads the __pgo.record__ referenced by the __foreing key__.
+
+#### done(err [,res])
+#### doneOk(res)
+The _callback_ function __pgo__ will call after __record__ is saved.
+
+* __err__: the error description, __null__ if data loaded without errors.
+* __res__: the __pgo.record__ referenced by one against te _accessor_ was called.
+
+## <FKEY_name>Lock
+```javascript
+Record.<FKEY_name>Lock(done [, doneOk])
+```
+
+If the __pgo.record__ was loaded or created within a __transaction__, loads and locks the __pgo.record__ referenced by
+the __foreing key__.
+
+#### done(err [,res])
+#### doneOk(res)
+The _callback_ function __pgo__ will call after __record__ is saved.
+
+* __err__: the error description, __null__ if data loaded without errors.
+* __res__: the __pgo.record__ referenced by one against te _accessor_ was called.
+
 # Hooks
 
 ## postDelete
