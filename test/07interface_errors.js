@@ -430,7 +430,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.record.save: callback must be a function");
+			assert.equal(this.e.message, "Pgo.record.save: done must be a function");
 		});
 	});
 
@@ -481,7 +481,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.load: callback must be a function");
+			assert.equal(this.e.message, "Pgo.load: done must be a function");
 		});
 	});
 
@@ -531,7 +531,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.record.del: callback must be a function");
+			assert.equal(this.e.message, "Pgo.record.del: done must be a function");
 		});
 	});
 
@@ -903,7 +903,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Pgo.begin: callback must be a function");
+			assert.equal(this.e.message, "Pgo.begin: done must be a function");
 		});
 	});
 
@@ -948,7 +948,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Transaction.commit: callback must be a function");
+			assert.equal(this.e.message, "Transaction.commit: done must be a function");
 		});
 	});
 
@@ -993,7 +993,7 @@ describe("interface errors", function() {
 
 		it("exception", function() {
 			assert.ok(this.e);
-			assert.equal(this.e.message, "Transaction.rollback: callback must be a function");
+			assert.equal(this.e.message, "Transaction.rollback: done must be a function");
 		});
 	});
 

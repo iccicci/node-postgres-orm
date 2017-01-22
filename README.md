@@ -196,5 +196,5 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 ## Changelog
 
-* 2017-??-?? - v0.2.0
+* 2017-01-22 - v0.2.0
   * Added [double done](https://www.npmjs.com/package/double-done)
