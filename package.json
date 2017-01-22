@@ -1,6 +1,6 @@
 {
   "name": "pgo",
-  "version": "0.1.12",
+  "version": "0.2.0",
   "description": "PostgreSQL dedicated ORM with automatic schema sync, table inheritance and much more",
   "main": "lib/pgo.js",
   "scripts": {
