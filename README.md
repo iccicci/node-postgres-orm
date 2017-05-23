@@ -1,4 +1,4 @@
-## node-postgres-orm
+# node-postgres-orm
 
 [![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
 [![Code Climate](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/gpa.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm)
@@ -18,21 +18,21 @@ Applying changes to database after releasing a new version of application is oft
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
-## Table of Contents
+# Table of Contents
 
 * [node-postgres-orm](#node-postgres-orm)
 * [Installation](#installation)
+* [Quick Start Example](#quick-start-example)
 * [Error reporting](#error-reporting])
   * [Usage error reporting](#usage-error-reporting)
   * [Data error reporting](#data-error-reporting)
-* [Quick Start Example](#quick-start-example)
 * [Requirements](#requirements)
 * [Testing](#testing)
 * [Bugs](#bugs)
 * [Documentation](#documentation)
 * [Changelog](#changelog)
 
-## Installation
+# Installation
 
 With [npm](https://www.npmjs.com/package/pgo):
 ```sh
@@ -41,24 +41,7 @@ $ npm install --save pgo
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
-## Error reporting
-
-### Usage error reporting
-
-__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
-parameters number or types. Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block,
-this kind of errors should be generated only at development time.
-
-### Data error reporting
-
-All __pgo__ _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
-consistency errors, database connection errors, etc...
-
-__Pgo__ implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
-
-Back to: [top](#) - [ToC](#table-of-contents)
-
-## Quick Start Example
+# Quick Start Example
 
 ```javascript
 var Pgo = require('pgo');
@@ -88,7 +71,7 @@ db.connect(console.log, function() {
 });
 ```
 
-### Output example
+## Output example
 
 On db creation:
 
@@ -132,12 +115,29 @@ Pgo: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
 Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 ```
 
-## Requirements
+# Error reporting
+
+## Usage error reporting
+
+__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
+parameters number or types. Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block,
+this kind of errors should be generated only at development time.
+
+## Data error reporting
+
+All __pgo__ _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
+consistency errors, database connection errors, etc...
+
+__Pgo__ implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
+
+Back to: [top](#) - [ToC](#table-of-contents)
+
+# Requirements
 
 * __Node.js 4.0__ or higher.
 * __PostgreSQL 9.3__ or higher.
 
-## Testing
+# Testing
 
 To test this package is strongly required the acces to a __PosgtreSQL__ database. The connection string should
 be specified in the _evironment variable_ __PGO_TEST_DB__.
@@ -153,13 +153,13 @@ __PostgreSQL__.
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
-## Bugs
+# Bugs
 
 Do not hesitate to report any bug or inconsistency [@github](https://github.com/iccicci/node-postgres-orm/issues).
 
-### Known bugs
+## Known bugs
 
-#### Inheritance in clone
+### Inheritance in clone
 
 Model inheritance is not respected in __models__ of _cloned_ __Pgo__.
 
@@ -184,7 +184,7 @@ db1.connect(console.log, function() {
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
-## Documentation
+# Documentation
 
 Documentation can be found at
 [documentation index](https://github.com/iccicci/node-postgres-orm/blob/master/doc/Home.md).
@@ -194,7 +194,7 @@ or not working as described.
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
-## Changelog
+# Changelog
 
 * 2017-01-22 - v0.2.0
   * Added [double done](https://www.npmjs.com/package/double-done)
