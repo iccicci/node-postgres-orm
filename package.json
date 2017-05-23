@@ -6,7 +6,7 @@
   "scripts": {
     "all": "npm run npmignore && npm run eslint && npm run coverage",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
-    "eslint": "./node_modules/.bin/eslint lib/*js lib/sync/*js test/*js",
+    "eslint": "./node_modules/.bin/eslint examples/*js lib/*js lib/sync/*js test/*js",
     "examples": "for i in `ls examples/*js` ; do node $i ; done",
     "npmignore": "echo '.codeclimate.yml\\n.eslintrc\\n.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo*.png' > .npmignore ; cat .gitignore >> .npmignore",
     "test": "./node_modules/.bin/_mocha test"

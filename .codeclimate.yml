@@ -15,5 +15,6 @@ engines:
     enabled: true
 ratings:
   paths:
+  - "examples/*.js"
   - "lib/*.js"
   - "lib/sync/*.js"
