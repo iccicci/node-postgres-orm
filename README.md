@@ -9,7 +9,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/dependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/devDependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 
-![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/double-done/pgo-min.png)
+![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/pgo-min.png)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
@@ -134,7 +134,7 @@ Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
 
 ## Requirements
 
-* __Node.js 5.0__ or higher.
+* __Node.js 4.0__ or higher.
 * __PostgreSQL 9.3__ or higher.
 
 ## Testing

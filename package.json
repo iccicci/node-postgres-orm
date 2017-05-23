@@ -4,11 +4,11 @@
   "description": "PostgreSQL dedicated ORM with automatic schema sync, table inheritance and much more",
   "main": "lib/pgo.js",
   "scripts": {
+    "all": "npm run npmignore && npm run eslint && npm run coverage",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
-    "eslint": "./node_modules/.bin/eslint lib/*js test/*js",
-    "npmignore": "echo '.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo.png' > .npmignore ; cat .gitignore >> .npmignore",
-    "t": "./node_modules/.bin/_mocha test",
-    "test": "npm run npmignore && npm run eslint && npm run coverage"
+    "eslint": "./node_modules/.bin/eslint lib/*js lib/sync/*js test/*js",
+    "npmignore": "echo '.codeclimate.yml\\n.eslintrc\\n.gitignore\\n.travis.yml\\ndoc*\\ntest\\npgo*.png' > .npmignore ; cat .gitignore >> .npmignore",
+    "test": "./node_modules/.bin/_mocha test"
   },
   "bugs": "https://github.com/iccicci/node-postgres-orm/issues",
   "repository": "https://github.com/iccicci/node-postgres-orm",
@@ -17,17 +17,20 @@
     "postgres",
     "orm"
   ],
+  "engines": {
+    "node": ">=4.0"
+  },
   "author": "Daniele Ricci <daniele.icc@gmail.com> (https://github.com/iccicci)",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "3.13.0",
+    "eslint": "3.19.0",
     "istanbul": "0.4.5",
-    "mocha": "3.2.0",
+    "mocha": "3.4.1",
     "mocha-istanbul": "0.3.0"
   },
   "dependencies": {
-    "double-done": "0.1.0",
-    "pg": "6.1.2"
+    "double-done": "0.1.1",
+    "pg": "6.2.2"
   }
 }
