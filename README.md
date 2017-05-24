@@ -9,7 +9,7 @@
 [![bitHound Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/dependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 [![bitHound Dev Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/devDependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
 
-![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/pgo-min.png)
+![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/logo/pgo-min.png)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
@@ -268,6 +268,8 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 # Changelog
 
+* 2017-05-24 - v0.2.1
+  * README review
 * 2017-01-22 - v0.2.0
   * Added [double done](https://www.npmjs.com/package/double-done)
 
