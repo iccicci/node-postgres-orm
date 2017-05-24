@@ -2,11 +2,16 @@ var Pgo = require('../lib/pgo');
 var db  = new Pgo(process.env.PGO_TEST_DB);
 
 db.model('foo', {
-	bar: db.VARCHAR(20),
+	bar: db.INT4,
 	baz: {
 		type: db.JSON,
 		defaultValue: { a: 42, b: ["c", {}] }
 	}
+});
+
+db.model('bar', {
+	baz: db.INT4,
+	foo: db.VARCHAR(20)
 });
 
 db.connect(console.log, function() {

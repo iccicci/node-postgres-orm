@@ -43,16 +43,25 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 # Quick Start Example
 
+## First script example
+
+Running following script:
+
 ```javascript
-var Pgo = require('pgo');
-var db  = new Pgo("postgres://username:password@localhost/database");
+var Pgo = require('../lib/pgo');
+var db  = new Pgo(process.env.PGO_TEST_DB);
 
 db.model('foo', {
-  bar: db.VARCHAR(20),
+  bar: db.INT4,
   baz: {
     type: db.JSON,
     defaultValue: { a: 42, b: ["c", {}] }
   }
+});
+
+db.model('bar', {
+  baz: { type: db.INT4, notNull: true },
+  foo: db.FKEY('foo')
 });
 
 db.connect(console.log, function() {
@@ -66,54 +75,111 @@ db.connect(console.log, function() {
         return console.log("no records found");
 
       console.log(res[0]);
+      db.end();
     });
   });
 });
 ```
 
-## Output example
+## First output example
 
-On db creation:
+we will obtain following output:
 
 ```
 Pgo: CREATE SEQUENCE foos_id_seq
 Pgo: CREATE TABLE foos ()
 Pgo: ALTER TABLE foos ADD COLUMN id int8
+Pgo: ALTER TABLE foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass)
 Pgo: UPDATE foos SET id = nextval('foos_id_seq'::regclass) WHERE id IS NULL
 Pgo: ALTER TABLE foos ALTER COLUMN id SET NOT NULL
-Pgo: ALTER TABLE foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass)
 Pgo: ALTER TABLE foos ADD COLUMN bar int4
-Pgo: ALTER TABLE foos ADD COLUMN baz varchar(20)
+Pgo: ALTER TABLE foos ADD COLUMN baz json
+Pgo: ALTER TABLE foos ALTER COLUMN baz SET DEFAULT '{"a":42,"b":["c",{}]}'::json
+Pgo: UPDATE foos SET baz = '{"a":42,"b":["c",{}]}'::json WHERE baz IS NULL
+Pgo: ALTER TABLE foos ALTER COLUMN baz SET NOT NULL
 Pgo: ALTER TABLE foos ADD CONSTRAINT foo_id_unique UNIQUE(id)
 Pgo: CREATE SEQUENCE bars_id_seq
 Pgo: CREATE TABLE bars ()
 Pgo: ALTER TABLE bars ADD COLUMN id int8
+Pgo: ALTER TABLE bars ALTER COLUMN id SET DEFAULT nextval('bars_id_seq'::regclass)
 Pgo: UPDATE bars SET id = nextval('bars_id_seq'::regclass) WHERE id IS NULL
 Pgo: ALTER TABLE bars ALTER COLUMN id SET NOT NULL
-Pgo: ALTER TABLE bars ALTER COLUMN id SET DEFAULT nextval('bars_id_seq'::regclass)
-Pgo: ALTER TABLE bars ADD COLUMN foo int4
-Pgo: ALTER TABLE bars ALTER COLUMN foo SET NOT NULL
-Pgo: ALTER TABLE bars ADD COLUMN baz int8
+Pgo: ALTER TABLE bars ADD COLUMN baz int4
 Pgo: ALTER TABLE bars ALTER COLUMN baz SET NOT NULL
+Pgo: ALTER TABLE bars ADD COLUMN foo int8
+Pgo: ALTER TABLE bars ALTER COLUMN foo SET NOT NULL
 Pgo: ALTER TABLE bars ADD CONSTRAINT bar_id_unique UNIQUE(id)
-Pgo: ALTER TABLE bars ADD CONSTRAINT bar_baz_fkey FOREIGN KEY (baz) REFERENCES foos (id)
-Pgo: CREATE TABLE bazs () INHERITS (foos)
-Pgo: ALTER TABLE bazs ADD COLUMN tmp json
-Pgo: UPDATE bazs SET tmp = '{"foo":"bar","baz":[1,"foo"]}'::json WHERE tmp IS NULL
-Pgo: ALTER TABLE bazs ALTER COLUMN tmp SET NOT NULL
-Pgo: ALTER TABLE bazs ALTER COLUMN tmp SET DEFAULT '{"foo":"bar","baz":[1,"foo"]}'::json
+Pgo: ALTER TABLE bars ADD CONSTRAINT bar_foo_fkey FOREIGN KEY (foo) REFERENCES foos (id)
+Pgo: INSERT INTO foos DEFAULT VALUES :: []
+foo saved
+Pgo: SELECT tableoid, * FROM foos WHERE id = $1 :: [1]
+foo { id: '1', bar: null, baz: { a: 42, b: [ 'c', {} ] } }
 ```
 
-After some changes to the models:
+## Second example script:
+
+Changeing the script as follows and running it:
+
+```javascript
+var Pgo = require('../lib/pgo');
+var db  = new Pgo(process.env.PGO_TEST_DB);
+
+db.model('foo', {
+  bar: db.INT4,
+  baz: {
+    type: db.JSON,
+    defaultValue: { a: 42, b: ["c", {}] }
+  }
+});
+
+db.model('bar', {
+  baz: db.INT4,
+  foo: db.VARCHAR(20)
+});
+
+db.connect(console.log, function() {
+  var foo = new db.models.foo();
+
+  foo.save(console.log, function() {
+    console.log("foo saved");
+
+    db.load.foo({id: 1}, console.log, function(res) {
+      if(! res.length)
+        return console.log("no records found");
+
+      console.log(res[0]);
+      db.end();
+    });
+  });
+});
+```
+
+the diff is:
+```
+ db.model('bar', {
+-    baz: { type: db.INT4, notNull: true },
+-    foo: db.FKEY('foo')
++    baz: db.INT4,
++    foo: db.VARCHAR(20)
+ });
+```
+
+## Second output example
+
+we will obtain following output:
 
 ```
-Pgo: UPDATE foos SET baz = 'foo'::character varying WHERE baz IS NULL
-Pgo: ALTER TABLE foos ALTER COLUMN baz SET NOT NULL
-Pgo: ALTER TABLE foos ALTER COLUMN baz SET DEFAULT 'foo'::character varying
-Pgo: ALTER TABLE bars DROP CONSTRAINT bar_baz_fkey
-Pgo: ALTER TABLE bars ALTER COLUMN baz TYPE varchar(20)
+Pgo: ALTER TABLE bars DROP CONSTRAINT bar_foo_fkey
 Pgo: ALTER TABLE bars ALTER COLUMN baz DROP NOT NULL
+Pgo: ALTER TABLE bars ALTER COLUMN foo TYPE varchar(20)
+Pgo: ALTER TABLE bars ALTER COLUMN foo DROP NOT NULL
+Pgo: INSERT INTO foos DEFAULT VALUES :: []
+foo saved
+Pgo: SELECT tableoid, * FROM foos WHERE id = $1 :: [1]
+foo { id: '1', bar: null, baz: { a: 42, b: [ 'c', {} ] } }
 ```
+
+Back to: [top](#) - [ToC](#table-of-contents)
 
 # Error reporting
 
@@ -136,6 +202,8 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 * __Node.js 4.0__ or higher.
 * __PostgreSQL 9.3__ or higher.
+
+Back to: [top](#) - [ToC](#table-of-contents)
 
 # Testing
 
@@ -198,3 +266,5 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 * 2017-01-22 - v0.2.0
   * Added [double done](https://www.npmjs.com/package/double-done)
+
+Back to: [top](#) - [ToC](#table-of-contents)
