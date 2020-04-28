@@ -8,7 +8,7 @@
     "coverage": "TZ=UTC nyc -r lcov -r text -r text-summary -r html mocha test/*js",
     "eslint": "eslint examples/*js lib/*js lib/sync/*js test/*js",
     "examples": "for i in `ls examples/*js` ; do echo '\nExecuting '$i'\n'; node $i ; done",
-    "npmignore": "echo '.codeclimate.yml\\n.eslintrc\\n.gitignore\\n.travis.yml\\ndoc\\nexamples\\nlogo\\ntest' > .npmignore ; cat .gitignore >> .npmignore",
+    "npmignore": "echo '.codeclimate.yml\\n.eslintrc\\n.gitignore\\n.prettierrc\\n.travis.yml\\n.vscode\\ndoc\\nexamples\\nlogo\\ntest' > .npmignore ; cat .gitignore >> .npmignore",
     "test": "TZ=UTC mocha test/*js"
   },
   "bugs": "https://github.com/iccicci/node-postgres-orm/issues",

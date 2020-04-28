@@ -284,7 +284,7 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 # Changelog
 
-- 2020-04-28 - v0.2.2
+- 2020-04-28 - v0.2.3
   - Dependencies, Node.js & PostgreSQL versions review
 - 2017-05-24 - v0.2.1
   - README review
