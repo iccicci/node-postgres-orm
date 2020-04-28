@@ -4,48 +4,23 @@ sudo: required
 language: node_js
 
 node_js:
-  - "6.9"
-  - "6.8"
-  - "6.7"
-  - "6.6"
-  - "6.5"
-  - "6.4"
-  - "6.3"
-  - "6.2"
-  - "6.1"
-  - "6.0"
-  - "5.11"
-  - "5.10"
-  - "5.9"
-  - "5.8"
-  - "5.7"
-  - "5.6"
-  - "5.5"
-  - "5.4"
-  - "5.3"
-  - "5.2"
-  - "5.1"
-  - "5.0"
-  - "4.4"
-  - "4.3"
-  - "4.2"
-  - "4.1"
-  - "4.0"
+  - "12"
+  - "10"
+  - "8"
 
 env:
+  global:
+    - CODECLIMATE_REPO_TOKEN=e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
   matrix:
+    - PG_VERSION=11
+    - PG_VERSION=10
     - PG_VERSION=9.6
     - PG_VERSION=9.5
-    - PG_VERSION=9.4
-    - PG_VERSION=9.3
-
-addons:
-  code_climate:
-    repo_token: e3c49594443b1f9bcaf2e85f560bc6aee56ce61bb2b824b052dc1a1765e93bb6
 
 before_install:
   - sudo service postgresql stop
-  - sudo service postgresql start $PG_VERSION
+  - if [[ $PG_VERSION == 10 || $PG_VERSION == 11 ]] ; then wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - ; echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list ; sudo apt-get update ; sudo apt-get -y remove postgresql-9.2 postgresql-client-9.2 postgresql-9.3 postgresql-client-9.3 postgresql-9.4 postgresql-client-9.4 postgresql-9.5 postgresql-client-9.5 postgresql-9.6 postgresql-client-9.6 ; sudo apt -y install postgresql-$PG_VERSION postgresql-client-$PG_VERSION ; sudo cp /etc/postgresql/{9.6,$PG_VERSION}/main/pg_hba.conf ; fi
+  - sudo service postgresql restart $PG_VERSION
 
 before_script:
   - psql -c "CREATE DATABASE pgo;" -U postgres
@@ -53,4 +28,4 @@ before_script:
   - export PGO_TEST_DB="postgres://postgres@localhost/pgo"
 
 after_script:
-  - if [[ `node --version` =~ ^v6.9 && $PG_VERSION == 9.6 ]] ; then npm run coverage ; npm install codeclimate-test-reporter ; codeclimate-test-reporter < coverage/lcov.info ; fi
+  - if [[ `node --version` =~ ^v12 && $PG_VERSION == 11 ]] ; then npm run coverage ; npm install codeclimate-test-reporter ; codeclimate-test-reporter < coverage/lcov.info ; fi

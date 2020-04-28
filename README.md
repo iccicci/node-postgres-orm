@@ -1,44 +1,61 @@
 # node-postgres-orm
 
-[![Build Status](https://travis-ci.org/iccicci/node-postgres-orm.png)](https://travis-ci.org/iccicci/node-postgres-orm)
-[![Code Climate](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/gpa.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm)
-[![Test Coverage](https://codeclimate.com/github/iccicci/node-postgres-orm/badges/coverage.svg)](https://codeclimate.com/github/iccicci/node-postgres-orm/coverage)
-[![Donate](http://img.shields.io/donate/bitcoin.png?color=blue)](https://blockchain.info/address/1Md9WFAHrXTb3yPBwQWmUfv2RmzrtbHioB)
+[![Build Status][travis-badge]][travis-url]
+[![Code Climate][code-badge]][code-url]
+[![Test Coverage][cover-badge]][code-url]
+[![Donate][donate-badge]][donate-url]
 
-[![NPM version](https://badge.fury.io/js/pgo.svg)](https://www.npmjs.com/package/pgo)
-[![bitHound Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/dependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/iccicci/node-postgres-orm/badges/devDependencies.svg)](https://www.bithound.io/github/iccicci/node-postgres-orm/master/dependencies/npm)
+[![NPM version][npm-badge]][npm-url]
+[![NPM downloads][npm-downloads-badge]][npm-url]
+[![Dependencies][dep-badge]][dep-url]
+[![Dev Dependencies][dev-dep-badge]][dev-dep-url]
+
+[code-badge]: https://codeclimate.com/github/iccicci/node-postgres-orm/badges/gpa.svg
+[code-url]: https://codeclimate.com/github/iccicci/node-postgres-orm
+[cover-badge]: https://codeclimate.com/github/iccicci/node-postgres-orm/badges/coverage.svg
+[dep-badge]: https://david-dm.org/iccicci/node-postgres-orm.svg
+[dep-url]: https://david-dm.org/iccicci/node-postgres-orm
+[dev-dep-badge]: https://david-dm.org/iccicci/node-postgres-orm/dev-status.svg
+[dev-dep-url]: https://david-dm.org/iccicci/node-postgres-orm?type=dev
+[donate-badge]: https://badgen.net/badge/donate/bitcoin?icon=bitcoin
+[donate-url]: https://blockchain.info/address/1Md9WFAHrXTb3yPBwQWmUfv2RmzrtbHioB
+[npm-downloads-badge]: https://badgen.net/npm/dm/pgo?icon=npm
+[npm-badge]: https://badgen.net/npm/v/pgo?color=green&icon=npm
+[npm-url]: https://www.npmjs.com/package/pgo
+[travis-badge]: https://badgen.net/travis/iccicci/node-postgres-orm?icon=travis
+[travis-url]: https://travis-ci.org/iccicci/node-postgres-orm?branch=master
 
 ![pgo logo](https://raw.githubusercontent.com/iccicci/node-postgres-orm/master/logo/pgo-min.png)
 
 PostgreSQL dedicated ORM for node.js with automatic schema sync, table inheritance and much more.
 
-This package is designed __to make easy the process of applying changes to database after model definition changes__, more than offer a quick and easy database access interface.
+This package is designed **to make easy the process of applying changes to database after model definition changes**, more than offer a quick and easy database access interface.
 Applying changes to database after releasing a new version of application is often a frustrating problem, usually solved with migration systems. Applying changes to database
 during development stage, often results in a complex sequence of backward and forward steps through migrations; this process is complicated more and more especially when
 working in team with concurrent changes to the models (or database schema). This package tries to solve these problems all in once.
 
 # Table of Contents
 
-* [node-postgres-orm](#node-postgres-orm)
-* [Installation](#installation)
-* [Quick Start Example](#quick-start-example)
-  * [First script example](#first-script-example)
-  * [First output example](#first-output-example)
-  * [Second script example](#second-script-example)
-  * [Second output example](#second-output-example)
-* [Error reporting](#error-reporting])
-  * [Usage error reporting](#usage-error-reporting)
-  * [Data error reporting](#data-error-reporting)
-* [Requirements](#requirements)
-* [Testing](#testing)
-* [Bugs](#bugs)
-* [Documentation](#documentation)
-* [Changelog](#changelog)
+- [node-postgres-orm](#node-postgres-orm)
+- [Installation](#installation)
+- [Quick Start Example](#quick-start-example)
+  - [First script example](#first-script-example)
+  - [First output example](#first-output-example)
+  - [Second script example](#second-script-example)
+  - [Second output example](#second-output-example)
+- [Error reporting](#error-reporting])
+  - [Usage error reporting](#usage-error-reporting)
+  - [Data error reporting](#data-error-reporting)
+- [Requirements](#requirements)
+- [Testing](#testing)
+- [Bugs](#bugs)
+- [Documentation](#documentation)
+- [Changelog](#changelog)
 
 # Installation
 
 With [npm](https://www.npmjs.com/package/pgo):
+
 ```sh
 $ npm install --save pgo
 ```
@@ -52,31 +69,30 @@ Back to: [top](#) - [ToC](#table-of-contents)
 Running following script:
 
 ```javascript
-var Pgo = require('../lib/pgo');
-var db  = new Pgo(process.env.PGO_TEST_DB);
+var Pgo = require("../lib/pgo");
+var db = new Pgo(process.env.PGO_TEST_DB);
 
-db.model('foo', {
+db.model("foo", {
   bar: db.INT4,
   baz: {
     type: db.JSON,
-    defaultValue: { a: 42, b: ["c", {}] }
-  }
+    defaultValue: { a: 42, b: ["c", {}] },
+  },
 });
 
-db.model('bar', {
+db.model("bar", {
   baz: { type: db.INT4, notNull: true },
-  foo: db.FKEY('foo')
+  foo: db.FKEY("foo"),
 });
 
-db.connect(console.log, function() {
+db.connect(console.log, function () {
   var foo = new db.models.foo();
 
-  foo.save(console.log, function() {
+  foo.save(console.log, function () {
     console.log("foo saved");
 
-    db.load.foo({id: 1}, console.log, function(res) {
-      if(! res.length)
-        return console.log("no records found");
+    db.load.foo({ id: 1 }, console.log, function (res) {
+      if (!res.length) return console.log("no records found");
 
       console.log(res[0]);
       db.end();
@@ -125,31 +141,30 @@ foo { id: '1', bar: null, baz: { a: 42, b: [ 'c', {} ] } }
 Changeing the script as follows and running it:
 
 ```javascript
-var Pgo = require('../lib/pgo');
-var db  = new Pgo(process.env.PGO_TEST_DB);
+var Pgo = require("../lib/pgo");
+var db = new Pgo(process.env.PGO_TEST_DB);
 
-db.model('foo', {
+db.model("foo", {
   bar: db.INT4,
   baz: {
     type: db.JSON,
-    defaultValue: { a: 42, b: ["c", {}] }
-  }
+    defaultValue: { a: 42, b: ["c", {}] },
+  },
 });
 
-db.model('bar', {
+db.model("bar", {
   baz: db.INT4,
-  foo: db.VARCHAR(20)
+  foo: db.VARCHAR(20),
 });
 
-db.connect(console.log, function() {
+db.connect(console.log, function () {
   var foo = new db.models.foo();
 
-  foo.save(console.log, function() {
+  foo.save(console.log, function () {
     console.log("foo saved");
 
-    db.load.foo({id: 1}, console.log, function(res) {
-      if(! res.length)
-        return console.log("no records found");
+    db.load.foo({ id: 1 }, console.log, function (res) {
+      if (!res.length) return console.log("no records found");
 
       console.log(res[0]);
       db.end();
@@ -159,6 +174,7 @@ db.connect(console.log, function() {
 ```
 
 the diff is:
+
 ```
  db.model('bar', {
 -    baz: { type: db.INT4, notNull: true },
@@ -189,39 +205,39 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 ## Usage error reporting
 
-__Pgo__ _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
-parameters number or types. Anyway it should not be required to call __pgo__ _functions_ in a __try catch__ block,
+**Pgo** _functions_ and _methods_ have syncornous usage error reporting. Exceptions are thrown in case of wrong
+parameters number or types. Anyway it should not be required to call **pgo** _functions_ in a **try catch** block,
 this kind of errors should be generated only at development time.
 
 ## Data error reporting
 
-All __pgo__ _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
+All **pgo** _methods_ and _function_ accessing data have asyncronous error reporting to check data integrity or
 consistency errors, database connection errors, etc...
 
-__Pgo__ implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
+**Pgo** implements the [double done](https://www.npmjs.com/package/double-done) design pattern.
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
 # Requirements
 
-* __Node.js 4.0__ or higher.
-* __PostgreSQL 9.3__ or higher.
+- **Node.js 4.0** or higher.
+- **PostgreSQL 9.3** or higher.
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
 # Testing
 
-To test this package is strongly required the acces to a __PosgtreSQL__ database. The connection string should
-be specified in the _evironment variable_ __PGO_TEST_DB__.
+To test this package is strongly required the acces to a **PosgtreSQL** database. The connection string should
+be specified in the _evironment variable_ **PGO_TEST_DB**.
 
 ```
 $ PGO_TEST_DB="postgres://user:password@host/database" npm test
 ```
 
-System timezone and database timezone must be UTC.
+Database timezone must be UTC.
 
-__Pgo__ is tested under a [wide version matrix](https://travis-ci.org/iccicci/node-postgres-orm) of __Node.js__ and
-__PostgreSQL__.
+**Pgo** is tested under a [wide version matrix](https://travis-ci.org/iccicci/node-postgres-orm) of **Node.js** and
+**PostgreSQL**.
 
 Back to: [top](#) - [ToC](#table-of-contents)
 
@@ -233,16 +249,16 @@ Do not hesitate to report any bug or inconsistency [@github](https://github.com/
 
 ### Inheritance in clone
 
-Model inheritance is not respected in __models__ of _cloned_ __Pgo__.
+Model inheritance is not respected in **models** of _cloned_ **Pgo**.
 
 ```javascript
-var Pgo = require('pgo');
+var Pgo = require("pgo");
 var db1 = new Pgo("postgres://username:password@localhost/database");
 
 db1.model("foo", { a: db.INT4 });
 db1.model("bar", { b: db.INT4 }, { parent: "foo" });
-db1.connect(console.log, function() {
-  var db2  = db1.clone(console.log);
+db1.connect(console.log, function () {
+  var db2 = db1.clone(console.log);
   var foo1 = new db1.models.foo();
   var bar1 = new db1.models.bar();
   var foo2 = new db2.models.foo();
@@ -260,7 +276,7 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 Documentation can be found at
 [documentation index](https://github.com/iccicci/node-postgres-orm/blob/master/doc/Home.md).
-__Pay attention:__ this documentation needs to be completely reviewed, it has an old style and may be incomplete. Do
+**Pay attention:** this documentation needs to be completely reviewed, it has an old style and may be incomplete. Do
 not hesitate to report [@github](https://github.com/iccicci/node-postgres-orm/issues) anything not correct, incomplete
 or not working as described.
 
@@ -268,9 +284,11 @@ Back to: [top](#) - [ToC](#table-of-contents)
 
 # Changelog
 
-* 2017-05-24 - v0.2.1
-  * README review
-* 2017-01-22 - v0.2.0
-  * Added [double done](https://www.npmjs.com/package/double-done)
+- 2020-04-28 - v0.2.2
+  - Dependencies, Node.js & PostgreSQL versions review
+- 2017-05-24 - v0.2.1
+  - README review
+- 2017-01-22 - v0.2.0
+  - Added [double done](https://www.npmjs.com/package/double-done)
 
 Back to: [top](#) - [ToC](#table-of-contents)

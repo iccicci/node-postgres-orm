@@ -1,0 +1,15 @@
+{
+  "editor.codeActionsOnSave": { "source.fixAll": true, "source.fixAll.eslint": true },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "eslint.validate": ["javascript"],
+  "explorer.confirmDelete": false,
+  "files.autoSave": "off",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "git.ignoreMissingGitWarning": true,
+  "window.zoomLevel": 0,
+  "[javascript]": { "editor.formatOnSave": false }
+}

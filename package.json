@@ -5,11 +5,11 @@
   "main": "lib/pgo.js",
   "scripts": {
     "all": "npm run npmignore && npm run eslint && npm run coverage",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --recursive test",
-    "eslint": "./node_modules/.bin/eslint examples/*js lib/*js lib/sync/*js test/*js",
+    "coverage": "TZ=UTC nyc -r lcov -r text -r text-summary -r html mocha test/*js",
+    "eslint": "eslint examples/*js lib/*js lib/sync/*js test/*js",
     "examples": "for i in `ls examples/*js` ; do echo '\nExecuting '$i'\n'; node $i ; done",
     "npmignore": "echo '.codeclimate.yml\\n.eslintrc\\n.gitignore\\n.travis.yml\\ndoc\\nexamples\\nlogo\\ntest' > .npmignore ; cat .gitignore >> .npmignore",
-    "test": "./node_modules/.bin/_mocha test"
+    "test": "TZ=UTC mocha test/*js"
   },
   "bugs": "https://github.com/iccicci/node-postgres-orm/issues",
   "repository": "https://github.com/iccicci/node-postgres-orm",
@@ -19,19 +19,18 @@
     "orm"
   ],
   "engines": {
-    "node": ">=4.0"
+    "node": ">=8.0"
   },
   "author": "Daniele Ricci <daniele.icc@gmail.com> (https://github.com/iccicci)",
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "eslint": "3.19.0",
-    "istanbul": "0.4.5",
-    "mocha": "3.4.1",
-    "mocha-istanbul": "0.3.0"
+    "eslint": "6.8.0",
+    "mocha": "7.1.2",
+    "nyc": "15.0.1"
   },
   "dependencies": {
     "double-done": "0.1.1",
-    "pg": "6.2.2"
+    "pg": "6.2.5"
   }
 }

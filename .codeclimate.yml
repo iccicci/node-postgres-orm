@@ -1,20 +1,44 @@
----
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 10
+  file-lines:
+    config:
+      threshold: 1200
+  method-complexity:
+    config:
+      threshold: 80
+  method-count:
+    config:
+      threshold: 30
+  method-lines:
+    config:
+      threshold: 150
+  nested-control-flow:
+    config:
+      threshold: 6
+  return-statements:
+    config:
+      threshold: 20
+  identical-code:
+    config:
+      threshold: 60
 engines:
   duplication:
     enabled: true
     config:
       languages:
-      - ruby
-      - javascript
-      - python
-      - php
+        - javascript
   eslint:
     enabled: true
-    channel: eslint-3
+    channel: eslint-6
   fixme:
     enabled: true
 ratings:
   paths:
-  - "examples/*.js"
-  - "lib/*.js"
-  - "lib/sync/*.js"
+    - "examples/*.js"
+    - "lib/*.js"
+    - "lib/sync/*.js"
+exclude_patterns:
+  - "**/test/"
