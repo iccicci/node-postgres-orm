@@ -26,7 +26,7 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "eslint": "6.8.0",
-    "mocha": "7.1.2",
+    "mocha": "10.2.0",
     "nyc": "15.0.1"
   },
   "dependencies": {
